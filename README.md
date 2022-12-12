@@ -20,6 +20,3 @@
 
 3. 在終端機專案資料夾路徑下輸入 `npm start`
 4. 開始瀏覽器 輸入 URL ` http://localhost:3000/` 即可開啟專案
-
-
-![](https://i.imgur.com/KFPAmF1.png)
