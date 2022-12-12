@@ -1,0 +1,40 @@
+
+.form {
+  height: 130px;
+  padding: 16px 26px;
+  padding-left: 50px;
+  position: relative;
+  border: 1px solid #E6ECF0;
+  .formControl {
+    height: 100%;
+    margin-left: 25px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .avatar {
+    position: absolute;
+    left: 26px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+  }
+  .input {
+    -webkit-appearance: none;
+    border: 0px;
+    height: 30px;
+    margin-left: 5px;
+    color: #6C757D;
+    font-weight: bold;
+    font-size: 18px;
+    flex: 1
+  }
+  .btn {
+    align-self: end;
+    height: 40px;
+    width: 64px;
+    background-color: #FF6600;
+    border-radius: 50px;
+    color: #ffffff;
+  }
+}
