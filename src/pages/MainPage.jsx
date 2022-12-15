@@ -1,9 +1,6 @@
-import TweetList from "components/TweetList/TweetList";
-
+import TweetDetail from "components/TweetDetail/TweetDetail";
 const MainPage = () => {
-  return (
-    <TweetList/>
-  )
+  return <TweetDetail />;
 }
 
 export default MainPage;
