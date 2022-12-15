@@ -1,0 +1,50 @@
+@import 'basicStyle';
+
+.replyContent {
+  @extend %container-border;
+  width: 100%;
+  padding: 16px 23px;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px;
+  .avatar {
+    @extend %avatar-min;
+    margin-right: 8px;
+  }
+  .replyInfo {
+    display: flex;
+    align-items: baseline;
+  }
+  p.name {
+    font-weight: bold;
+    line-height: 26px;
+    margin-right: 8px;
+    color: #000;
+  }
+  p {
+    font-size: 14px;
+    line-height: 22px;
+    color: $secondary;
+  }
+  .userLink {
+    text-align: start;
+    color: $secondary;
+    font-size: 14px;
+    span {
+      color: $body-color;
+    }
+  }
+}
+.messageContent {
+  width: 100%;
+  p {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0 4px;
+  }
+}

@@ -1,10 +1,14 @@
+@use '../../basicStyle.scss';
+
 
 .form {
   height: 130px;
+  width: 100%;
   padding: 16px 26px;
   padding-left: 50px;
   position: relative;
   border: 1px solid #E6ECF0;
+  margin-bottom: 10px;
   .formControl {
     height: 100%;
     margin-left: 25px;
@@ -12,12 +16,9 @@
     justify-content: space-around;
   }
   .avatar {
+    @extend %avatar-min;
     position: absolute;
-    left: 26px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: 1px solid #000;
+    left: 19px;
   }
   .input {
     -webkit-appearance: none;
