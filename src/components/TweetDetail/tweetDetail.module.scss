@@ -1,16 +1,14 @@
+@import 'basicStyle';
+
 .tweet_container {
+  @extend %container-border;
   height: 100%;
-  border: 1px solid #e6ecf0;
   padding: 16px;
   display: flex;
   flex-direction: column;
 }
 .avatar {
-  height: 50px;
-  width: 50px;
-  img {
-    border-radius: 50%;
-  }
+  @extend %avatar-min;
 }
 .tweet_header {
   height: 50px;
@@ -22,7 +20,7 @@
   }
   .userAcc {
     font-size: 14px;
-    color: #6c757d;
+    color: $secondary;
   }
 }
 
@@ -39,7 +37,7 @@
   font-size: 14px;
   line-height: 22px;
   font-weight: 500;
-  color: #6c757d;
+  color: $secondary;
 }
 .tweet_footer {
   border-top: 1px solid #e6ecf0;
@@ -52,7 +50,7 @@
     font-weight: 700;
   }
   span {
-    color: #6c757d;
+    color: $secondary;
     font-weight: 400;
   }
 }

@@ -1,7 +1,9 @@
+@import 'basicStyle';
+
 .tweetItem {
+  @extend %container-border;
   height: 150px;
   width: 640px;
-  border: 1px solid #E6ECF0;
   padding: 16px 29px;
   padding-left: 70px;
   position: relative;
@@ -9,14 +11,10 @@
 }
 
 .avatar {
-  height: 50px;
-  width: 50px;
+  @extend %avatar-min;
   position: absolute;
   left: 20px;
   top: 16px;
-  img {
-    border-radius: 50%;
-  }
 }
 
 .tweetBody {
@@ -24,16 +22,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   .tweetTitle {
     display: flex;
     align-items: center;
     p {
       font-weight: 700;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
     span {
-      color: #6C757D;
+      color: $secondary;
       font-size: 14px;
     }
   }
@@ -59,18 +57,18 @@
     height: 13px;
     width: 13px;
     margin-right: 10px;
-    &~p{
+    & ~ p {
       font-size: 14px;
-      color: #6C757D;
+      color: $secondary;
     }
   }
   .like {
     height: 13px;
     width: 13px;
     margin-right: 10px;
-    &~p{
+    & ~ p {
       font-size: 14px;
-      color: #6C757D;
+      color: $secondary;
     }
   }
 }
