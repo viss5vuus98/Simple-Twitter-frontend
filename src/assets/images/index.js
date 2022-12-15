@@ -1,3 +1,5 @@
-import Photo from './Photo.svg';
+import like from './Like.svg'
+import vector from './Vector.svg'
+import avatar from './Block@2x-2.png';
 
-export { Photo };
+export { like, vector, avatar };
