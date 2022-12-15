@@ -1,9 +1,18 @@
-import TweetList from "components/Main/Tweet/TweetList/TweetList";
+import { TweetList, UserPost } from 'components';
+import style from './midContent.module.scss';
 
 const MainPage = () => {
   return (
-    <TweetList/>
-  )
-}
+    <>
+      <div className={style.header}>
+        <h4 className={style.title}>首頁</h4>
+      </div>
+      <UserPost />
+      <TweetList />
+      <TweetList />
+      <TweetList />
+    </>
+  );
+};
 
 export default MainPage;

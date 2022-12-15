@@ -1,14 +1,13 @@
-import TweetItem from './TweetItem'
+import TweetItem from './TweetItem';
 
 const TweetList = () => {
   return (
-    <div>
-      <TweetItem/>
-      <TweetItem/>
-      <TweetItem/>
-
-    </div>
+    <>
+      <TweetItem key="1" />
+      <TweetItem key="2" />
+      <TweetItem key="3" />
+    </>
   );
-}
+};
 
-export default TweetList
+export default TweetList;

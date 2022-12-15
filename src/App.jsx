@@ -1,7 +1,7 @@
 import './App.scss';
 import './basicStyle.scss'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ReplyPage } from 'pages';
+import { ReplyPage, MainPage } from 'pages';
 
 function App() {
   return (
@@ -9,6 +9,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<ReplyPage />} />
+          <Route path='main' element={<MainPage/>} />
+          <Route path="reply" element={<ReplyPage/>}/>
         </Routes>
       </BrowserRouter>
     </div>
