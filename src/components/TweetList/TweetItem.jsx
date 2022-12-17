@@ -2,8 +2,21 @@ import style from './TweetItem.module.scss';
 import avatar from '../../assets/images/Block@2x-2.png';
 import Vector from '../../assets/images/Vector.svg';
 import Like from '../../assets/images/Like.svg';
+import React from 'react';
 
-const TweetList = () => {
+type TweetItemProps = {
+  id: number,
+  description: string,
+  createdAt: DateTime,
+  updatedAt: DateTime,
+  userId: number,
+  userName: string,
+  userAccount: string,
+  replyAmount: number,
+  likedAmount: number
+};
+
+const TweetItem: React.FC<TweetItemProps> = (prop) => {
   return (
     <div className={style.tweetItem}>
       <div className={style.avatar}>
@@ -34,4 +47,4 @@ const TweetList = () => {
   );
 };
 
-export default TweetList;
+export default TweetItem;
