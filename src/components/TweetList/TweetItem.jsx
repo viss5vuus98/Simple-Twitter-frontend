@@ -1,22 +1,11 @@
+//api
+import moment from 'moment';
+//style
 import style from './TweetItem.module.scss';
-import avatar from '../../assets/images/Block@2x-2.png';
-import Vector from '../../assets/images/Vector.svg';
-import Like from '../../assets/images/Like.svg';
-import React from 'react';
+//asset
+import { like, unLike, vector, avatar } from '../../assets/images/index';
 
-type TweetItemProps = {
-  id: number,
-  description: string,
-  createdAt: DateTime,
-  updatedAt: DateTime,
-  userId: number,
-  userName: string,
-  userAccount: string,
-  replyAmount: number,
-  likedAmount: number
-};
-
-const TweetItem: React.FC<TweetItemProps> = (prop) => {
+const TweetItem = (props) => {
   return (
     <div className={style.tweetItem}>
       <div className={style.avatar}>
@@ -24,23 +13,31 @@ const TweetItem: React.FC<TweetItemProps> = (prop) => {
       </div>
       <div className={style.tweetBody}>
         <div className={style.tweetTitle}>
-          <p>Apple</p>
-          <span>@apple - 3小時</span>
+          <p>{props.userName}</p>
+          <span>
+            @{props.userAccount} -{' '}
+            {moment(props.createdAt).startOf('day').fromNow()}
+          </span>
         </div>
-        <p className={style.tweetText}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente quae
-          officiis minima dicta earum iusto cupiditate recusandae enim alias,
-          perspiciatis sequi quisquam exercitationem praesentium nostrum sint
-        </p>
+        <p className={style.tweetText}>{props.description}</p>
         <div className={style.tweetControl}>
-          <div className={style.vectorSection}>
-            <img src={Vector} alt="" className={style.vector} />
-            <p>13</p>
-          </div>
-          <div className={style.likeSection}>
-            <img src={Like} alt="" className={style.like} />
-            <p>76</p>
-          </div>
+          <button className={style.vectorSection}>
+            <img src={vector} alt="" className={style.vector} />
+            <p>{props.replyAmount}</p>
+          </button>
+          <button
+            className={style.likeSection}
+            onClick={() => {
+              props.onChangeLike(props.id);
+            }}
+          >
+            {props.isLike ? (
+              <img src={like} alt="" className={style.like} />
+            ) : (
+              <img src={unLike} alt="" className={style.like} />
+            )}
+            <p>{props.likedAmount}</p>
+          </button>
         </div>
       </div>
     </div>
