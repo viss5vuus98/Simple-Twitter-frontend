@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const AdminLoginURL = 'https://simple-twitter/api/admin/login';
+const AdminLoginURL = 'https://still-cove-80123.herokuapp.com/api/admin/login';
 
 
 //後台登入

@@ -11,7 +11,7 @@ const RegisterPage = () => {
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const [passwordCheck, setPasswordCheck] = useState('');
+   const [checkPassword, setCheckPassword] = useState('');
    const navigate = useNavigate();
 
    const handleClick = async () => {
@@ -27,14 +27,16 @@ const RegisterPage = () => {
      if (password.length === 0) {
       return;
      }
-     if (passwordCheck.length === 0) {
-      return;
-    }
+     if (checkPassword.length === 0) {
+       return;
+     }
 
      const { success, authToken } = await register({
+       account,
        name,
        email,
        password,
+       checkPassword,
      });
 
      if (success) {
@@ -46,7 +48,7 @@ const RegisterPage = () => {
          icon: 'success',
          showConfirmButton: false,
        });
-       navigate('/main');
+       navigate('/login');
        return;
      }
        Swal.fire({
@@ -103,10 +105,10 @@ const RegisterPage = () => {
         <AuthInput
           type="password"
           label="驗證密碼"
-          value={passwordCheck}
+          value={checkPassword}
           placeholder="請再次輸入密碼"
-          onChange={(passwordCheckInputValue) =>
-            setPasswordCheck(passwordCheckInputValue)
+          onChange={(checkPasswordInputValue) =>
+            setCheckPassword(checkPasswordInputValue)
           }
         />
       </div>

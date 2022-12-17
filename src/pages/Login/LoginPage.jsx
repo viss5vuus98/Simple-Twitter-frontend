@@ -7,12 +7,12 @@ import { login } from '../../api/auth';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
-  const [name, setName] = useState('');
+  const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   
   const handleClick = async () => {
-    if (name.length === 0) {
+    if (account.length === 0) {
       return;
     }
     if (password.length === 0) {
@@ -20,7 +20,7 @@ const LoginPage = () => {
     }
 
     const { success, authToken } = await login({
-      name,
+      account,
       password,
     });
     if (success) {
@@ -60,9 +60,9 @@ const LoginPage = () => {
       <div>
         <AuthInput
           label={'帳號'}
-          value={name}
+          value={account}
           placeholder={'請輸入帳號'}
-          onChange={(nameInputValue) => setName(nameInputValue)}
+          onChange={(nameInputValue) => setAccount(nameInputValue)}
         />
       </div>
 
