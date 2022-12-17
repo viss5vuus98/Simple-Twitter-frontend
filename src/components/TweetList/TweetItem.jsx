@@ -13,9 +13,9 @@ const TweetItem = (props) => {
       </div>
       <div className={style.tweetBody}>
         <div className={style.tweetTitle}>
-          <p>{props.userName}</p>
+          <p>{props.User.userName}</p>
           <span>
-            @{props.userAccount} -{' '}
+            @{props.User.userAccount} -{' '}
             {moment(props.createdAt).startOf('day').fromNow()}
           </span>
         </div>

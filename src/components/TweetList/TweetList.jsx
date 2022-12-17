@@ -1,7 +1,9 @@
 //hook
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 //components
 import TweetItem from './TweetItem';
+//web api
+import { getTweets, checkApiState, chengeLike } from '../../api/apis';
 
 const dummyData = {
   status: 'success',
@@ -9,27 +11,35 @@ const dummyData = {
     tweets: [
       {
         id: 1,
-        description: 'some example content1',
-        createdAt: '2022-12-17T03:57:27.000Z',
-        updatedAt: '2022-12-07T03:57:27.000Z',
-        userId: 1,
-        userName: 'testName1',
-        userAccount: 'testAccount1',
-        replyAmount: 25,
-        likedAmount: 30,
-        isLike: true,
+        description: 'voluptas',
+        UserId: 5,
+        createdAt: '2022-12-17T11:24:49.000Z',
+        updatedAt: '2022-12-17T11:24:49.000Z',
+        User: {
+          id: 5,
+          name: 'user4',
+          account: 'user4',
+          avatar:
+            'https://image.damanwoo.com/files/styles/rs-big/public/flickr/4/3151/5820170825_59418deec8_o.jpg',
+        },
+        replyAmount: 3,
+        likedAmount: 0,
       },
       {
         id: 2,
-        description: 'some example content2',
-        createdAt: '2022-12-07T03:57:27.000Z',
-        updatedAt: '2022-12-07T03:57:27.000Z',
-        userId: 1,
-        userName: 'testName2',
-        userAccount: 'testAccount2',
-        replyAmount: 2,
-        likedAmount: 3,
-        lsLike: false,
+        description: 'voluptas',
+        UserId: 6,
+        createdAt: '2022-12-17T11:24:49.000Z',
+        updatedAt: '2022-12-17T11:24:49.000Z',
+        User: {
+          id: 6,
+          name: 'user5',
+          account: 'user5',
+          avatar:
+            'https://image.damanwoo.com/files/styles/rs-big/public/flickr/4/3151/5820170825_59418deec8_o.jpg',
+        },
+        replyAmount: 3,
+        likedAmount: 0,
       },
       //使用者追蹤中其他使用者的所有推文，排序由新至舊排序
     ],
@@ -39,21 +49,49 @@ const dummyData = {
 const TweetList = () => {
   const [tweetData, setTweetData] = useState(dummyData.data.tweets);
 
-  const onChangeLike = (id) => {
-    setTweetData(
-      tweetData.map((tweet) => {
-        if (tweet.id === id) {
-          return {
-            ...tweet,
-            isLike: !tweet.isLike,
-          };
+  const handleChangeLike = (tweetId) => {
+    const isLike = tweetData.filter((tweet) => (tweet.id = tweetId)).isLike;
+    const postLikeAsync = async () => {
+      try {
+        if (isLike) {
+          await chengeLike({ tweetId });
+        } else {
+          await chengeLike({ tweetId }); //unlike
         }
-        return tweet;
-      }),
-    );
+        setTweetData(
+          tweetData.map((tweet) => {
+            if (tweet.id === tweetId) {
+              return {
+                ...tweet,
+                isLike: !isLike, //換成response的資料like
+              };
+            }
+            return tweet;
+          }),
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    postLikeAsync();
   };
+  useEffect(() => {
+    const getTweetsAsync = async () => {
+      try {
+        const tweets = await getTweets();
+        if (checkApiState('error')) {
+          setTweetData(tweets);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getTweetsAsync();
+  }, []);
   const Tweets = tweetData.map((item) => {
-    return <TweetItem key={item.id} {...item} onChangeLike={onChangeLike} />;
+    return (
+      <TweetItem key={item.id} {...item} onChangeLike={handleChangeLike} />
+    );
   });
 
   return <>{Tweets}</>;
