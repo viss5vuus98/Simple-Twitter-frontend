@@ -17,3 +17,17 @@
   font-weight: 700;
   line-height: 26px;
 }
+
+//FollowPage會用到
+.self {
+  text-align: start;
+  .userName {
+    font-weight: 700;
+  }
+  .tweetCount {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19px;
+    color: $secondary;
+  }
+}
