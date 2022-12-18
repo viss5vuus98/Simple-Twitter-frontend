@@ -1,0 +1,103 @@
+@import 'basicStyle';
+
+// UserInfo 
+.container {
+  @extend %container-border;
+  border-bottom: 0px;
+  position: relative;
+}
+.banner {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+  .image {
+    object-fit: cover;
+  }
+}
+.avatar {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 4px solid #fff;
+  img {
+    border: 0px;
+    object-fit: cover;
+  }
+}
+
+.body {
+  padding: 0 16px;
+  .controlBar {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
+    .setInfoBtn {
+      width: 130px;
+      @extend %main-button;
+    }
+  }
+  .name {
+    text-align: flex-start;
+    line-height: 26px;
+    font-weight: 700;
+  }
+  .account {
+    margin-bottom: 6px;
+    text-align: flex-start;
+    line-height: 22px;
+    font-size: 14px;
+    color: $secondary;
+  }
+  .description {
+    margin-bottom: 8px;
+    text-align: justify;
+    line-height: 22px;
+    font-size: 14px;
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-start;
+    p {
+      width: 30%;
+      text-align: start;
+      cursor: pointer;
+    }
+    span {
+      margin: 0;
+    }
+    .unit {
+      margin-left: 5px;
+    }
+    .type {
+      color: $secondary;
+    }
+  }
+}
+
+//UserInfo ***END***
+
+//UserTab
+.tabContainer {
+  @extend %container-border;
+  height: 52px;
+  width: 100%;
+  border-top: 0px;
+  margin-top: 10px;
+  display: flex;
+  .tab {
+    width: 130px;
+    text-align: center;
+    line-height: 52px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #657786;
+    cursor: pointer;
+  }
+  .activeTab {
+    color: $body-color;
+    border-bottom: 1px solid $body-color;
+  }
+}
+//UserTab ***END***
