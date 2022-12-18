@@ -1,0 +1,133 @@
+@import 'basicStyle';
+
+.modal {
+  @extend %container-border; 
+  width: 634px;
+  height: 500px;
+  border-radius: 14px;
+  position: absolute;
+  top: 10%;
+  z-index: 99;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  height: 56px;
+  border-bottom: 1px solid #e6ecf0;
+  text-align: start;
+  padding: 20px;
+  .close {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.form {
+  flex: 1;
+  padding: 16px 24px;
+  padding-left: 20px;
+  .formControl {
+    display: flex;
+    justify-content: space-around;
+    gap: .5rem;
+  }
+  .replyAvatar {
+    @extend %avatar-min;
+  }
+  .input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    resize:none;
+    height: 200px;
+    width: 450px;
+    flex: 1;
+    padding: 1rem 0;
+    border: 0;
+  }
+  .submitControl {
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .submitBtn {
+    @extend %main-button;
+    background-color: $body-color;
+    color: #fff;
+  }
+}
+
+.tweetItem {
+  padding: 16px 29px;
+  padding-left: 70px;
+  position: relative;
+  display: flex;
+}
+.avatar {
+  @extend %avatar-min;
+  position: absolute;
+  left: 20px;
+  top: 16px;
+}
+.tweetBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0.5rem;
+  .tweetTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+    p {
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+    span {
+      color: $secondary;
+      font-size: 14px;
+    }
+  }
+  .tweetText {
+    text-align: start;
+    line-height: 26px;
+    color: $text-color;
+    margin-bottom: 11px;
+  }
+  .replyTarget {
+    font-size: 14px;
+    line-height: 22px;
+    color: $secondary;
+    span {
+      margin: 0;
+    }
+    .link {
+      color: $body-color;
+      cursor: pointer;
+    }
+  }
+}
+.connectLine {
+  width: 2px;
+  height: 80px;
+  background-color: #b5b5be;
+  position: absolute;
+  top: 50%;
+  left: 45px;
+}
+
+//模糊背景
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background:#e5e5e5;
+  backdrop-filter: blur(3px);
+  opacity: .9;
+  z-index: 1;
+}
