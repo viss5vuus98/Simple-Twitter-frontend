@@ -1,8 +1,9 @@
-import { FollowingList } from 'components';
+import { FollowingList, FollowingTab } from 'components';
 
 const FollowingPage = () => {
   return (
     <>
+      <FollowingTab/>
       <FollowingList/>
     </>
   )

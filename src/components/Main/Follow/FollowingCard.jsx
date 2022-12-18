@@ -10,7 +10,7 @@ const FollowingCard = () => {
         </div>
         <div className={style.cardInfo}>
           <p className={style.name}>Apple</p>
-          <button>正在跟隨</button>
+          <button className={`${style.followBtn} ${false && style.isFollowing}`}>{false ?'正在跟隨': '跟隨'}</button>
         </div>
       </div>
       <div className={style.body}>
