@@ -9,8 +9,6 @@ const MainPage = () => {
       </div>
       <UserPost />
       <TweetList />
-      <TweetList />
-      <TweetList />
     </>
   );
 };

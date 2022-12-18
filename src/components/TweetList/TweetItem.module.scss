@@ -41,21 +41,24 @@
   }
   .tweetControl {
     display: flex;
+    width: 100%;
   }
   .vectorSection {
+    width: 20%;
     display: flex;
     align-items: center;
-    margin-right: 41px;
   }
   .likeSection {
+    width: 20%;
     display: flex;
-    align-items: center;
+    align-items:center;
   }
   .vector {
-    height: 13px;
     width: 13px;
-    margin-right: 10px;
     & ~ p {
+      margin: 0;
+      margin-left: 10px;
+      line-height: 14px;
       font-size: 14px;
       color: $secondary;
     }
@@ -63,8 +66,10 @@
   .like {
     height: 13px;
     width: 13px;
-    margin-right: 10px;
     & ~ p {
+      margin: 0;
+      margin-left: 10px;
+      line-height: 14px;
       font-size: 14px;
       color: $secondary;
     }
