@@ -40,14 +40,16 @@ const LoginPage = () => {
       return;
     }
 
-    // 登入失敗訊息
-    Swal.fire({
+    //else if (data.error) {
+       // 登入失敗訊息
+      Swal.fire({
       position: 'top',
       title: '登入失敗！',
       timer: 1000,
       icon: 'error',
       showConfirmButton: false,
     });
+    
   };
 
   return (
