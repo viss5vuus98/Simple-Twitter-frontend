@@ -2,6 +2,7 @@
 
 .tweetItem {
   @extend %container-border;
+  width: 100%;
   padding: 16px 29px;
   padding-left: 70px;
   position: relative;
@@ -39,39 +40,12 @@
     color: #171725;
     margin-bottom: 6px;
   }
-  .tweetControl {
-    display: flex;
-    width: 100%;
-  }
-  .vectorSection {
-    width: 20%;
-    display: flex;
-    align-items: center;
-  }
-  .likeSection {
-    width: 20%;
-    display: flex;
-    align-items:center;
-  }
-  .vector {
-    width: 13px;
-    & ~ p {
-      margin: 0;
-      margin-left: 10px;
-      line-height: 14px;
-      font-size: 14px;
-      color: $secondary;
-    }
-  }
-  .like {
-    height: 13px;
-    width: 13px;
-    & ~ p {
-      margin: 0;
-      margin-left: 10px;
-      line-height: 14px;
-      font-size: 14px;
-      color: $secondary;
-    }
-  }
+}
+
+.close {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  top: 21px;
+  right: 4px;
 }

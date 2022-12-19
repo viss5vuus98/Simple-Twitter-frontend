@@ -9,5 +9,6 @@ import UserTab from './Main/User/UserTab';
 import TweetModal from './Modal/TweetModal';
 import ReplyModal from './Modal/ReplyModal';
 import Edit from './Modal/Edit';
+import AdminTweet from './Admin/AdminTweetList';
 
-export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, Edit  };
+export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, Edit, AdminTweet  };
