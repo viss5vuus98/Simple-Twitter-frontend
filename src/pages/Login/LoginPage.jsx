@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  
+
   const handleClick = async () => {
     if (account.length === 0) {
       return;
@@ -19,11 +19,13 @@ const LoginPage = () => {
       return;
     }
 
-    const { success, authToken } = await login({
+    const data = await login({
       account,
       password,
     });
-    if (success) {
+    const authToken = data.data;
+
+    if (data.success) {
       localStorage.setItem('authToken', authToken);
 
       // 登入成功訊息
@@ -34,8 +36,8 @@ const LoginPage = () => {
         icon: 'success',
         showConfirmButton: false,
       });
-       navigate('/main');
-       return;
+      navigate('/main');
+      return;
     }
 
     // 登入失敗訊息
@@ -47,8 +49,6 @@ const LoginPage = () => {
       showConfirmButton: false,
     });
   };
-
-
 
   return (
     <div className={style.login_container}>
