@@ -54,15 +54,15 @@ export const login = async ({ account, password }) => {
 
 
 //串接 test-token
-//export const checkPermission = async (authToken) => {
-  //try {
-   // const response = await axios.get(`${loginURL}`, {
-      //headers: {
-        //Authorization: 'Bearer ' + authToken,
-     // },
-   // });
-   // return response.data.success;
-// } catch (error) {
-//    console.error('[Check Permission Failed]:', error);
-//  }
-//};
+export const checkPermission = async (authToken) => {
+  try {
+    const response = await axios.get(`${loginURL}`, {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    return response.data.success;
+ } catch (error) {
+    console.error('[Check Permission Failed]:', error);
+  }
+};

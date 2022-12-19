@@ -1,0 +1,19 @@
+.mainContainer {
+  width: 1600px;
+  display: flex;
+}
+
+.leftContainer {
+  width: 200px;
+  justify-content: left;
+}
+
+.centerContainer {
+  width: 600px;
+}
+
+.rightContainer {
+  width: 250px;
+  height:100px;
+  justify-content: right;
+}
