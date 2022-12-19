@@ -16,4 +16,5 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   );
 };
 
+
 export default AuthInput;
