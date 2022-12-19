@@ -7,36 +7,38 @@ import { adminLogin } from '../../api/adminAuth';
 import Swal from 'sweetalert2';
 
 const AdminLoginPage = () => {
-    const [adminAccount, setAdminAccount] = useState('');
-    const [adminPassword, setAdminPassword] = useState('');
+    const [account, setAdminAccount] = useState('');
+    const [password, setAdminPassword] = useState('');
     const navigate = useNavigate();
 
 const handleClick = async () => {
-  if (adminAccount.length === 0) {
+  if (account.length === 0) {
     return;
   }
-  if (adminPassword.length === 0) {
+  if (password.length === 0) {
     return;
   }
 
-  const { success, authToken } = await adminLogin({
-    adminAccount,
-    adminPassword,
-  });
-  if (success) {
-    localStorage.setItem('authToken', authToken);
+   const data = await adminLogin({
+     account,
+     password,
+   });
+   const authToken = data.data;
 
-    // 登入成功訊息
-    Swal.fire({
-      position: 'top',
-      title: '登入成功！',
-      timer: 1000,
-      icon: 'success',
-      showConfirmButton: false,
-    });
-    navigate('/admin/main');
-    return;
-  }
+   if (data.success) {
+     localStorage.setItem('authToken', authToken);
+
+     // 登入成功訊息
+     Swal.fire({
+       position: 'top',
+       title: '登入成功！',
+       timer: 1000,
+       icon: 'success',
+       showConfirmButton: false,
+     });
+     navigate('/admin/main');
+     return;
+   }
 
   // 登入失敗訊息
   Swal.fire({
@@ -61,10 +63,10 @@ const handleClick = async () => {
       <div>
         <AuthInput
           label={'帳號'}
-          value={adminAccount}
+          value={account}
           placeholder={'請輸入帳號'}
-          onChange={(adminAccountInputValue) =>
-            setAdminAccount(adminAccountInputValue)
+          onChange={(accountInputValue) =>
+            setAdminAccount(accountInputValue)
           }
         />
       </div>
@@ -73,10 +75,10 @@ const handleClick = async () => {
         <AuthInput
           type="password"
           label={'密碼'}
-          value={adminPassword}
+          value={password}
           placeholder={'請輸入密碼'}
-          onChange={(adminPasswordInputValue) =>
-            setAdminPassword(adminPasswordInputValue)
+          onChange={(passwordInputValue) =>
+            setAdminPassword(passwordInputValue)
           }
         />
       </div>
