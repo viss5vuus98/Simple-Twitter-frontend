@@ -1,9 +1,9 @@
-import { ReplyModal } from "components";
+import { Edit } from "components";
 
 const UserReplyPage = () => {
   return (
     <>
-    <ReplyModal/>
+    <Edit/>
     </>
   )
 }
