@@ -1,0 +1,18 @@
+@import 'basicStyle';
+
+.navbar {
+}
+
+.popBox {
+  width: 273px;
+  height: 731px;
+  background-color: $body-color;
+  position: fixed;
+  top: 16px;
+  right: 130px;
+}
+
+.main {
+  margin: 0 auto;
+  background-color: #e5e5e5;
+}

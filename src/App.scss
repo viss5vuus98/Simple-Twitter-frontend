@@ -9,11 +9,10 @@ body {
 }
 
 .app {
-  text-align: center;
-  margin: 45px auto;
-  max-width: 600px;
-  min-width: 320px;
-  width: 100%;
-  background-color: white;
-  padding: 12px 16px;
+  height: 100vw;
+  margin: 0 130px;
+  background-color: #fff;
+  position: relative;
+  padding-left: 178 + 24px;
+  padding-right: 273 + 24px;
 }

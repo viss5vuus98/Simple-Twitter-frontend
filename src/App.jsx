@@ -1,7 +1,7 @@
 import './App.scss';
 import './basicStyle.scss'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ReplyPage, MainPage, LoginPage, RegisterPage, AdminLoginPage, FollowingPage,UserMainPage, UserReplyPage, AdminMainPage, AdminUserPage } from 'pages';
+import { ReplyPage, MainPage, LoginPage, RegisterPage, AdminLoginPage, FollowingPage,UserMainPage, UserReplyPage, AdminMainPage, AdminUserPage, Layout } from 'pages';
 //import { AuthProvider } from './contexts/AuthContext';
 //import { AuthProvider2 } from './contexts/AdminAuthContext';
 
@@ -10,6 +10,7 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
+      <Layout>
         <Routes>
           <Route path='test' element={<UserReplyPage/>}/>
           <Route path="main" element={<MainPage />} />
@@ -23,6 +24,7 @@ function App() {
           <Route path="user/self" element={<UserMainPage/>} />
           <Route path="*" element={<MainPage />} />
         </Routes>
+      </Layout>
       </BrowserRouter>
     </div>
   );
