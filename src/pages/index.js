@@ -11,6 +11,7 @@ import FollowingPage from './Main/FollowingPage';
 import UserMainPage from './Main/UserMainPage';
 import UserReplyPage from './Main/UserReplyPage';
 import UserLikePage from './Main/UserLikePage';
+import Layout from './Layout';
 
 export {
   AdminMainPage,
@@ -26,4 +27,5 @@ export {
   UserMainPage,
   UserReplyPage,
   UserLikePage,
+  Layout
 };

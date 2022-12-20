@@ -3,6 +3,7 @@
 // UserInfo 
 .container {
   @extend %container-border;
+  background-color: #fff;
   border-bottom: 0px;
   position: relative;
 }
@@ -81,10 +82,10 @@
 //UserTab
 .tabContainer {
   @extend %container-border;
-  height: 52px;
+  background-color: #fff;
+  height: 62px;
   width: 100%;
   border-top: 0px;
-  margin-top: 10px;
   display: flex;
   .tab {
     width: 130px;
