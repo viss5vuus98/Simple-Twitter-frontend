@@ -1,0 +1,63 @@
+@import 'basicStyle';
+
+.sidebar {
+  width: 178px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 130px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.header {
+  width: 100%;
+  flex: 0 0 40px;
+  margin-bottom: 30px;
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+nav {
+  flex: 1;
+}
+.navItems {
+  text-align: start;
+}
+.navLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  .icon{
+    width: 16px;
+    height: 20px;
+    margin-right: 20px;
+  }
+}
+.control {
+  width: 100%;
+  .modalBtn {
+    @extend %main-button;
+    align-self: flex-end;
+    background-color: $body-color;
+    color: #fff;
+    width: 100%;
+    font-size: 20px;
+  }
+}
+
+.navFooter {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  img {
+    width: 18px;
+    height: 18px;
+  }
+}
