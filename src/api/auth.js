@@ -37,10 +37,8 @@ export const login = async ({ account, password }) => {
       account,
       password,
     });
-
-  
-
     if (data.data.token) {
+      tokenAuthenticate();
       return { success: true, data: data.data.token };
     }
     return data;
@@ -50,9 +48,17 @@ export const login = async ({ account, password }) => {
   }
 };
 
-
-
-
+//api/TokenAuthenticate
+export const tokenAuthenticate = () => {
+  const authToken = localStorage.getItem('authToken') || '';
+  axios.get(`https://still-cove-80123.herokuapp.com/api/TokenAuthenticate`,
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }
+  )
+}
 //串接 test-token
 //export const checkPermission = async (authToken) => {
   //try {

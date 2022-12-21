@@ -22,7 +22,7 @@ const TweetItem = (props) => {
         </div>
         <p className={style.tweetText}>{props.description}</p>
         <div className={style.tweetControl}>
-          <NavLink className={style.vectorSection} to="reply/1">
+          <NavLink className={style.vectorSection} to={`reply/${props.id}`}>
             <img src={vector} alt="" className={style.vector} />
             <p>{props.replyAmount}</p>
           </NavLink>

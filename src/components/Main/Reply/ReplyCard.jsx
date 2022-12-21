@@ -1,16 +1,19 @@
 import style from './replyCard.module.scss';
+import moment from 'moment/moment';
+
+moment.locale('zh-tw')
 
 const ReplyCard = ({replyData}) => {
   return (
     <div className={style.replyContent}>
       <div className={style.header}>
         <div className={style.avatar}>
-          <img src={replyData.avatar} alt="avatar" />
+          <img src={replyData.User.avatar} alt="avatar" />
         </div>
         <div>
           <div className={style.replyInfo}>
-            <p className={style.name}>{replyData.name}</p>
-            <p>@{replyData.account}</p>
+            <p className={style.name}>{replyData.User.name}</p>
+            <p>@{replyData.User.account}</p>
             <p>。{replyData.createdAt}</p>
           </div>
           <div className={style.userLink}>

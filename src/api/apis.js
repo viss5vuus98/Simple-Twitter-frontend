@@ -3,32 +3,32 @@ import axios from 'axios';
 //const baseUrl = 'http://localhost:3000'; //測試用 避免一直抓資料
 const baseUrl = 'https://still-cove-80123.herokuapp.com/api';
 
-const authToken = localStorage.getItem('authToken');
-
 //GET api/tweets/following
 export const getTweets = async () => {
+  const authToken = localStorage.getItem('authToken') || '';
   try {
-    const response = axios.get(`${baseUrl}/tweets/following`, {
+    const response = await axios.get(`${baseUrl}/tweets/following`, {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
     })
     return response;
   } catch (error) {
-    console.error('Get TodoData Failed :', error);
+    console.error('Get Data Failed :', error);
   }
 };
 
 //POST Like / unLike
 export const chengeLike = async (tweetId, isLike) => {
+  const authToken = localStorage.getItem('authToken') || '';
   const action = isLike ? 'like' : 'unlike'
   try {
-      const res = axios.post(`${baseUrl}/tweets/${tweetId}/${action}`, {
+      const res = await axios.post(`${baseUrl}/tweets/${tweetId}/${action}`, {}, {
         headers: {
           Authorization: `Bearer ${authToken}`
         },
       });
-      return res
+      return res.data
   } catch (error) {
     console.error('[failed]: ', error);
   }
@@ -52,8 +52,9 @@ export const checkApiState = (stateCode) => {
 //使用者發Tweet
 //POST api/tweets 
 export const postTweet = async (value) => {
+  const authToken = localStorage.getItem('authToken') || '';
   try {
-    const response = axios({
+    const response = await axios({
       method: 'POST',
       url: `${baseUrl}/tweets`,
       responseType: 'json',
@@ -71,42 +72,51 @@ export const postTweet = async (value) => {
   }
 }
 
-
-
-//這裡壞掉
 //取得一筆推文詳細
 export const getTweetDetail = async (tweetId) => { 
+  const authToken = localStorage.getItem('authToken') || '';
   try {
-    //const response = await axios.get(`${baseUrl}api/tweets/following`);
-    const response = axios({
-      method: 'GET',
-      url: `${baseUrl}/tweets/${tweetId}`,
-      responseType: 'json',
+    const response = await axios.get(`${baseUrl}/tweets/${tweetId}`, {
       headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    }).then((res) => {
-      return res.data
+        Authorization: `Bearer ${authToken}`
+      }
     })
+    return response.data
+    // const response = await axios({
+    //   method: 'GET',
+    //   url: `${baseUrl}/tweets/${tweetId}`,
+    //   responseType: 'json',
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}`,
+    //   },
+    // }).then((res) => {
+    //   return res.data
+    // })
   } catch (error) {
     console.error('Get TodoData Failed :', error);
   }
 };
 
-//壞掉
 //取得一筆推文的全部回文
+//17.GET api/tweets/:tweet_Id/replies
 export const getReplys = async (tweetId) => {
+  const authToken = localStorage.getItem('authToken') || '';
   try {
-    //const response = await axios.get(`${baseUrl}api/tweets/following`);
-    const response = axios({
-      method: 'GET',
-      url: `${baseUrl}/tweets/${tweetId}/replies`,
-      responseType: 'json',
+    const response = await axios.get(`${baseUrl}/tweets/${tweetId}/replies`, {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken}`
       }
-    });
-    return response.data;
+    })
+    // const response = axios({
+    //   method: 'GET',
+    //   url: `${baseUrl}/tweets/${tweetId}/replies`,
+    //   responseType: 'json',
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}`,
+    //   }
+    // });
+    const { data } = response
+    return data;
   } catch (error) {
     console.error('Get TodoData Failed :', error);
   }

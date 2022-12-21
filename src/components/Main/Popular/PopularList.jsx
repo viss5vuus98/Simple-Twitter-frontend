@@ -1,48 +1,75 @@
 import style from './popularList.module.scss';
 import PopularCard from './PopularCard';
 import { useState, useEffect } from 'react';
+import { getRecommendUsers, followShip, unFollowShip } from '../../../api/usersApi'
 
 // test data
 
-const fakeUser = [
-  {
-    id: 1,
-    account: 'Elio1',
-    name: 'Elio',
-    isFollowed: true,
-  },
-  {
-    id: 2,
-    account: 'Peter1',
-    name: 'Peter',
-    isFollowed: false,
-  },
-  {
-    id: 3,
-    account: 'Jules1',
-    name: 'Jules',
-    isFollowed: true,
-  },
-];
+// const fakeUser = [
+//   {
+//     id: 1,
+//     account: 'Elio1',
+//     name: 'Elio',
+//     isFollowed: true,
+//   },
+//   {
+//     id: 2,
+//     account: 'Peter1',
+//     name: 'Peter',
+//     isFollowed: false,
+//   },
+//   {
+//     id: 3,
+//     account: 'Jules1',
+//     name: 'Jules',
+//     isFollowed: true,
+//   },
+// ];
 function PopularUserList() {
   const [ userList, setUserList ] = useState([])
+
   //追蹤按鈕事件處理
-  const handleClick = (userId) => {
-    const currentUsers = userList.map(user => {
-      if(user.id === userId ){
-        return ({
-          ...user,
-          isFollowed: !user.isFollowed
-        })
+  const handleClick = (userId, isFollow) => {
+    const followShipAsync = async () => {
+        const data = await followShip(userId)
+        setData(data)
       }
-      return user
-    })
-    setUserList(currentUsers)
+    const unFollowShipAsync = async () => {
+      const data = await unFollowShip(userId)
+      setData(data)
+    }
+    const setData = (data) => {
+      const currentUsers = userList.map(user => {
+        if(user.id === data.id){
+          return ({
+            ...user,
+            isFollow: data.isFollow
+          })
+        }
+        return ({...user})
+      })
+      setUserList(currentUsers)
+    }
+    if(!isFollow){
+      followShipAsync()
+    }else {
+      unFollowShipAsync()
+    }
   }
   
   //render將fakeData寫入state 
   useEffect(() => {
-    setUserList(fakeUser)
+    let flag = true
+    if(flag){
+      const getRecommendUsersAsync = async () => {
+        const data = await getRecommendUsers()
+        setUserList(data)
+      }
+      getRecommendUsersAsync()
+    }
+    return () => {
+      flag = false
+    }
   }, [])
 
   //Cards
@@ -52,7 +79,7 @@ function PopularUserList() {
     id={user.id}
     account={user.account}
     name={user.name}
-    isFollowed={user.isFollowed}
+    isFollow={user.isFollow}
     onClick={handleClick}
     />
   })
