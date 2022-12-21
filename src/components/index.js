@@ -8,10 +8,10 @@ import UserInfo from './Main/User/UserInfo';
 import UserTab from './Main/User/UserTab';
 import TweetModal from './Modal/TweetModal';
 import ReplyModal from './Modal/ReplyModal';
-import Edit from './Modal/Edit';
+import EditModal from './Modal/Edit';
 import AdminTweet from './Admin/AdminTweetList';
 import AdminUser from './Admin/AdminUserList';
 import AdminNavBar from './Common_/Navbar';
 import PopularUserList from './Main/Popular/PopularList'
 
-export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, Edit, AdminTweet, AdminUser, AdminNavBar, PopularUserList  };
+export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, EditModal, AdminTweet, AdminUser, AdminNavBar, PopularUserList  };

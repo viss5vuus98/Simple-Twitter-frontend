@@ -3,7 +3,7 @@ import logo from '../../assets/images/ACLogoIcon.svg';
 import { logout} from '../../assets/images/index'
 import { NavLink } from 'react-router-dom';
 
-const AdminNavBar = ({funItems, isAdmin}) => {
+const AdminNavBar = ({funItems, isAdmin, onClickModal}) => {
   const navLinks = funItems.map(item => {
     return  (<li key={item.id} className={style.navLink}>
               <img className={style.icon} src={item.icon} alt="" />
@@ -22,7 +22,11 @@ const AdminNavBar = ({funItems, isAdmin}) => {
     <nav>
       <ul className={style.navItems}>
         {navLinks}
-        {!isAdmin && <li className={style.control}><button className={style.modalBtn}>推文</button></li>}
+        {!isAdmin && <li className={style.control}>
+          <button className={style.modalBtn}
+          onClick={()=>{onClickModal?.('tweetModal')}}
+          >推文</button></li>
+        }
       </ul>
     </nav>
     <div className={style.navFooter}>

@@ -2,12 +2,18 @@ import style from './tweetModal.module.scss'
 import { avatar } from '../../assets/images/index';
 import close from '../../assets/images/close.svg'
 
-const TweetModal = () => {
+
+const TweetModal = ({isHidden, onCloseModal}) => {
+
+
   return (
     <>
-      <section className={`${style.hidden} ${style.modal}`}>
+      <section className={`${!isHidden && style.hidden} ${style.modal}`}>
         <div className={style.modalHeader}>
-            <button className={style.close} style={{ backgroundImage: `url(${close})` }}></button>
+            <button 
+            className={style.close} style={{ backgroundImage: `url(${close})` }}
+            onClick={() => {onCloseModal?.('none')}}
+            ></button>
         </div>
         <form className={style.form}>
           <div className={style.formControl}>
@@ -23,7 +29,7 @@ const TweetModal = () => {
           </div>
         </form>
       </section>
-      <div className={`${style.hidden} ${style.overlay}`}></div>
+      <div className={`${!isHidden && style.hidden} ${style.overlay}`}></div>
     </>
   )
 }
