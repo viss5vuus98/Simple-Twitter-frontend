@@ -2,6 +2,7 @@ import style from './TweetItem.module.scss';
 import avatar from '../../../../assets/images/Block@2x-2.png';
 import Vector from '../../../../assets/images/Vector.svg';
 import Like from '../../../../assets/images/Like.svg';
+import { NavLink } from 'react-router-dom';
 
 const TweetList = () => {
   return (
@@ -22,7 +23,7 @@ const TweetList = () => {
         <div className={style.tweetControl}>
           <div className={style.vectorSection}>
             <img src={Vector} alt="" className={style.vector} />
-            <p>13</p>
+            <NavLink to="reply/1"><p>13</p></NavLink>
           </div>
           <div className={style.likeSection}>
             <img src={Like} alt="" className={style.like} />

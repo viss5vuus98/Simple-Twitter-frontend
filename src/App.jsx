@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path='test' element={<UserReplyPage/>}/>
           <Route path="main" element={<MainPage />} />
-          <Route path="reply" element={<ReplyPage />} />
+          <Route path="main/reply/:id" element={<ReplyPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="following" element={<FollowingPage/>}/>

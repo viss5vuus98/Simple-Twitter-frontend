@@ -1,31 +1,27 @@
 import style from './replyCard.module.scss';
-import { avatar } from '../../../assets/images/index';
 
-const ReplyCard = () => {
+const ReplyCard = ({replyData}) => {
   return (
     <div className={style.replyContent}>
       <div className={style.header}>
         <div className={style.avatar}>
-          <img src={avatar} alt="avatar" />
+          <img src={replyData.avatar} alt="avatar" />
         </div>
         <div>
           <div className={style.replyInfo}>
-            <p className={style.name}>Jane Cathy</p>
-            <p>@iamjane1999</p>
-            <p>。3小時</p>
+            <p className={style.name}>{replyData.name}</p>
+            <p>@{replyData.account}</p>
+            <p>。{replyData.createdAt}</p>
           </div>
           <div className={style.userLink}>
             回覆
-            <span>@apple</span>
+            <span>@apply</span>
           </div>
         </div>
       </div>
       <div className={style.messageContent}>
         <p>
-          Lorem ipsum dolor sit amet, consectetur aliquidorem ipsum dolor sit
-          amet, consectetur aliquidorem ipsum dolor sit amet, consectetur
-          aliquidorem ipsum dolor sit amet, consectetur aliquidorem ipsum dolor
-          sit amet, consectetur aliquid.
+          {replyData.comment || "沒有文"}
         </p>
       </div>
     </div>

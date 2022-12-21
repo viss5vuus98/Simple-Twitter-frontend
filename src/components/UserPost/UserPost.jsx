@@ -1,7 +1,7 @@
 import style from './UserPost.module.scss'
 import { avatar } from '../../assets/images/index';
 
-const UserPost = ({pageTitle}) => {
+const UserPost = ({onChange, value, onSubmit}) => {
   return (
     <form className={style.form}>
       <div className={style.formControl}>
@@ -11,9 +11,16 @@ const UserPost = ({pageTitle}) => {
         <input
           className={style.input}
           type="text"
+          onChange={(e) => {onChange?.(e.target.value)}}
+          value={value}
           placeholder="有什麼新鮮事？"
         />
-        <button className={style.btn}>推文</button>
+        <button className={style.btn} 
+        onClick={(e) => {
+          e.preventDefault();
+          onSubmit?.(value)
+        }}
+        >推文</button>
       </div>
     </form>
   );
