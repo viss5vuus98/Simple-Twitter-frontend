@@ -1,7 +1,6 @@
 import style from './popularList.module.scss';
 import PopularCard from './PopularCard';
 import { useState, useEffect } from 'react';
-import { set } from 'assets/images';
 
 // test data
 

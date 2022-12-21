@@ -53,15 +53,6 @@ export const checkApiState = (stateCode) => {
 //POST api/tweets 
 export const postTweet = async (value) => {
   try {
-    // debugger
-    // const data = await axios.post(`${baseUrl}/tweets `, {
-    //   headers: {
-    //       Authorization: `Bearer ${authToken}`,
-    //     },
-    //   data: {
-    //     "description": "1234"
-    //   }
-    // })
     const response = axios({
       method: 'POST',
       url: `${baseUrl}/tweets`,
@@ -82,7 +73,7 @@ export const postTweet = async (value) => {
 
 
 
-
+//這裡壞掉
 //取得一筆推文詳細
 export const getTweetDetail = async (tweetId) => { 
   try {
@@ -102,7 +93,7 @@ export const getTweetDetail = async (tweetId) => {
   }
 };
 
-
+//壞掉
 //取得一筆推文的全部回文
 export const getReplys = async (tweetId) => {
   try {
