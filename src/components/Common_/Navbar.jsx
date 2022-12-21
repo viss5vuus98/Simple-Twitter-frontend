@@ -22,9 +22,6 @@ const AdminNavBar = ({funItems, isAdmin}) => {
     <nav>
       <ul className={style.navItems}>
         {navLinks}
-        {/* <li className={style.navLink}><img className={style.icon} src={home} alt="" />首頁</li>
-        <li className={style.navLink}><img className={style.icon} src={user} alt="" />個人資料</li>
-        <li className={style.navLink}><img className={style.icon} src={set} alt="" />設定</li> */}
         {!isAdmin && <li className={style.control}><button className={style.modalBtn}>推文</button></li>}
       </ul>
     </nav>

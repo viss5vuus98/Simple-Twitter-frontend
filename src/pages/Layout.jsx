@@ -1,6 +1,6 @@
-import { AdminNavBar } from "components";
+import { AdminNavBar, PopularUserList } from "components";
 import { useState } from "react";
-import { home, user, set, logout} from '../assets/images/index'
+import { home, user, set} from '../assets/images/index'
 
 //scss
 import style from './layout.module.scss'
@@ -50,7 +50,7 @@ const Layout = ({children}) => {
     <>
       <AdminNavBar className={style.navbar} funItems={currentLayout} isAdmin={Object.is(adminFunction,currentLayout)}/>
       <section className={style.main}>{children}</section>
-      <div className={style.popBox}></div>
+      <PopularUserList className={style.popBox}/>
     </>
   );
 };

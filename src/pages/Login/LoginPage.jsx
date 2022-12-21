@@ -59,7 +59,7 @@ const LoginPage = () => {
       </div>
       <h3>登入 Alphitter</h3>
 
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           label={'帳號'}
           value={account}
@@ -68,7 +68,7 @@ const LoginPage = () => {
         />
       </div>
 
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           type="password"
           label={'密碼'}

@@ -12,5 +12,6 @@ import Edit from './Modal/Edit';
 import AdminTweet from './Admin/AdminTweetList';
 import AdminUser from './Admin/AdminUserList';
 import AdminNavBar from './Common_/Navbar';
+import PopularUserList from './Main/Popular/PopularList'
 
-export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, Edit, AdminTweet, AdminUser, AdminNavBar  };
+export { ReplyList, TweetDetail, TweetList, UserPost, FollowingList, FollowingTab,UserInfo, UserTab, TweetModal, ReplyModal, Edit, AdminTweet, AdminUser, AdminNavBar, PopularUserList  };

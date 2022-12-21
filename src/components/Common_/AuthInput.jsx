@@ -1,4 +1,4 @@
-import style from './AuthInput.module.css';
+import style from './AuthInput.module.scss';
  
 const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   return (
@@ -7,6 +7,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
       <div className={style.label}>{label}</div>
 
       <input
+        className={style.input}
         type={type || 'text'}
         value={value || ''}
         placeholder={placeholder || ''}

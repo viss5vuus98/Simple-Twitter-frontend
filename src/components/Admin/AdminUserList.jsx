@@ -1,6 +1,6 @@
 import style from './adminUser.module.scss'
 
-import { avatar, userBanner, userAvatar, postIcon, likeCount } from '../../assets/images/index'
+import { avatar, userBanner, postIcon, likeCount } from '../../assets/images/index'
 
 const AdminUser = () => {
     return (

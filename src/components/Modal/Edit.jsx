@@ -1,5 +1,5 @@
 import style from './edit.module.scss'
-import { avatar, userBanner, userAvatar } from '../../assets/images/index';
+import { avatar, userBanner } from '../../assets/images/index';
 import close from '../../assets/images/close.svg'
 
 const Edit = () => {

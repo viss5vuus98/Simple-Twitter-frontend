@@ -8,7 +8,11 @@ const UserPost = ({pageTitle}) => {
           <div className={style.avatar}>
             <img src="" alt="" />
           </div>
-            <input className={style.input} type="text"placeholder='有什麼新鮮事？'/>
+            <textarea
+              className={style.input}
+              type="text"
+              placeholder="有什麼新鮮事？"
+            />
             <button className={style.btn}>推文</button>
         </div>
       </form>

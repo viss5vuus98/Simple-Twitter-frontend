@@ -1,12 +1,12 @@
 import style from './tweetDetail.module.scss';
-import { like, vector, avatar } from '../../assets/images/index';
+import { like, vector } from '../../assets/images/index';
 
-const TweetDetail = () => {
+const TweetDetail = (props) => {
   return (
     <div className={style.tweet_container}>
       <div className={style.tweet_header}>
         <div className={style.avatar}>
-          <img src={avatar} alt="" />
+          <img src={props.tweetData} alt="" />
         </div>
         <div>
           <p className={style.userName}>Apple</p>

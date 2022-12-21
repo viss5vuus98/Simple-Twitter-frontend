@@ -1,4 +1,4 @@
-import { AdminUser, AdminNavBar } from "components";
+import { AdminNavBar } from "components";
 
 const AdminUserPage = () => {
   return (
