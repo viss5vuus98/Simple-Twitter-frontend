@@ -21,7 +21,7 @@ function App() {
           <Route path="admin" element={<AdminLoginPage />} />
           <Route path='admin/main' element={<AdminMainPage/>}/>
           <Route path='admin/user' element={<AdminUserPage/>}/>
-          <Route path="user/self" element={<UserMainPage/>} />
+          <Route path="user" element={<UserMainPage/>} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </Layout>
