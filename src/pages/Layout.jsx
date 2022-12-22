@@ -1,9 +1,15 @@
 import { AdminNavBar, PopularUserList, TweetModal, ReplyModal, EditModal } from "components";
-import { useState } from "react";
+//hook
+import { useState, useEffect } from "react";
+import { ModalContextProvider } from '../contexts/userContext'
+//asset
 import { home, user, set} from '../assets/images/index'
-
 //scss
 import style from './layout.module.scss'
+//API
+import { tokenAuthenticate } from '../api/auth'
+//Route
+import { useNavigate } from 'react-router-dom';
 
 const userFunction = [
     {
@@ -46,6 +52,11 @@ const Layout = ({children}) => {
   const [ currentLayout, setCurrentLayout ] = useState(userFunction)
   //modal彈出狀態 true出現／false關
   const [ modalState, setModalState ] = useState('none')
+  //當前推文ID
+  const [ currentTweetId, setCurrentTweetId ] = useState(0)
+  //登入狀態
+  const [ authorize, setAuthorized ] = useState(false)
+  const navigate = useNavigate();
 
   //處理Layout更換邏輯
   const handleChangeLayout = (layoutName) => {
@@ -73,19 +84,43 @@ const Layout = ({children}) => {
     }
     setModalState(currentModal)
   }
+  const handleLogout = async () => {
+    localStorage.removeItem('authToken');
+    const { status } = await tokenAuthenticate()
+    setAuthorized((status ==='authorized'))
+    navigate('/login');
+  };
+  //取得當前回文ID 回覆推文用
+  const handleGetCurrentTweetId = (tweetId) => {
+    setCurrentTweetId(tweetId)
+  }
+
+  const checkoutTokenAsync = async () => {
+    const { status } = await tokenAuthenticate()
+    console.log(status)
+    setAuthorized((status ==='authorized'))
+  }
+  checkoutTokenAsync()
 
   return (
     <>
-      <AdminNavBar className={style.navbar} 
+      <ModalContextProvider 
+      handleModalState={handleModalState} 
+      currentTweetId={currentTweetId}
+      getTweetId={handleGetCurrentTweetId}
+      >
+      { authorize && <AdminNavBar className={style.navbar} 
       funItems={currentLayout} 
       isAdmin={Object.is(adminFunction,currentLayout)}
       onClickModal={handleModalState}
-      />
+      onLogout={handleLogout}
+      />}
       <section className={style.main}>{children}</section>
-      <PopularUserList className={style.popBox}/>
+      { authorize && <PopularUserList className={style.popBox} />}
       <TweetModal isHidden={modalState === 'tweetModal'} onCloseModal={handleModalState}/>
       <ReplyModal isHidden={modalState === 'replyModal'} onCloseModal={handleModalState}/>
       <EditModal isHidden={modalState === 'editModal'} onCloseModal={handleModalState}/>
+      </ModalContextProvider>
     </>
   );
 };

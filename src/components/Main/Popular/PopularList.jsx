@@ -5,37 +5,43 @@ import { getRecommendUsers, followShip, unFollowShip } from '../../../api/usersA
 
 // test data
 
-// const fakeUser = [
-//   {
-//     id: 1,
-//     account: 'Elio1',
-//     name: 'Elio',
-//     isFollowed: true,
-//   },
-//   {
-//     id: 2,
-//     account: 'Peter1',
-//     name: 'Peter',
-//     isFollowed: false,
-//   },
-//   {
-//     id: 3,
-//     account: 'Jules1',
-//     name: 'Jules',
-//     isFollowed: true,
-//   },
-// ];
+const fakeUser = [
+  {
+    id: 1,
+    account: 'Elio1',
+    name: 'Elio',
+    isFollowed: true,
+  },
+  {
+    id: 2,
+    account: 'Peter1',
+    name: 'Peter',
+    isFollowed: false,
+  },
+  {
+    id: 3,
+    account: 'Jules1',
+    name: 'Jules',
+    isFollowed: true,
+  },
+];
 function PopularUserList() {
-  const [ userList, setUserList ] = useState([])
+  const [ userList, setUserList ] = useState(fakeUser)
 
   //追蹤按鈕事件處理
   const handleClick = (userId, isFollow) => {
     const followShipAsync = async () => {
         const data = await followShip(userId)
+        if(!data){
+        return
+         }
         setData(data)
       }
     const unFollowShipAsync = async () => {
       const data = await unFollowShip(userId)
+      if(!data){
+        return
+      }
       setData(data)
     }
     const setData = (data) => {

@@ -43,7 +43,6 @@ const MainPage = () => {
     setUserInput(value)
   }
   const handleSubmit = async (value) => {
-    console.log('submit')
     if(value.trim().length <= 0 ){
       return;
     }

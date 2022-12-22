@@ -118,7 +118,7 @@ export const getReplys = async (tweetId) => {
     const { data } = response
     return data;
   } catch (error) {
-    console.error('Get TodoData Failed :', error);
+    console.error('Get Data Failed :', error);
   }
 };
 
@@ -137,3 +137,22 @@ export const getAdminUser = async () => {
     console.error('[Admin Get All Users failed]: ', error);
   }
 };
+
+//回覆一則推文
+//16.POST api/tweets/:tweet_Id/replies 
+//comment:string
+//tewwtId: int
+export const postReply = async (comment, tweetId) => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try{
+     await axios.post(`${baseUrl}/tweets/${tweetId}/replies`,{
+      comment
+    },{
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    })
+  }catch(error){
+    console.error('Post Data Failed :', error);
+  }
+}

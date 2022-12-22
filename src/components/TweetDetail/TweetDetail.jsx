@@ -1,8 +1,10 @@
 import style from './tweetDetail.module.scss';
 import { like, vector } from '../../assets/images/index';
 import { Link } from 'react-router-dom';
+import { useModal } from 'contexts/userContext';
 
-const TweetDetail = ({tweetData}) => {
+const TweetDetail = ({tweetData, onChangeLike}) => {
+  const { handleModalState } = useModal()
   return (
     <div className={style.tweet_container}>
       <div className={style.tweet_header}>
@@ -29,8 +31,10 @@ const TweetDetail = ({tweetData}) => {
         </p>
       </div>
       <div className={style.tweet_control}>
-          <img src={vector} alt="" className={style.icon} />
-          <img src={like} alt="" className={style.icon} />
+          <img src={vector} alt="" className={style.icon} onClick={() => { handleModalState('replyModal')}}/>
+          <img src={like} 
+          alt="" className={style.icon} 
+          onClick={() => {onChangeLike?.(tweetData.id, )}}/>
       </div>
     </div>
   );

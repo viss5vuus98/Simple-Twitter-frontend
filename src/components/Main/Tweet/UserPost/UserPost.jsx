@@ -1,6 +1,6 @@
 import style from './UserPost.module.scss'
 
-const UserPost = ({pageTitle}) => {
+const UserPost = () => {
   return (
       <form className={style.form}>
 
