@@ -49,15 +49,20 @@ export const login = async ({ account, password }) => {
 };
 
 //api/TokenAuthenticate
-export const tokenAuthenticate = () => {
+export const tokenAuthenticate = async () => {
   const authToken = localStorage.getItem('authToken') || '';
-  axios.get(`https://still-cove-80123.herokuapp.com/api/TokenAuthenticate`,
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`
+  try{
+     const res = await axios.get(`https://still-cove-80123.herokuapp.com/api/TokenAuthenticate`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
       }
-    }
-  )
+    )
+    return res.data
+  }catch(error){
+    console.error('[GET Failed]:', error.response.data);
+  }
 }
 
 

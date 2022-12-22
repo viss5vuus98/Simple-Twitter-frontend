@@ -2,22 +2,14 @@ import style from './nav.module.scss';
 import logo from '../../assets/images/ACLogoIcon.svg';
 import { logout} from '../../assets/images/index'
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
-const AdminNavBar = ({funItems, isAdmin, onClickModal}) => {
+const AdminNavBar = ({funItems, isAdmin, onClickModal, onLogout}) => {
   const navLinks = funItems.map(item => {
     return  (<li key={item.id} className={style.navLink}>
               <img className={style.icon} src={item.icon} alt="" />
               <NavLink to={item.link}>{item.name}</NavLink>
             </li>)
   })
-
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-      localStorage.removeItem('authToken');
-      navigate('/login');
-    };
 
   return (
     <div className={style.sidebar}>
@@ -43,7 +35,7 @@ const AdminNavBar = ({funItems, isAdmin, onClickModal}) => {
           )}
         </ul>
       </nav>
-      <button className={style.navFooter} onClick={handleClick}>
+      <button className={style.navFooter} onClick={onLogout}>
         <img src={logout} alt="" />
         登出
       </button>

@@ -12,17 +12,17 @@ function App() {
       <BrowserRouter>
       <Layout>
         <Routes>
+          <Route path="/" element={<LoginPage />} />
           <Route path='test' element={<UserReplyPage/>}/>
           <Route path="main" element={<MainPage />} />
           <Route path="main/reply/:id" element={<ReplyPage />} />
-          <Route path="/" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="following" element={<FollowingPage/>}/>
           <Route path="admin" element={<AdminLoginPage />} />
           <Route path='admin/main' element={<AdminMainPage/>}/>
           <Route path='admin/user' element={<AdminUserPage/>}/>
           <Route path="user/self" element={<UserMainPage/>} />
-          <Route path="*" element={<MainPage />} />
+          <Route path="*" element={<LoginPage />} />
         </Routes>
       </Layout>
       </BrowserRouter>

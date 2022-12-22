@@ -2,7 +2,6 @@ import style from './replyModal.module.scss'
 import { avatar } from '../../assets/images/index';
 import close from '../../assets/images/close.svg'
 import { useState } from 'react';
-import { useParams } from "react-router-dom";
 import { useModal } from 'contexts/userContext';
 import { postReply } from '../../api/apis'
 
