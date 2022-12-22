@@ -49,3 +49,24 @@
   top: 21px;
   right: 4px;
 }
+
+.container {
+  font-family: "Noto Sans TC";
+  border: 1px solid #e6ecf0;
+  height: 100vh;
+}
+
+.title {
+  width: 100%;
+  padding-top: 24px;
+  padding-left: 24px;
+  padding-bottom: 24px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.tweetList {
+  height: 100vh;
+  overflow-y: scroll;
+  border-top: 1px solid #e6ecf0;
+}

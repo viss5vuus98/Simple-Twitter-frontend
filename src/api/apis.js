@@ -85,9 +85,9 @@ export const getTweetDetail = async (tweetId) => {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
-    }).then((res) => {
-      return res.data
-    })
+    }).then((response) => {
+      return response.data;
+    });
   } catch (error) {
     console.error('Get TodoData Failed :', error);
   }
@@ -117,13 +117,41 @@ export const getAdminUser = async () => {
   try {
     const response = await axios.get(`${baseUrl}/admin/users`, {
       headers: {
-        Authorization:
-          `Bearer ` +
-          `token`,
+        Authorization: `Bearer ${authToken}`,
       },
     });
     return response.data;
   } catch (error) {
-    console.error('[Admin Get All Users failed]: ', error);
+    console.error('[Get Admin All Users failed]: ', error);
+  }
+};
+
+//get adminTweet
+
+export const getAdminTweet = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/admin/tweets`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('[Get Admin All Tweets failed]: ', error);
+  }
+};
+
+//del adminTweet
+
+export const delAdminTweet = async (id) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/admin/tweets/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('[Delete Admin one Tweet failed]: ', error);
   }
 };
