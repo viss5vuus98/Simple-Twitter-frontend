@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const loginURL = 'https://still-cove-80123.herokuapp.com/api/login';
 const usersURL = 'https://still-cove-80123.herokuapp.com/api/users';
-
+const AdminLoginURL = 'https://still-cove-80123.herokuapp.com/api/admin/login';
 
 //註冊
 export const register = async ({ account, name, email, password, checkPassword }) => {
@@ -51,6 +51,23 @@ export const login = async ({ account, password }) => {
 };
 
 
+
+//後台登入
+export const adminLogin = async ({ account, password }) => {
+  try {
+    const { data } = await axios.post(`${AdminLoginURL}`, {
+      account,
+      password,
+    });
+
+    if (data.data.token) {
+      return { success: true, data: data.data.token };
+    }
+    return data;
+  } catch (error) {
+    console.error('[Login Failed]:', error.response.data);
+  }
+};
 
 
 //串接 test-token
