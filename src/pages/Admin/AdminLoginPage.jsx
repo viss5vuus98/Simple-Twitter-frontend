@@ -3,7 +3,7 @@ import logo from '../../assets/images/ACLogoIcon.svg';
 import AuthInput from '../../components/Common_/AuthInput';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { adminLogin } from '../../api/adminAuth';
+import { adminLogin } from '../../api/auth';
 import Swal from 'sweetalert2';
 
 const AdminLoginPage = () => {

@@ -1,10 +1,9 @@
-import { AdminNavBar } from "components";
-
+import AdminUserList from '../../components/Admin/AdminUserList';
 const AdminUserPage = () => {
   return (
     <>
       <section>
-        <AdminNavBar/>
+        <AdminUserList/>
       </section>
     </>
   );

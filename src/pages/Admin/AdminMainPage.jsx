@@ -1,9 +1,9 @@
-import { AdminTweet } from "components";
+import AdminTweetList from '../../components/Admin/AdminTweetList';
 
 const AdminMainPage = () => {
   return (
     <section>
-      <AdminTweet/>
+      <AdminTweetList />
     </section>
   );
 };
