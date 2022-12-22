@@ -5,7 +5,7 @@ import {
   likeCount,
 } from '../../assets/images/index';
 import { useState, useEffect } from 'react';
-import { getAdminUser } from '../../api/adminUser';
+import { getAdminUser } from '../../api/apis';
 
 
 
@@ -88,7 +88,7 @@ function AdminUserPage() {
             account={user.account}
             name={user.name}
             tweetAmount={user.tweetAmount}
-            likedAmount={user.likeAmount}
+            likedAmount={user.likedAmount}
             followingAmount={user.followingAmount}
             followerAmount={user.followerAmount}
           />
