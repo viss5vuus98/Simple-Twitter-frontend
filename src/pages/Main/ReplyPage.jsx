@@ -2,18 +2,20 @@ import { ReplyList, TweetDetail } from 'components';
 import { arrow } from '../../assets/images/index';
 import style from './midContent.module.scss'
 import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
-import { getTweetDetail, getReplys} from '../../api/apis';
+import { useParams, useNavigate } from "react-router-dom";
+import { getTweetDetail, getReplys, chengeLike} from '../../api/apis';
 import moment from 'moment/moment';
 import cnFormat from '../../assets/timeFormat'
+import { useModal } from 'contexts/userContext';
 
 moment.locale('zh-tw', cnFormat);
 
 
-const ReplyPage = ({matches}) => {
+
+const ReplyPage = () => {
   const [ tweetData, setTweetData ] = useState({
     id: 0,
-    description: "",
+    description: "......",
     UserId: 0,
     createdAt: "2022-12-17T18:18:01.000Z",
     updatedAt: "2022-12-17T18:18:01.000Z",
@@ -26,10 +28,29 @@ const ReplyPage = ({matches}) => {
     replyAmount: 3,
     likeAmount: 3
   })
+  //replyData
   const [ replyList, setReplyList ] = useState([])
-  
+  const { getTweetId } = useModal()
   //取得動態參數
   let { id } = useParams();
+  //管理上一頁
+  let navigate = useNavigate();
+
+  const handleChangeLike = (tweetId, isLike) => {
+    const postLikeAsync = async () => {
+      try {
+        const res = await chengeLike(tweetId,  !isLike);
+        console.log(res)
+        // setTweetData(
+        //   {...res, ...User}
+        // );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    postLikeAsync();
+  };
+
   //DetailData
   useEffect( () => {
     const getTweetDetailAsync = async () => {
@@ -60,15 +81,16 @@ const ReplyPage = ({matches}) => {
       }
     };
     getReplyAsync();
-  }, [id]);
+    getTweetId(id)
+  }, [id, getTweetId]);
 
   return (
     <>
-      <div className={style.header}>
+      <div className={style.header} onClick={()=> {navigate(-1)}}>
         <img className={style.arrow} src={arrow} alt="" />
         <h4 className={style.title}>推文</h4>
       </div>
-      <TweetDetail tweetData={tweetData}/>
+      <TweetDetail tweetData={tweetData} onChangeLike={handleChangeLike}/>
       <ReplyList replyData={replyList}/>
     </>
   );

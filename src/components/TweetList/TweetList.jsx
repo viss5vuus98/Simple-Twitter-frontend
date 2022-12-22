@@ -6,33 +6,31 @@ import { chengeLike } from '../../api/apis';
 
 const TweetList = ({tweetData, setTweetData}) => {
 
-  const handleChangeLike = (tweetId) => {
-    const isLike = tweetData.filter((tweet) => (tweet.id = tweetId)).isLike;
-    console.log(isLike)
+  const handleChangeLike = (tweetId, isLike) => {
     const postLikeAsync = async () => {
       try {
         const res = await chengeLike(tweetId,  !isLike);
-        // setTweetData(
-        //   tweetData.map((tweet) => {
-        //     if (tweet.id === tweetId) {
-        //       return {
-        //         ...tweet,
-        //         User: {
-        //           ...tweet.User
-        //         },
-        //         isLike: res.isLike, //換成response的資料like
-        //       };
-        //     }
-        //     return {...tweet};
-        //   }),
-        // );
+        setTweetData(
+          tweetData.map((tweet) => {
+            if (tweet.id === res.id) {
+              return {
+                ...tweet,
+                User: {
+                  ...tweet.User
+                },
+                isLike: res.islike, //換成response的資料like
+              };
+            }
+            return {...tweet, User: {...tweet.User}};
+          }),
+        );
       } catch (error) {
         console.error(error);
       }
     };
     postLikeAsync();
   };
-  const Tweets = tweetData.map((item) => {
+  let Tweets = tweetData.map((item) => {
     return (
       <TweetItem key={item.id} {...item} onChangeLike={handleChangeLike} />
     );

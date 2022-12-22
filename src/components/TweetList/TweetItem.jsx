@@ -4,7 +4,7 @@ import moment from 'moment';
 import style from './TweetItem.module.scss';
 //asset
 import { like, unLike, vector, avatar } from '../../assets/images/index';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const TweetItem = (props) => {
   return (
@@ -22,14 +22,14 @@ const TweetItem = (props) => {
         </div>
         <p className={style.tweetText}>{props.description}</p>
         <div className={style.tweetControl}>
-          <NavLink className={style.vectorSection} to={`reply/${props.id}`}>
+          <Link className={style.vectorSection} to={`reply/${props.id}`}>
             <img src={vector} alt="" className={style.vector} />
             <p>{props.replyAmount}</p>
-          </NavLink>
+          </Link>
           <button
             className={style.likeSection}
             onClick={() => {
-              props.onChangeLike(props.id);
+              props.onChangeLike(props.id, props.isLike);
             }}
           >
             {props.isLike ? (

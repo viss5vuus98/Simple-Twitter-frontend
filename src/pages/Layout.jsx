@@ -1,7 +1,9 @@
 import { AdminNavBar, PopularUserList, TweetModal, ReplyModal, EditModal } from "components";
+//hook
 import { useState } from "react";
+import { ModalContextProvider } from '../contexts/userContext'
+//asset
 import { home, user, set} from '../assets/images/index'
-
 //scss
 import style from './layout.module.scss'
 
@@ -46,7 +48,7 @@ const Layout = ({children}) => {
   const [ currentLayout, setCurrentLayout ] = useState(userFunction)
   //modal彈出狀態 true出現／false關
   const [ modalState, setModalState ] = useState('none')
-
+  const [ currentTweetId, setCurrentTweetId ] = useState(0)
   //處理Layout更換邏輯
   const handleChangeLayout = (layoutName) => {
     if(layoutName === 'user'){
@@ -74,8 +76,17 @@ const Layout = ({children}) => {
     setModalState(currentModal)
   }
 
+  //取得當前回文
+  const handleGetCurrentTweetId = (tweetId) => {
+    setCurrentTweetId(tweetId)
+  }
   return (
     <>
+      <ModalContextProvider 
+      handleModalState={handleModalState} 
+      currentTweetId={currentTweetId}
+      getTweetId={handleGetCurrentTweetId}
+      >
       <AdminNavBar className={style.navbar} 
       funItems={currentLayout} 
       isAdmin={Object.is(adminFunction,currentLayout)}
@@ -86,6 +97,7 @@ const Layout = ({children}) => {
       <TweetModal isHidden={modalState === 'tweetModal'} onCloseModal={handleModalState}/>
       <ReplyModal isHidden={modalState === 'replyModal'} onCloseModal={handleModalState}/>
       <EditModal isHidden={modalState === 'editModal'} onCloseModal={handleModalState}/>
+      </ModalContextProvider>
     </>
   );
 };

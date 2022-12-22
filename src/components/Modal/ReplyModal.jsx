@@ -1,14 +1,35 @@
 import style from './replyModal.module.scss'
 import { avatar } from '../../assets/images/index';
 import close from '../../assets/images/close.svg'
+import { useState } from 'react';
+import { useParams } from "react-router-dom";
+import { useModal } from 'contexts/userContext';
+import { postReply } from '../../api/apis'
 
 const ReplyModal = ({isHidden, onCloseModal}) => {
+  const [ input, setInput ] = useState()
+  //取得動態參數
+  const { currentTweetId } = useModal()
+
+  const handleSubmit = async (value) => {
+    try{
+      await postReply(value, currentTweetId)
+      setInput('')
+      onCloseModal?.('none')
+    }catch(error){
+
+    }
+  }
+
   return (
     <>
       <section className={`${!isHidden && style.hidden} ${style.modal}`}>
         <div className={style.modalHeader}>
             <button className={style.close} style={{ backgroundImage: `url(${close})` }}
-            onClick={() => {onCloseModal?.('none')}}            
+            onClick={() => {
+              onCloseModal?.('none')
+              setInput('')
+            }}            
             ></button>
         </div>
         <div className={style.tweetItem}>
@@ -38,11 +59,19 @@ const ReplyModal = ({isHidden, onCloseModal}) => {
             <textarea
               className={style.input}
               type="text"
-              placeholder="有什麼新鮮事？"
+              placeholder="想要說什麼？"
+              value={input}
+              onChange={(e)=>setInput(e.target.value)}
             />
           </div>
           <div className={style.submitControl}>
-              <button className={style.submitBtn}>推文</button>
+              <button 
+              className={style.submitBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(input)
+              }}
+              >回文</button>
           </div>
         </form>
       </section>

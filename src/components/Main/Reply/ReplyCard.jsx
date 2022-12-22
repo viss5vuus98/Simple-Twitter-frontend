@@ -4,6 +4,7 @@ import moment from 'moment/moment';
 moment.locale('zh-tw')
 
 const ReplyCard = ({replyData}) => {
+
   return (
     <div className={style.replyContent}>
       <div className={style.header}>
