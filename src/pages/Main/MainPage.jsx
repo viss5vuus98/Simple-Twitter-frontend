@@ -27,7 +27,8 @@ const MainPage = () => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
-        setTweetData(tweets.data)
+        setTweetData([...tweets.data])
+        setUserInput('')
       } catch (error) {
         console.error(error);
       }
@@ -47,6 +48,8 @@ const MainPage = () => {
       return;
     }
     await postTweet(value)
+    const tweets = await getTweets();
+    setTweetData(tweets.data)
   }
 
 

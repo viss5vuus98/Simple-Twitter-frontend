@@ -1,29 +1,31 @@
 import style from './tweetDetail.module.scss';
 import { like, vector } from '../../assets/images/index';
+import { Link } from 'react-router-dom';
 
-const TweetDetail = (props) => {
+const TweetDetail = ({tweetData}) => {
   return (
     <div className={style.tweet_container}>
       <div className={style.tweet_header}>
         <div className={style.avatar}>
-          <img src={props.tweetData} alt="" />
+          <img src={tweetData.User.avatar} alt="" />
         </div>
         <div>
-          <p className={style.userName}>Apple</p>
-          <p className={style.userAcc}>@apple</p>
+          <p className={style.userName}>{tweetData.User.name}</p>
+          <Link to={`/self/${tweetData.User.id}`}>
+            <p className={style.userAcc}>@{tweetData.User.account}</p>
+          </Link>
         </div>
       </div>
       <p className={style.tweet_body}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem earum
-        asperiores qui libero. Officia culpa voluptatibus perferendis.
+        {tweetData.description}
       </p>
-      <p className={style.time}>上午 10:05。2022年11月10號</p>
+      <p className={style.time}>{tweetData.createdAt}</p>
       <div className={style.tweet_footer}>
         <p>
-          34 <span>回覆</span>
+          {tweetData.replyAmount} <span>回覆</span>
         </p>
         <p>
-          808 <span>喜歡次數</span>
+          {tweetData.likeAmount} <span>喜歡次數</span>
         </p>
       </div>
       <div className={style.tweet_control}>

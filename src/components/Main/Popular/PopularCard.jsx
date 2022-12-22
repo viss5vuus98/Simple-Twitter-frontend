@@ -18,8 +18,8 @@ const PopularCard = (props) => {
           {props.account ? `@${props.account}` : '@noOne'}
         </p>
       </div>
-      <div className={style.followControl} onClick={() => {props.onClick?.(props.id)}}>
-          <button className={`${style.followBtn} ${props.isFollowed && style.isFollowing}`}>{props.isFollowed ?'正在跟隨': '跟隨'}</button>       
+      <div className={style.followControl} onClick={() => {props.onClick?.(props.id, props.isFollow)}}>
+          <button className={`${style.followBtn} ${props.isFollow && style.isFollowing}`}>{props.isFollow ?'正在跟隨': '跟隨'}</button>       
       </div>
     </div>
   )

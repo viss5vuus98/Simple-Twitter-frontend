@@ -4,6 +4,7 @@
   @extend %container-border;
   background-color: #fff;
   width: 100%;
+  min-height: 130px;
   padding: 16px 23px;
   display: flex;
   flex-direction: column;
@@ -19,6 +20,7 @@
   .replyInfo {
     display: flex;
     align-items: baseline;
+    margin-bottom: 8px;
   }
   p.name {
     font-weight: bold;
@@ -35,6 +37,7 @@
     text-align: start;
     color: $secondary;
     font-size: 14px;
+    line-height: 22px;
     span {
       color: $body-color;
     }
@@ -42,10 +45,10 @@
 }
 .messageContent {
   width: 100%;
+  padding-left: 55px;
   p {
     width: 80%;
-    margin: 0 auto;
-    text-align: left;
+    text-align: justify;
     padding: 0 4px;
   }
 }
