@@ -34,8 +34,50 @@
   width: 100%;
   height: 200px;
   margin-bottom: 80px;
+  position: relative;
+  &:hover {
+    opacity: 0.8;
+  }
   .image {
     object-fit: cover;
+  }
+  .bannerUpload {
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    display: none;
+  }
+  .bannerControl {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    z-index: 20;
+    &:hover{
+      & .uploadBanner,
+      & .deleteBanner{
+        display: block;
+      }
+    }
+  }
+  .uploadBanner {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background-size: 100%, 100%;
+    z-index: 99;
+  }
+  .deleteBanner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    background-size: 100%, 100%;
+    z-index: 99;
   }
 }
 
@@ -50,17 +92,10 @@
   }
   .avatar {
     @extend %avatar-min;
+    &:hover {
+      opacity: .1;
+    }
   }
-  // .input {
-  //   -webkit-appearance: none;
-  //   -moz-appearance: none;
-  //   resize:none;
-  //   height: 200px;
-  //   width: 450px;
-  //   flex: 1;
-  //   padding: 1rem 0;
-  //   border: 0;
-  // }
 }
 
 .tweetItem {
@@ -188,7 +223,28 @@
   color: #696974;
 }
 
-
 .hidden {
   display: none;
+}
+
+.avatarUpload {
+  border: 1px solid #000;
+  height: 150px;
+  width: 150px;
+  display: none;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: 20;
+}
+
+.uploadBtn {
+  height: 24px;
+  width: 24px;
+  background-size: 100%, 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
 }

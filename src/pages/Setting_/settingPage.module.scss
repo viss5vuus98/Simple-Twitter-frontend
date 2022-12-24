@@ -1,0 +1,35 @@
+
+@import '../../basicStyle.scss';
+
+.header {
+  @extend %container-border;
+  border-bottom: 0px;
+  height: 74px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+.title {
+  font-weight: 700;
+  line-height: 26px;
+  cursor: pointer;
+}
+.form {
+  @extend %container-border;
+  height: 100vh;
+  background-color: #fff;
+  padding: 24px 23px;
+}
+.text_container {
+  @extend %input-style;
+  margin-bottom: 2rem;
+}
+.formControl{
+  text-align: end;
+}
+.submitBtn {
+  @extend %main-button;
+  background-color: $body-color;
+  color: #fff;
+}

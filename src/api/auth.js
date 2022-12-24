@@ -39,7 +39,7 @@ export const login = async ({ account, password }) => {
     });
     if (data.data.token) {
       tokenAuthenticate();
-      return { success: true, data: data.data.token };
+      return { success: true, data: data.data };
     }
     return data;
     

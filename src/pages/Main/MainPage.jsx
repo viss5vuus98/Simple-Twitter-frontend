@@ -2,7 +2,7 @@ import { TweetList, UserPost } from 'components';
 import style from './midContent.module.scss';
 import { useState, useEffect } from 'react';
 import { postTweet, getTweets } from '../../api/apis'
-
+import { useModal } from 'contexts/userContext';
 const MainPage = () => {
   const [ userInput, setUserInput ] = useState('')
   const [ tweetData, setTweetData ] = useState(
@@ -23,18 +23,29 @@ const MainPage = () => {
         likedAmount: 0,
       }]
   );
+  const { userData } = useModal()
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
-        setTweetData([...tweets.data])
+        setTweetData(tweets.data.map(tweet => {
+          return (
+            {
+              ...tweet,
+              User: {
+                ...tweet.User,
+                route: (userData.id === tweet.User.id ? '/user' : `/user/${tweet.User.id}`)
+              }
+            }
+          )
+        }))
         setUserInput('')
       } catch (error) {
         console.error(error);
       }
     };
     getTweetsAsync();
-  }, []);
+  }, [userData.id]);
 
   const handleChange = (value) => {
     if(value.length >= 120 ){
@@ -57,7 +68,7 @@ const MainPage = () => {
       <div className={style.header}>
         <h4 className={style.title}>首頁</h4>
       </div>
-      <UserPost onChange={handleChange} value={userInput} onSubmit={handleSubmit}/>
+      <UserPost onChange={handleChange} value={userInput} onSubmit={handleSubmit} avatar={userData.avatar}/>
       <TweetList tweetData={tweetData} setTweetData={setTweetData}/>
     </>
   );

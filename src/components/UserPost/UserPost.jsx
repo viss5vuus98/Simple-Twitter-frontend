@@ -1,7 +1,6 @@
 import style from './UserPost.module.scss'
-import { avatar } from '../../assets/images/index';
 
-const UserPost = ({onChange, value, onSubmit}) => {
+const UserPost = ({onChange, value, onSubmit, avatar}) => {
   return (
     <form className={style.form}>
       <div className={style.formControl}>

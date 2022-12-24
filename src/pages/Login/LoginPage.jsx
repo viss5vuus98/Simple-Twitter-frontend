@@ -5,11 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { login } from '../../api/auth';
 import Swal from 'sweetalert2';
+import { useModal } from 'contexts/userContext';
 
 const LoginPage = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { onLogin } = useModal()
 
   const handleClick = async () => {
     if (account.length === 0) {
@@ -23,11 +25,9 @@ const LoginPage = () => {
       account,
       password,
     });
-    const authToken = data.data;
-
+    const authToken = data.data.token;
     if (data.success) {
       localStorage.setItem('authToken', authToken);
-
       // 登入成功訊息
       Swal.fire({
         position: 'top',
@@ -37,6 +37,9 @@ const LoginPage = () => {
         showConfirmButton: false,
       });
       navigate('/main');
+      //TODO:這邊加一個判斷是Admin或User
+      onLogin('user')
+      localStorage.setItem("userId", data.data.user.id)
       return;
     }
 

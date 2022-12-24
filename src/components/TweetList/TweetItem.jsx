@@ -3,41 +3,41 @@ import moment from 'moment';
 //style
 import style from './TweetItem.module.scss';
 //asset
-import { like, unLike, vector, avatar } from '../../assets/images/index';
+import { like, unLike, vector } from '../../assets/images/index';
 import { Link } from 'react-router-dom';
 
-const TweetItem = (props) => {
+const TweetItem = ({ tweetData, onChangeLike}) => {
   return (
     <div className={style.tweetItem}>
       <div className={style.avatar}>
-        <img src={avatar} alt="" />
+        <img src={tweetData.User.avatar} alt="" />
       </div>
       <div className={style.tweetBody}>
         <div className={style.tweetTitle}>
-          <p>{props.User.name}</p>
+          <Link className={style.link} to={`${tweetData.User.route || ''}`} ><p>{tweetData.User.name}</p></Link>
           <span>
-            @{props.User.userAccount} {' '}
-            {moment(props.createdAt).startOf('day').fromNow()}
+            @{tweetData.User.userAccount} {' '}
+            {moment(tweetData.createdAt).startOf('day').fromNow()}
           </span>
         </div>
-        <p className={style.tweetText}>{props.description}</p>
+        <p className={style.tweetText}>{tweetData.description}</p>
         <div className={style.tweetControl}>
-          <Link className={style.vectorSection} to={`reply/${props.id}`}>
+          <Link className={style.vectorSection} to={`reply/${tweetData.id}`}>
             <img src={vector} alt="" className={style.vector} />
-            <p>{props.replyAmount}</p>
+            <p>{tweetData.replyAmount}</p>
           </Link>
           <button
             className={style.likeSection}
             onClick={() => {
-              props.onChangeLike(props.id, props.isLike);
+              onChangeLike(tweetData.id, tweetData.isLike);
             }}
           >
-            {props.isLike ? (
+            {tweetData.isLike ? (
               <img src={like} alt="" className={style.like} />
             ) : (
               <img src={unLike} alt="" className={style.like} />
             )}
-            <p>{props.likedAmount}</p>
+            <p>{tweetData.likedAmount}</p>
           </button>
         </div>
       </div>
