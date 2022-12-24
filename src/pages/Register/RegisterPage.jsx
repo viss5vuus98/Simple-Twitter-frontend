@@ -66,9 +66,9 @@ const RegisterPage = () => {
       <div>
         <img src={logo} alt="title" className={style.logo} />
       </div>
-      <h3>建立你的帳號</h3>
+      <h3 className={style.title}>建立你的帳號</h3>
 
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           label={'帳號'}
           value={account}
@@ -76,7 +76,7 @@ const RegisterPage = () => {
           onChange={(accountInputValue) => setAccount(accountInputValue)}
         />
       </div>
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           label={'名稱'}
           value={name}
@@ -84,7 +84,7 @@ const RegisterPage = () => {
           onChange={(nameInputValue) => setName(nameInputValue)}
         />
       </div>
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           label={'Email'}
           value={email}
@@ -92,7 +92,7 @@ const RegisterPage = () => {
           onChange={(emailInputValue) => setEmail(emailInputValue)}
         />
       </div>
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           type="password"
           label="密碼"
@@ -101,7 +101,7 @@ const RegisterPage = () => {
           onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         />
       </div>
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           type="password"
           label="驗證密碼"

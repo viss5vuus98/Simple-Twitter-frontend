@@ -14,7 +14,10 @@ const SettingPage = () => {
 
   const handleSubmit = () => {
     const upLoadUserSet = async () => {
-      await EditUserAccount(userData.id);     
+      const account = editAccount || userData.account
+      const name = editName || userData.name
+      const email = editEmail || userData.email
+      await EditUserAccount(userData.id, account, name, email, password, checkPassword);     
     }
     upLoadUserSet()
   }
@@ -56,7 +59,7 @@ const SettingPage = () => {
               <div className={style.label}>密碼</div>
                 <input
                   className={style.input}
-                  type='text'
+                  type='password'
                   value={password}
                   onChange={(e)=>setPassword(e.target.value)}
                 />
@@ -65,7 +68,7 @@ const SettingPage = () => {
               <div className={style.label}>確認密碼</div>
                 <input
                   className={style.input}
-                  type='text'
+                  type='password'
                   value={checkPassword}
                   onChange={(e)=>setCheckPassword(e.target.value)}
                 />

@@ -45,7 +45,9 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
   }
 
   const handleSubmit = () => {
-    onUpload(editName, editInfo, editAvatar, editBanner)
+    const avatar = inputRef.current.files[0]
+    const banner = bannerRef.current.files[0]
+    onUpload(editName, avatar, banner, editInfo)
   }
 
   return (
