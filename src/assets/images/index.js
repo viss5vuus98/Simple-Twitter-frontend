@@ -11,5 +11,6 @@ import set from './seticon.svg'
 import user from './user.svg'
 import home from './homeicon.svg'
 import logout from './logout.svg'
-
-export { like, unLike, vector, avatar, arrow, userBanner, userAvatar, postIcon, likeCount, set, user, home, logout};
+import uploadIcon from './avatarIcon.svg'
+import closeWhite from './closeWhite.svg'
+export { like, unLike, vector, avatar, arrow, userBanner, userAvatar, postIcon, likeCount, set, user, home, logout, uploadIcon, closeWhite};

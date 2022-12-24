@@ -1,13 +1,14 @@
 import { AdminNavBar, PopularUserList, TweetModal, ReplyModal, EditModal } from "components";
 //hook
 import { useState, useEffect } from "react";
-import { ModalContextProvider } from '../contexts/userContext'
+import { ModalContextProvider, UserContextProvider } from '../contexts/userContext'
 //asset
 import { home, user, set} from '../assets/images/index'
 //scss
 import style from './layout.module.scss'
 //API
 import { tokenAuthenticate } from '../api/auth'
+import { getUserInfo, EditUserInfo } from '../api/usersApi'
 //Route
 import { useNavigate } from 'react-router-dom';
 
@@ -20,13 +21,13 @@ const userFunction = [
   },
     {
     name: '個人資料',
-    link: '/user/self',
+    link: '/user',
     id: 2,
     icon: user
   },
     {
     name: '設定',
-    link: '/reply',
+    link: '/setting',
     id: 3,
     icon: set
   }
@@ -56,6 +57,10 @@ const Layout = ({children}) => {
   const [ currentTweetId, setCurrentTweetId ] = useState(0)
   //登入狀態
   const [ authorize, setAuthorized ] = useState(false)
+  //當前UserId
+  const [ currentUserId, setCurrentUserId ] = useState(0)
+  //UserInfo
+  const [ userInfo, setUserInfo ] = useState({})
   const navigate = useNavigate();
 
   //處理Layout更換邏輯
@@ -86,6 +91,7 @@ const Layout = ({children}) => {
   }
   const handleLogout = async () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId')
     const { status } = await tokenAuthenticate()
     setAuthorized((status ==='authorized'))
     navigate('/login');
@@ -99,15 +105,48 @@ const Layout = ({children}) => {
     const { status } = await tokenAuthenticate()
     console.log(status)
     setAuthorized((status ==='authorized'))
+    const currentUser = localStorage.getItem('userId') || ''
+    setCurrentUserId(currentUser)
   }
-  checkoutTokenAsync()
+  
+  const handleSubmitEditUser = (editName, avatar, banner, editInfo) => {
+    const editInfoAsync = async () => {
+      try{
+        const data = await EditUserInfo(currentUserId, editName, avatar, banner, editInfo)
+        const updateData = {
+          ...userInfo,
+          ...data
+        }
+        setUserInfo(updateData)
+      }catch(error){
+        console.error(error)
+      }
+    }
+    editInfoAsync()
+  }
 
+  useEffect(() => {
+    const getUser = async () => {
+      if(currentUserId <= 0){
+        return
+      }
+      const data = await getUserInfo(currentUserId)
+      setUserInfo({
+        ...data
+      })
+    }
+    getUser()
+  }, [currentUserId])
+
+  checkoutTokenAsync()
   return (
     <>
       <ModalContextProvider 
       handleModalState={handleModalState} 
       currentTweetId={currentTweetId}
       getTweetId={handleGetCurrentTweetId}
+      onLogin={handleChangeLayout}
+      userData={userInfo}
       >
       { authorize && <AdminNavBar className={style.navbar} 
       funItems={currentLayout} 
@@ -117,9 +156,9 @@ const Layout = ({children}) => {
       />}
       <section className={style.main}>{children}</section>
       { authorize && <PopularUserList className={style.popBox} />}
+      <EditModal isHidden={modalState === 'editModal'} onCloseModal={handleModalState} onUpload={handleSubmitEditUser}/>
       <TweetModal isHidden={modalState === 'tweetModal'} onCloseModal={handleModalState}/>
       <ReplyModal isHidden={modalState === 'replyModal'} onCloseModal={handleModalState}/>
-      <EditModal isHidden={modalState === 'editModal'} onCloseModal={handleModalState}/>
       </ModalContextProvider>
     </>
   );

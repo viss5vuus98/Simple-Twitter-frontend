@@ -27,5 +27,5 @@ export {
   UserMainPage,
   UserReplyPage,
   UserLikePage,
-  Layout
+  Layout,
 };

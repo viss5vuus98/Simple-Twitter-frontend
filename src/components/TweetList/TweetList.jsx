@@ -2,9 +2,11 @@
 import TweetItem from './TweetItem';
 //web api
 import { chengeLike } from '../../api/apis';
+import { useModal } from 'contexts/userContext';
 
 
 const TweetList = ({tweetData, setTweetData}) => {
+  const { userData } = useModal()
 
   const handleChangeLike = (tweetId, isLike) => {
     const postLikeAsync = async () => {
@@ -17,10 +19,10 @@ const TweetList = ({tweetData, setTweetData}) => {
               return {
                 ...tweet,
                 User: {
-                  ...tweet.User
+                  ...tweet.User,                  
                 },
                 isLike: res.islike, //換成response的資料like
-                likedAmount: (!isLike ? tweet.likedAmount + 1 : tweet.likedAmount -1)
+                likedAmount: (!isLike ? tweet.likedAmount + 1 : tweet.likedAmount -1),
               };
             }
             return {...tweet, User: {...tweet.User}};
@@ -34,7 +36,7 @@ const TweetList = ({tweetData, setTweetData}) => {
   };
   let Tweets = tweetData.map((item) => {
     return (
-      <TweetItem key={item.id} {...item} onChangeLike={handleChangeLike} />
+      <TweetItem key={item.id} tweetData={{...item, User: {...item.User}}} onChangeLike={handleChangeLike} />
     );
   });
 

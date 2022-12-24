@@ -16,15 +16,17 @@
   }
 }
 .avatar {
+  width: 140px;
+  height: 140px;
+  border: 0px;
   position: absolute;
   top: 50%;
   left: 16px;
   transform: translateY(-50%);
-  border-radius: 50%;
-  border: 4px solid #fff;
   img {
-    border: 0px;
     object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
   }
 }
 
@@ -37,6 +39,15 @@
     .setInfoBtn {
       width: 130px;
       @extend %main-button;
+    }
+    .followBtn {
+      @extend %main-button;
+      width: 100%;
+      max-width: 130px;
+    }
+    .isFollowing {
+      background-color: $body-color;
+      color: #fff
     }
   }
   .name {
