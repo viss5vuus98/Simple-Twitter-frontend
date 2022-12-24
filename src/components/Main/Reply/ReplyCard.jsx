@@ -19,7 +19,7 @@ const ReplyCard = ({replyData}) => {
           </div>
           <div className={style.userLink}>
             回覆
-            <span>@apply</span>
+            <span>@{replyData.repliedAccount}</span>
           </div>
         </div>
       </div>

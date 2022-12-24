@@ -85,14 +85,14 @@ const ReplyPage = () => {
   }, [id, getTweetId]);
 
   return (
-    <>
+    <section>
       <div className={style.header} onClick={()=> {navigate(-1)}}>
         <img className={style.arrow} src={arrow} alt="" />
         <h4 className={style.title}>推文</h4>
       </div>
       <TweetDetail tweetData={tweetData} onChangeLike={handleChangeLike}/>
       <ReplyList replyData={replyList}/>
-    </>
+    </section>
   );
 }
 

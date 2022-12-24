@@ -113,3 +113,11 @@
   }
 }
 //UserTab ***END***
+.link {
+  color: $text-color;
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+    font-size: 15px;
+  }
+}

@@ -88,8 +88,7 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
                 <input
                   className={style.input}
                   type='text'
-                  placeholder={userData.name}
-                  value={editName}
+                  defaultValue={editName || userData.name}
                   onChange={(e)=>setEditName(e.target.value)}
                 />
               </div>
@@ -100,8 +99,7 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
             <div className={style.textarea_container}>
               <div className={style.label}>自我介紹</div>
               <textarea className={style.textarea}
-                placeholder={userData.introduction}
-                value={editInfo}
+                defaultValue={editInfo || userData.introduction}
                 onChange={(e)=>setEditInfo(e.target.value)}
               >
               </textarea>

@@ -4,7 +4,7 @@ import close from '../../assets/images/close.svg'
 import { useState } from 'react';
 import { postTweet } from '../../api/apis'
 import { useModal } from 'contexts/userContext';
-
+import Swal from 'sweetalert2';
 const TweetModal = ({isHidden, onCloseModal}) => {
   const [ input, setInput ] = useState('')
   const { handleModalState } = useModal()
@@ -46,7 +46,14 @@ const TweetModal = ({isHidden, onCloseModal}) => {
                 e.preventDefault();
                 await handleSubmit(input)
                 handleModalState('none')
-                window.location.reload()
+                Swal.fire({
+                toast: true,
+                position: 'top-end',
+                title: '修改成功！',
+                timer: 1000,
+                icon: 'success',
+                showConfirmButton: false,
+                });
             }}
             >推文</button>
           </div>

@@ -2,7 +2,7 @@ import style from './settingPage.module.scss'
 import { useModal } from 'contexts/userContext'
 import { useState } from 'react'
 import { EditUserAccount } from '../../api/usersApi'
-
+import Swal from 'sweetalert2';
 
 const SettingPage = () => {
   const { userData } = useModal()
@@ -17,12 +17,54 @@ const SettingPage = () => {
       const account = editAccount || userData.account
       const name = editName || userData.name
       const email = editEmail || userData.email
-      await EditUserAccount(userData.id, account, name, email, password, checkPassword);     
+      if(password !== checkPassword){
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          title: '密碼與確認密碼不相同',
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+        return 
+      }
+      if(password.trim().length < 8){
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          title: '密碼與確認密碼不相同',
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+        return
+      }
+      try{
+        await EditUserAccount(userData.id, account, name, email, password, checkPassword);
+          Swal.fire({
+          toast: true,
+          position: 'top-end',
+          title: '修改成功！',
+          timer: 1000,
+          icon: 'success',
+          showConfirmButton: false,
+        });
+      }catch(error){
+        console.error(error)
+          Swal.fire({
+          toast: true,
+          position: 'top-end',
+          title: `修改失敗 原因:${error}`,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+      }
     }
     upLoadUserSet()
   }
   return (
-    <>
+    <section>
       <div className={style.header}>
         <h4 className={style.title}>帳戶設定</h4>
       </div>
@@ -81,7 +123,7 @@ const SettingPage = () => {
             </div>
         </div>
       </form>
-    </>
+    </section>
   )
 }
 

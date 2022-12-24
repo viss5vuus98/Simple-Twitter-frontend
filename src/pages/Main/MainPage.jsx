@@ -64,13 +64,13 @@ const MainPage = () => {
 
 
   return (
-    <>
+    <section>
       <div className={style.header}>
         <h4 className={style.title}>首頁</h4>
       </div>
       <UserPost onChange={handleChange} value={userInput} onSubmit={handleSubmit} avatar={userData.avatar}/>
       <TweetList tweetData={tweetData} setTweetData={setTweetData}/>
-    </>
+    </section>
   );
 };
 
