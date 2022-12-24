@@ -1,9 +1,6 @@
 
 @import '../../basicStyle.scss';
 
-section {
-  width: 689px;
-}
 .header {
   @extend %container-border;
   border-bottom: 0px;
