@@ -86,16 +86,17 @@ export const getUserInfo = async (userId) => {
 //PUT  api/users/:id 
 export const EditUserInfo = async (userId, name, avatar, background, introduction) => {
   const authToken = localStorage.getItem('authToken') || '';
+  const formData = new FormData()
+  formData.append("name", name)
+  formData.append("avatar", avatar)
+  formData.append("background", background)
+  formData.append("introduction", introduction)
   try{
     const res = await axios.put(`${baseUrl}/users/${userId}`,
-      {
-        name,
-        avatar,
-        background,
-        introduction
-      },{
+      formData,{
           headers: {
-          Authorization: `Bearer ${authToken}`
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'multipart/form-data'
         }
       })
       return res.data
@@ -180,15 +181,16 @@ export const getUserTweets = async (userId) => {
 //修改特定使用者『帳號』資料
 //PUT api/users/:id/setting
 
-export const EditUserAccount = async (userId, account, name, email, password) => {
+export const EditUserAccount = async (userId, account, name, email, password, checkPassword) => {
   const authToken = localStorage.getItem('authToken') || '';
   try{
     await axios.put(`${baseUrl}/users/${userId}/setting`,
       {
-        account,
         name,
+        account,
         email,
         password,
+        checkPassword
       },{
           headers: {
           Authorization: `Bearer ${authToken}`
