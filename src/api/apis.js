@@ -144,12 +144,12 @@ export const postReply = async (comment, tweetId) => {
 
 //get adminUser
 export const getAdminUser = async () => {
-  //const authToken = localStorage.getItem('authToken') || '';
+  const authToken = localStorage.getItem('authToken') || '';
   try {
     const response = await axios.get(`${baseUrl}/admin/users`, {
-      // headers: {
-      //   Authorization: `Bearer ${authToken}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     });
     return response.data;
   } catch (error) {
@@ -160,12 +160,12 @@ export const getAdminUser = async () => {
 //get adminTweet
 
 export const getAdminTweet = async () => {
-  //const authToken = localStorage.getItem('authToken') || '';
+  const authToken = localStorage.getItem('authToken') || '';
   try {
     const response = await axios.get(`${baseUrl}/admin/tweets`, {
-      // headers: {
-      //   Authorization: `Bearer ${authToken}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     });
     return response.data;
   } catch (error) {
@@ -176,12 +176,12 @@ export const getAdminTweet = async () => {
 //del adminTweet
 
 export const delAdminTweet = async (id) => {
-  //const authToken = localStorage.getItem('authToken') || '';
+  const authToken = localStorage.getItem('authToken') || '';
   try {
     const response = await axios.delete(`${baseUrl}/admin/tweets/${id}`, {
-      // headers: {
-      //   Authorization: `Bearer ${authToken}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     });
     return response.data;
   } catch (error) {

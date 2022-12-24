@@ -84,7 +84,7 @@ const UserMainPage = () => {
         const data = await followShip(userId)
         if(!data){
         return
-         }
+        }
         setData(data)
       }
     const unFollowShipAsync = async () => {
@@ -111,8 +111,7 @@ const UserMainPage = () => {
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
-        const tweets = await getTweets();
-        setTweetData([...tweets.data])
+        handleGetUserTweets('tweetList')
       } catch (error) {
         console.error(error);
       }
@@ -139,7 +138,7 @@ const UserMainPage = () => {
   }, [currentUserId, id])
   
   return (
-    <>
+    <section>
       <div 
       className={style.header}
       onClick={()=> {navigate(-1)}}
@@ -158,7 +157,7 @@ const UserMainPage = () => {
     tabName={activeTab}/>
     { !(activeTab === 'replyList') && <TweetList tweetData={tweetData} setTweetData={setTweetData}/> }
     {activeTab === 'replyList' && <ReplyList replyData={tweetData}/>}
-    </>
+    </section>
   )
 }
 

@@ -5,53 +5,54 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { adminLogin } from '../../api/auth';
 import Swal from 'sweetalert2';
+import { useModal } from 'contexts/userContext';
 
 const AdminLoginPage = () => {
-    const [account, setAdminAccount] = useState('');
-    const [password, setAdminPassword] = useState('');
-    const navigate = useNavigate();
+  const [account, setAdminAccount] = useState('');
+  const [password, setAdminPassword] = useState('');
+  const navigate = useNavigate();
+  const { adminLayout, changePop } = useModal();
+  const handleClick = async () => {
+    if (account.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+    try {
+      const data = await adminLogin({
+        account,
+        password,
+      });
+      const authToken = data.data;
+      changePop(false);
+      adminLayout();
+      if (data.success) {
+        localStorage.setItem('authToken', authToken);
+        // 登入成功訊息
+        Swal.fire({
+          position: 'top',
+          title: '登入成功！',
+          timer: 1000,
+          icon: 'success',
+          showConfirmButton: false,
+        });
+        navigate('/admin/main');
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
-const handleClick = async () => {
-  if (account.length === 0) {
-    return;
-  }
-  if (password.length === 0) {
-    return;
-  }
-
-   const data = await adminLogin({
-     account,
-     password,
-   });
-   const authToken = data.data;
-
-   if (data.success) {
-     localStorage.setItem('authToken', authToken);
-
-     // 登入成功訊息
-     Swal.fire({
-       position: 'top',
-       title: '登入成功！',
-       timer: 1000,
-       icon: 'success',
-       showConfirmButton: false,
-     });
-     navigate('/admin/main');
-     return;
-   }
-
-  // 登入失敗訊息
-  Swal.fire({
-    position: 'top',
-    title: '登入失敗！',
-    timer: 1000,
-    icon: 'error',
-    showConfirmButton: false,
-  });
-};
-
-
-
+    // 登入失敗訊息
+    Swal.fire({
+      position: 'top',
+      title: '登入失敗！',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
+  };
 
   return (
     <div className={style.adminLogin_container}>
@@ -65,9 +66,7 @@ const handleClick = async () => {
           label={'帳號'}
           value={account}
           placeholder={'請輸入帳號'}
-          onChange={(accountInputValue) =>
-            setAdminAccount(accountInputValue)
-          }
+          onChange={(accountInputValue) => setAdminAccount(accountInputValue)}
         />
       </div>
 
