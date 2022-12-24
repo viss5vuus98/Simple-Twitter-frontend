@@ -61,3 +61,33 @@ export const unFollowShip = async (followingId) => {
     console.error('[failed]: ', error);
   }
 };
+
+//GET api/users/:id/followings 
+export const getFollowingUsers = async (userId) => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try {
+    const response = await axios.get(`${baseUrl}/users/${userId}/followings`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Get Data Failed :', error);
+  }
+};
+
+//GET  api/users/:id
+export const getUserData = async (userId) => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try {
+    const response = await axios.get(`${baseUrl}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Get Data Failed :', error);
+  }
+};
