@@ -10,6 +10,7 @@ const TweetList = ({tweetData, setTweetData}) => {
     const postLikeAsync = async () => {
       try {
         const res = await chengeLike(tweetId,  !isLike);
+        if(res)
         setTweetData(
           tweetData.map((tweet) => {
             if (tweet.id === res.id) {
@@ -19,6 +20,7 @@ const TweetList = ({tweetData, setTweetData}) => {
                   ...tweet.User
                 },
                 isLike: res.islike, //換成response的資料like
+                likedAmount: (!isLike ? tweet.likedAmount + 1 : tweet.likedAmount -1)
               };
             }
             return {...tweet, User: {...tweet.User}};
