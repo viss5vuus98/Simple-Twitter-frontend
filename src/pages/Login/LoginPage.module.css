@@ -5,8 +5,6 @@
   padding: 0 24px;
   padding-top: 69px;
   background-color: #fff;
-  width: 400px;
-  margin-left: 150px;
 }
 
 .inputContent {
@@ -28,14 +26,14 @@ h3 {
   border-radius: 50px;
   background-color: #ff6600;
   border: none;
-  width: 100%;
+  width: 356px;
   height: 46px;
-
   font-size: 20px;
   color: white;
   min-width: 300px;
   padding: 8px 24px;
   margin-top: 40px;
+  width: 100%;
 }
 
 .linkRouter {
