@@ -22,7 +22,7 @@ function AdminUserCard(props) {
         <img src={background} alt="" />
       </div>
       <div className={style.body}>
-        <div className={style.title}>
+        <div className={style.cardTitle}>
           <p className={style.name}>{name}</p>
           <p className={style.account}>{account}</p>
         </div>
