@@ -2,7 +2,7 @@ import style from './followList.module.scss';
 import { Link } from 'react-router-dom';
 
 const FollowingCard = (props) => {
-  const { id, avatar, introduction, isFollowed, name } = props;
+  const { id, avatar, introduction, isFollowed, name, onClick } = props;
   return (
     <div className={style.followCard}>
       <div className={style.header}>
@@ -15,8 +15,9 @@ const FollowingCard = (props) => {
           <p className={style.name}>{name}</p>
           <button
             className={`${style.followBtn} ${isFollowed && style.isFollowing}`}
+            onClick={() => { onClick?.(id, isFollowed);}}
           >
-            {false ? '正在跟隨' : '跟隨'}
+            {isFollowed ? '正在跟隨' : '跟隨'}
           </button>
         </div>
       </div>

@@ -42,7 +42,7 @@ export const followShip = async (userId) => {
   }
 };
 
-//新增追蹤特定使用者
+//取消追蹤特定使用者
 //POST api/followships
 //userId 目標對象ID
 export const unFollowShip = async (followingId) => {

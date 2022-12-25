@@ -10,6 +10,7 @@ import { useModal } from "contexts/userContext";
 import { useState, useEffect } from 'react';
 //Api
 import { getUsersFollowing, getUsersFollowers } from '../../api/followApi';
+import { followShip, unFollowShip } from '../../api/usersApi'
 
 const FollowingPage = () => {
   const [followData, setFollowData] = useState([]);
@@ -31,6 +32,41 @@ const FollowingPage = () => {
   }, [id]);
   //管理上一頁
   const navigate = useNavigate();
+
+  //追蹤按鈕事件處理
+  const handleClick = (userId, isFollow) => {
+    const followShipAsync = async () => {
+      const data = await followShip(userId);
+      if (!data) {
+        return;
+      }
+      setData(data);
+    };
+    const unFollowShipAsync = async () => {
+      const data = await unFollowShip(userId);
+      if (!data) {
+        return;
+      }
+      setData(data);
+    };
+    const setData = (data) => {
+      const currentUsers = followData.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            isFollow: data.isFollow,
+          };
+        }
+        return item;
+      });
+      setFollowData(currentUsers);
+    };
+    if (!isFollow) {
+      followShipAsync();
+    } else {
+      unFollowShipAsync();
+    }
+  };
 
   const handleGetFollowers = () => {
     setTabState('Followers');
@@ -81,7 +117,7 @@ const FollowingPage = () => {
           grtFollowers={handleGetFollowers}
           tabState={tabState}
         />
-        <FollowingList followData={followData} />
+        <FollowingList followData={followData} onClick={handleClick} />
       </section>
       <PopularUserList className={style.rightContent} />
     </div>

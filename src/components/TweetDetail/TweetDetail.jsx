@@ -1,5 +1,5 @@
 import style from './tweetDetail.module.scss';
-import { like, vector } from '../../assets/images/index';
+import { like, vector, unLike } from '../../assets/images/index';
 import { Link } from 'react-router-dom';
 import { useModal } from 'contexts/userContext';
 
@@ -18,9 +18,7 @@ const TweetDetail = ({tweetData, onChangeLike}) => {
           </Link>
         </div>
       </div>
-      <p className={style.tweet_body}>
-        {tweetData.description}
-      </p>
+      <p className={style.tweet_body}>{tweetData.description}</p>
       <p className={style.time}>{tweetData.createdAt}</p>
       <div className={style.tweet_footer}>
         <p>
@@ -31,10 +29,33 @@ const TweetDetail = ({tweetData, onChangeLike}) => {
         </p>
       </div>
       <div className={style.tweet_control}>
-          <img src={vector} alt="" className={style.icon} onClick={() => { handleModalState('replyModal')}}/>
-          <img src={like} 
-          alt="" className={style.icon} 
-          onClick={() => {onChangeLike?.(tweetData.id, )}}/>
+        <img
+          src={vector}
+          alt=""
+          className={style.icon}
+          onClick={() => {
+            handleModalState('replyModal');
+          }}
+        />
+        {tweetData.isLike ? (
+          <img
+            src={like}
+            alt=""
+            className={style.icon}
+            onClick={() => {
+              onChangeLike?.(tweetData.id, tweetData.isLike);
+            }}
+          />
+        ) : (
+          <img
+            src={unLike}
+            alt=""
+            className={style.icon}
+            onClick={() => {
+              onChangeLike?.(tweetData.id, tweetData.isLike);
+            }}
+          />
+        )}
       </div>
     </div>
   );
