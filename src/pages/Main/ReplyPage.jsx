@@ -3,7 +3,7 @@ import { arrow } from '../../assets/images/index';
 import style from './midContent.module.scss'
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { getTweetDetail, getReplys, chengeLike} from '../../api/apis';
+import { getTweetDetail, getReplys, changeLike} from '../../api/apis';
 import moment from 'moment/moment';
 import cnFormat from '../../assets/timeFormat'
 import { useModal } from 'contexts/userContext';
@@ -39,7 +39,7 @@ const ReplyPage = () => {
   const handleChangeLike = (tweetId, isLike) => {
     const postLikeAsync = async () => {
       try {
-        const res = await chengeLike(tweetId,  !isLike);
+        const res = await changeLike(tweetId,  !isLike);
         console.log(res)
         // setTweetData(
         //   {...res, ...User}

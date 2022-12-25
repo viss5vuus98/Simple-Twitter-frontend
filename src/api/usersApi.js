@@ -145,7 +145,7 @@ export const getUserReplies = async (userId) => {
 }
 
 //取得特定使用者喜歡的全部內容 
-//api/users/:id/likes TODO: 
+//api/users/:id/likes 
 export const getUserLike = async (userId) => {
   const authToken = localStorage.getItem('authToken') || '';
   try{
@@ -200,3 +200,4 @@ export const EditUserAccount = async (userId, account, name, email, password, ch
     console.error('Put Data Failed :', error);
   }
 }
+

@@ -19,7 +19,7 @@ export const getTweets = async () => {
 };
 
 //POST Like / unLike
-export const chengeLike = async (tweetId, isLike) => {
+export const changeLike = async (tweetId, isLike) => {
   const authToken = localStorage.getItem('authToken') || '';
   const action = isLike ? 'like' : 'unlike'
   try {
@@ -93,7 +93,7 @@ export const getTweetDetail = async (tweetId) => {
     //   return res.data
     // })
   } catch (error) {
-    console.error('Get TodoData Failed :', error);
+    console.error('Get Data Failed :', error);
   }
 };
 
@@ -186,5 +186,41 @@ export const delAdminTweet = async (id) => {
     return response.data;
   } catch (error) {
     console.error('[Delete Admin one Tweet failed]: ', error);
+  }
+};
+
+//GET api/users/:id/followings 
+export const getFollowingUsers = async (userData) => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try {
+    const response = await axios.get(
+      `${baseUrl}/users/${userData.id}/followings`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Get Data Failed :', error);
+  }
+};
+
+//GET api/users/:id/followers 
+export const getFollowerUsers = async (userData) => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try {
+    const response = await axios.get(
+      `${baseUrl}/users/${userData.id}/followers`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Get Data Failed :', error);
   }
 };

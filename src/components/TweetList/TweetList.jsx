@@ -1,7 +1,7 @@
 //components
 import TweetItem from './TweetItem';
 //web api
-import { chengeLike } from '../../api/apis';
+import { changeLike } from '../../api/apis';
 import { useModal } from 'contexts/userContext';
 
 
@@ -11,7 +11,7 @@ const TweetList = ({tweetData, setTweetData}) => {
   const handleChangeLike = (tweetId, isLike) => {
     const postLikeAsync = async () => {
       try {
-        const res = await chengeLike(tweetId,  !isLike);
+        const res = await changeLike(tweetId,  !isLike);
         if(res)
         setTweetData(
           tweetData.map((tweet) => {
