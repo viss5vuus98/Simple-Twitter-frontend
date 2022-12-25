@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/Simple-Twitter-frontend/static/css/main.98da540f.chunk.css",
+    "main.js": "/Simple-Twitter-frontend/static/js/main.b36761c6.chunk.js",
+    "main.js.map": "/Simple-Twitter-frontend/static/js/main.b36761c6.chunk.js.map",
+    "runtime-main.js": "/Simple-Twitter-frontend/static/js/runtime-main.fde6b313.js",
+    "runtime-main.js.map": "/Simple-Twitter-frontend/static/js/runtime-main.fde6b313.js.map",
+    "static/js/2.0f4652f9.chunk.js": "/Simple-Twitter-frontend/static/js/2.0f4652f9.chunk.js",
+    "static/js/2.0f4652f9.chunk.js.map": "/Simple-Twitter-frontend/static/js/2.0f4652f9.chunk.js.map",
+    "static/js/3.aacb2d85.chunk.js": "/Simple-Twitter-frontend/static/js/3.aacb2d85.chunk.js",
+    "static/js/3.aacb2d85.chunk.js.map": "/Simple-Twitter-frontend/static/js/3.aacb2d85.chunk.js.map",
+    "index.html": "/Simple-Twitter-frontend/index.html",
+    "static/css/main.98da540f.chunk.css.map": "/Simple-Twitter-frontend/static/css/main.98da540f.chunk.css.map",
+    "static/js/2.0f4652f9.chunk.js.LICENSE.txt": "/Simple-Twitter-frontend/static/js/2.0f4652f9.chunk.js.LICENSE.txt",
+    "static/media/ACLogoIcon.f4e0f3cb.svg": "/Simple-Twitter-frontend/static/media/ACLogoIcon.f4e0f3cb.svg",
+    "static/media/Block@2x-2.f9798090.png": "/Simple-Twitter-frontend/static/media/Block@2x-2.f9798090.png",
+    "static/media/Like.5f252790.svg": "/Simple-Twitter-frontend/static/media/Like.5f252790.svg",
+    "static/media/Vector.03544a04.svg": "/Simple-Twitter-frontend/static/media/Vector.03544a04.svg",
+    "static/media/arrow.dd78ecdd.svg": "/Simple-Twitter-frontend/static/media/arrow.dd78ecdd.svg",
+    "static/media/avatarIcon.6c6f870a.svg": "/Simple-Twitter-frontend/static/media/avatarIcon.6c6f870a.svg",
+    "static/media/close.c91a0ef5.svg": "/Simple-Twitter-frontend/static/media/close.c91a0ef5.svg",
+    "static/media/closeGray.f90ff4ae.svg": "/Simple-Twitter-frontend/static/media/closeGray.f90ff4ae.svg",
+    "static/media/closeWhite.62c5a766.svg": "/Simple-Twitter-frontend/static/media/closeWhite.62c5a766.svg",
+    "static/media/homeicon.d7701d33.svg": "/Simple-Twitter-frontend/static/media/homeicon.d7701d33.svg",
+    "static/media/likeCount.8531deb8.svg": "/Simple-Twitter-frontend/static/media/likeCount.8531deb8.svg",
+    "static/media/logout.50cd3721.svg": "/Simple-Twitter-frontend/static/media/logout.50cd3721.svg",
+    "static/media/postIcon.89215179.svg": "/Simple-Twitter-frontend/static/media/postIcon.89215179.svg",
+    "static/media/seticon.becd9ea8.svg": "/Simple-Twitter-frontend/static/media/seticon.becd9ea8.svg",
+    "static/media/unLike.6b2b60f5.svg": "/Simple-Twitter-frontend/static/media/unLike.6b2b60f5.svg",
+    "static/media/user.0ff17a98.svg": "/Simple-Twitter-frontend/static/media/user.0ff17a98.svg",
+    "static/media/userAvatar2.aa3c3fcf.svg": "/Simple-Twitter-frontend/static/media/userAvatar2.aa3c3fcf.svg",
+    "static/media/userBanner.7dbc44a8.svg": "/Simple-Twitter-frontend/static/media/userBanner.7dbc44a8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fde6b313.js",
+    "static/js/2.0f4652f9.chunk.js",
+    "static/css/main.98da540f.chunk.css",
+    "static/js/main.b36761c6.chunk.js"
+  ]
+}
