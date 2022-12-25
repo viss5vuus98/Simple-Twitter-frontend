@@ -5,15 +5,17 @@
   padding: 0 24px;
   padding-top: 69px;
   background-color: #fff;
+  width: 356px;
+  margin: 0 auto;
 }
 
 .logo {
   width: 40px;
   height: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
-
-h3 {
+.title {
+  margin-bottom: 40px;
   font-weight: 700;
 }
 
@@ -23,7 +25,6 @@ h3 {
   border: none;
   width: 100%;
   height: 46px;
-
   font-size: 20px;
   color: white;
   min-width: 300px;
@@ -46,7 +47,4 @@ span {
 .inputContent {
   margin-bottom: 2rem;
   width: 100%;
-}
-.title {
-  margin-bottom: 40pxß;
 }
