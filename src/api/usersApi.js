@@ -19,7 +19,6 @@ export const getRecommendUsers = async () => {
   }catch(error){
     console.error('Get Data Failed :', error);
   }
-
 }
 
 //新增追蹤特定使用者

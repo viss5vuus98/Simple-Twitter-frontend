@@ -1,8 +1,7 @@
 @import '../../basicStyle.scss';
 
-
 .container {
-  width: 100%;
+  width: 1134px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -20,6 +19,7 @@
 
 .mainSection {
   height: 100%;
+  width: 639px;
   padding-right: 5px;
   overflow-y: scroll;
 }
@@ -58,4 +58,3 @@
     color: $secondary;
   }
 }
-

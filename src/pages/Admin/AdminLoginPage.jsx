@@ -5,13 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { adminLogin } from '../../api/auth';
 import Swal from 'sweetalert2';
-import { useModal } from 'contexts/userContext';
 
 const AdminLoginPage = () => {
   const [account, setAdminAccount] = useState('');
   const [password, setAdminPassword] = useState('');
   const navigate = useNavigate();
-  const { adminLayout, changePop } = useModal();
   const handleClick = async () => {
     if (account.length === 0) {
       return;
@@ -25,8 +23,6 @@ const AdminLoginPage = () => {
         password,
       });
       const authToken = data.data;
-      changePop(false);
-      adminLayout();
       if (data.success) {
         localStorage.setItem('authToken', authToken);
         // 登入成功訊息
