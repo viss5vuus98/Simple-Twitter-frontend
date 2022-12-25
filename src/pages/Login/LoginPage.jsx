@@ -52,13 +52,7 @@ const LoginPage = () => {
       navigate('/main');
       onLogin(data.data.user.id);
     } catch (error) {
-      Swal.fire({
-        position: 'top',
-        title: '登入失敗！帳號或密碼錯誤',
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      });
+      console.error(error);
     }
   };
 

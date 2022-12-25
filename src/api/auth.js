@@ -51,7 +51,13 @@ export const login = async ({ account, password }) => {
     return data;
     
   } catch (error) {
-    console.error('[Login Failed]:', error.response.data);
+    Swal.fire({
+      position: 'top',
+      title: `${error.response.data.message}`,
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
   }
 };
 
@@ -86,7 +92,13 @@ export const adminLogin = async ({ account, password }) => {
     }
     return data;
   } catch (error) {
-    console.error('[Login Failed]:', error.response.data);
+    Swal.fire({
+      position: 'top',
+      title: `${error.response.data.message}`,
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
   }
 };
 
