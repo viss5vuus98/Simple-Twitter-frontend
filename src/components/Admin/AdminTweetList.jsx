@@ -14,8 +14,8 @@ function AdminTweetList(props) {
       </div>
       <div className={style.tweetBody}>
         <div className={style.tweetTitle}>
-          <p>{userName}</p>
-          <p>@{userAccount}</p>
+          <p className={style.name}>{userName}</p>
+          <p className={style.account}>@{userAccount}</p>
           <span>{createdAt}</span>
         </div>
         <p className={style.tweetText}>

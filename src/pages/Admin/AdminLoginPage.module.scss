@@ -9,10 +9,17 @@
 .logo {
   width: 40px;
   height: 40px;
+  margin-bottom: 30px;
+}
+.loginTitle {
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 28px;
 }
 
-h3 {
-  font-weight: 700;
+.inputContent {
+  margin-bottom: 2rem;
+  width: 365px;
 }
 
 .authButton {
@@ -34,4 +41,8 @@ h3 {
   justify-content: flex-end;
   margin-top: 16px;
   width: 365px;
+}
+
+.link {
+  color: #0062ff;
 }

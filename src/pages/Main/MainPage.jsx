@@ -1,76 +1,101 @@
-import { TweetList, UserPost } from 'components';
+//components
+import { TweetList, UserPost, NavBar, PopularUserList } from 'components';
+//scss
 import style from './midContent.module.scss';
+//hook
 import { useState, useEffect } from 'react';
 import { postTweet, getTweets } from '../../api/apis'
+//useContext
 import { useModal } from 'contexts/userContext';
+//
+import Swal from 'sweetalert2';
 const MainPage = () => {
   const [ userInput, setUserInput ] = useState('')
-  const [ tweetData, setTweetData ] = useState(
-    [{
-        id: 0,
-        description: 'volupta lorem lorem lorem',
-        UserId: 0,
-        createdAt: '2022-12-16T11:24:49.000Z',
-        updatedAt: '2022-12-17T11:24:49.000Z',
-        User: {
-          id: 0,
-          name: 'user5',
-          account: 'user5',
-          avatar:
-            'https://image.damanwoo.com/files/styles/rs-big/public/flickr/4/3151/5820170825_59418deec8_o.jpg',
-        },
-        replyAmount: 0,
-        likedAmount: 0,
-      }]
-  );
-  const { userData } = useModal()
+  const { currentUser, updateTweetData, tweetData } = useModal();
+  
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
-        setTweetData(tweets.data.map(tweet => {
-          return (
-            {
-              ...tweet,
-              User: {
-                ...tweet.User,
-                route: (userData.id === tweet.User.id ? '/user' : `/user/${tweet.User.id}`)
-              }
-            }
-          )
-        }))
         setUserInput('')
+        updateTweetData(tweets);
       } catch (error) {
         console.error(error);
+        Swal.fire({
+          position: 'top',
+          title: '更新推特資料失敗',
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
       }
     };
     getTweetsAsync();
-  }, [userData.id]);
+  }, []);
 
   const handleChange = (value) => {
     if(value.length >= 120 ){
+      Swal.fire({
+        position: 'top',
+        title: '超過推文字數限制',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return
     }
     setUserInput(value)
   }
   const handleSubmit = async (value) => {
     if(value.trim().length <= 0 ){
+      Swal.fire({
+        position: 'top',
+        title: '請輸入推文內容',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return;
     }
-    await postTweet(value)
-    const tweets = await getTweets();
-    setTweetData(tweets.data)
+    setUserInput('');
+    const { id, description, createdAt, updatedAt, UserId } = await postTweet(value);
+    //用回傳的資料更新TweetData
+    const updateData = {
+      id,
+      description,
+      createdAt,
+      updatedAt,
+      UserId,
+      User: {
+        userId: UserId,
+        userName: currentUser.name,
+        userAccount: currentUser.account,
+      },
+      replyAmount: 0,
+      likedAmount: 0,
+      isLike: false,
+    };
+    updateTweetData([updateData, ...tweetData]);
   }
 
 
   return (
-    <section>
-      <div className={style.header}>
-        <h4 className={style.title}>首頁</h4>
-      </div>
-      <UserPost onChange={handleChange} value={userInput} onSubmit={handleSubmit} avatar={userData.avatar}/>
-      <TweetList tweetData={tweetData} setTweetData={setTweetData}/>
-    </section>
+    <div className={style.container}>
+      <NavBar isAdmin={false} className={style.sideBar} />
+      <section className={style.mainSection}>
+        <div className={style.header}>
+          <h4 className={style.title}>首頁</h4>
+        </div>
+        <UserPost
+          onChange={handleChange}
+          value={userInput}
+          onSubmit={handleSubmit}
+          avatar={currentUser.avatar || ''}
+        />
+        <TweetList tweetData={tweetData} />
+      </section>
+      <PopularUserList className={style.rightContent} />
+    </div>
   );
 };
 

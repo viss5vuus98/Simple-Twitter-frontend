@@ -1,4 +1,4 @@
-import style from './AdminLoginPage.module.css';
+import style from './AdminLoginPage.module.scss';
 import logo from '../../assets/images/ACLogoIcon.svg';
 import AuthInput from '../../components/Common_/AuthInput';
 import { Link, useNavigate } from 'react-router-dom';
@@ -59,9 +59,9 @@ const AdminLoginPage = () => {
       <div>
         <img src={logo} alt="title" className={style.logo} />
       </div>
-      <h3>後台登入</h3>
+      <h3 className={style.loginTitle}>後台登入</h3>
 
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           label={'帳號'}
           value={account}
@@ -70,7 +70,7 @@ const AdminLoginPage = () => {
         />
       </div>
 
-      <div>
+      <div className={style.inputContent}>
         <AuthInput
           type="password"
           label={'密碼'}
@@ -86,7 +86,7 @@ const AdminLoginPage = () => {
         登入
       </button>
       <div className={style.linkRouter}>
-        <Link to="/login">
+        <Link to="/login" className={style.link}>
           <span>前台登入</span>
         </Link>
       </div>

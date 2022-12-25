@@ -1,14 +1,16 @@
 import style from './edit.module.scss'
-import { avatar, userBanner, uploadIcon, closeWhite } from '../../assets/images/index';
+import { uploadIcon, closeWhite } from '../../assets/images/index';
 import close from '../../assets/images/close.svg'
 //Hook
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 //Context
 import { useModal } from 'contexts/userContext';
 //API
+import { EditUserInfo } from '../../api/usersApi'
+import Swal from 'sweetalert2';
 
 const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
-  const { userData } = useModal()
+  const { currentUser, updateCurrentUser } = useModal()
   const [ editName, setEditName ] = useState('')
   const [ editInfo, setEditInfo ] = useState('')
   const [ editAvatar, setEditAvatar ] = useState()
@@ -45,85 +47,131 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
   }
 
   const handleSubmit = () => {
-    const avatar = inputRef.current.files[0]
-    const banner = bannerRef.current.files[0]
-    onUpload(editName, avatar, banner, editInfo)
+    const uploadAvatar = inputRef.current.files[0]
+    const uploadBanner = bannerRef.current.files[0]
+    const editUserAsync = async () => {
+      const { name, introduction, avatar, background } = await EditUserInfo(
+        currentUser.id,
+        editName,
+        uploadAvatar,
+        uploadBanner,
+        editInfo,
+      );
+      const update = {
+        ...currentUser,
+        name,
+        introduction,
+        avatar,
+        background,
+      };
+      updateCurrentUser(update);
+    }
+    editUserAsync();
+    onCloseModal?.('none');
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      title: '發推特成功！',
+      timer: 1000,
+      icon: 'success',
+      showConfirmButton: false,
+    });
   }
 
   return (
-      <>
-        <section className={`${!isHidden && style.hidden} ${style.modal}`}>
+    <>
+      <section className={`${!isHidden && style.hidden} ${style.modal}`}>
         <div className={style.modalHeader}>
-            <button 
-            className={style.close} style={{ backgroundImage: `url(${close})` }}
-            onClick={() => {onCloseModal?.('none')}}
-            >
-            </button>
-            <button 
-            className={style.submitBtn}
-            onClick={handleSubmit}
-            >儲存</button>
+          <button
+            className={style.close}
+            style={{ backgroundImage: `url(${close})` }}
+            onClick={() => {
+              onCloseModal?.('none');
+            }}
+          ></button>
+          <button className={style.submitBtn} onClick={handleSubmit}>
+            儲存
+          </button>
         </div>
         <div className={style.banner}>
-          <img src={!editBanner ? userData.background : editBanner} alt="banner" />
-          <input className={style.bannerUpload}
+          <img
+            src={!editBanner ? currentUser.background : editBanner}
+            alt="banner"
+          />
+          <input
+            className={style.bannerUpload}
             ref={bannerRef}
-            type="file" accept='image/jpg,jpeg,png'
-            onChange={(e)=>{ handleChangeBanner(e)}}
+            type="file"
+            accept="image/jpg,jpeg,png"
+            onChange={(e) => {
+              handleChangeBanner(e);
+            }}
           />
           <div className={style.bannerControl}>
-            <button className={style.uploadBanner} 
-            style={{ backgroundImage: `url(${uploadIcon})`}}
-            onClick={handleEditBanner}
-          ></button>
-            <button className={style.deleteBanner} 
-            style={{ backgroundImage: `url(${closeWhite})`}}
-          ></button>
+            <button
+              className={style.uploadBanner}
+              style={{ backgroundImage: `url(${uploadIcon})` }}
+              onClick={handleEditBanner}
+            ></button>
+            <button
+              className={style.deleteBanner}
+              style={{ backgroundImage: `url(${closeWhite})` }}
+            ></button>
           </div>
         </div>
         <form className={style.form}>
           <div className={style.formControl}>
             <div className={style.text_container}>
               <div className={style.label}>姓名</div>
-                <input
-                  className={style.input}
-                  type='text'
-                  defaultValue={editName || userData.name}
-                  onChange={(e)=>setEditName(e.target.value)}
-                />
-              </div>
+              <input
+                className={style.input}
+                type="text"
+                defaultValue={editName || currentUser.name}
+                onChange={(e) => setEditName(e.target.value)}
+              />
             </div>
-            <div className={style.calculateWord}>
-              <span>{editName.length}/50</span>
-            </div>
-            <div className={style.textarea_container}>
-              <div className={style.label}>自我介紹</div>
-              <textarea className={style.textarea}
-                defaultValue={editInfo || userData.introduction}
-                onChange={(e)=>setEditInfo(e.target.value)}
-              >
-              </textarea>
-            </div>
-            <div className={style.calculateWord}>
-                <span>{editInfo.length}/160</span>
-            </div>
+          </div>
+          <div className={style.calculateWord}>
+            <span>{editName.length}/50</span>
+          </div>
+          <div className={style.textarea_container}>
+            <div className={style.label}>自我介紹</div>
+            <textarea
+              className={style.textarea}
+              defaultValue={editInfo || currentUser.introduction}
+              onChange={(e) => setEditInfo(e.target.value)}
+            ></textarea>
+          </div>
+          <div className={style.calculateWord}>
+            <span>{editInfo.length}/160</span>
+          </div>
         </form>
         <div className={style.avatar}>
-          <div ><button className={style.uploadBtn} 
-            style={{ backgroundImage: `url(${uploadIcon})`}}
-            onClick={handleEdit}
-            ></button></div>
-          <img src={!editAvatar ? userData.avatar : editAvatar} alt="avatar" />
-          <input className={style.avatarUpload}
+          <div>
+            <button
+              className={style.uploadBtn}
+              style={{ backgroundImage: `url(${uploadIcon})` }}
+              onClick={handleEdit}
+            ></button>
+          </div>
+          <img
+            src={!editAvatar ? currentUser.avatar : editAvatar}
+            alt="avatar"
+          />
+          <input
+            className={style.avatarUpload}
             ref={inputRef}
-            type="file" accept='image/jpg,jpeg,png'
-            onChange={(e)=>{ handleChangeAvatar(e)}}
-            />
+            type="file"
+            accept="image/jpg,jpeg,png"
+            onChange={(e) => {
+              handleChangeAvatar(e);
+            }}
+          />
         </div>
       </section>
       <div className={`${!isHidden && style.hidden} ${style.overlay}`}></div>
-      </>
-  )
+    </>
+  );
 }
 
 export default EditModal 

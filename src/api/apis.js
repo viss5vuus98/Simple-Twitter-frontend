@@ -3,23 +3,23 @@ import axios from 'axios';
 //const baseUrl = 'http://localhost:3000'; //測試用 避免一直抓資料
 const baseUrl = 'https://still-cove-80123.herokuapp.com/api';
 
-//GET api/tweets/following
+//GET api/tweets
 export const getTweets = async () => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
     const response = await axios.get(`${baseUrl}/tweets/following`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
-    return response;
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
   } catch (error) {
     console.error('Get Data Failed :', error);
   }
 };
 
 //POST Like / unLike
-export const chengeLike = async (tweetId, isLike) => {
+export const changeLike = async (tweetId, isLike) => {
   const authToken = localStorage.getItem('authToken') || '';
   const action = isLike ? 'like' : 'unlike'
   try {
@@ -54,19 +54,18 @@ export const checkApiState = (stateCode) => {
 export const postTweet = async (value) => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
-    const response = await axios({
-      method: 'POST',
-      url: `${baseUrl}/tweets`,
-      responseType: 'json',
-      headers: {
-        Authorization: `Bearer ${authToken}`,
+    const response = await axios.post(
+      `${baseUrl}/tweets`,
+      {
+        description: value,
       },
-      data: {
-        description: value
-      }
-    });
-
-    return response
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+    return response.data
   }catch(error){
     console.error('[failed]: ', error)
   }

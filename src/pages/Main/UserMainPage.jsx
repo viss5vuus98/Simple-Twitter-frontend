@@ -1,8 +1,7 @@
-import { UserInfo, UserTab, TweetList, ReplyList } from "components";
+import { UserInfo, UserTab, TweetList, ReplyList,  NavBar, PopularUserList } from "components";
 import style from './midContent.module.scss'
 import { useState, useEffect } from 'react';
 //API
-import { getTweets } from '../../api/apis'
 import { getUserReplies, getUserLike, getUserTweets, getUserInfo, followShip, unFollowShip } from '../../api/usersApi'
 //icon
 import { arrow } from '../../assets/images/index';
@@ -12,27 +11,21 @@ import { useNavigate,useParams } from "react-router-dom";
 import { useModal } from "contexts/userContext";
 
 const UserMainPage = () => {
-  const [ tweetData, setTweetData ] = useState([])
   const [ activeTab, setActiveTab ] = useState('tweetList')
   const [ userData, setUserData ] = useState({})
-  const currentUserId = localStorage.getItem('userId') || ''
+  const [ replyList, setReplyList ] = useState([])
+  const { currentUser, updateTweetData, tweetData } = useModal();
   //TODO:抽共用元件
   let navigate = useNavigate();
     //取得動態參數
   let { id } = useParams();
 
   const handleGetUserReply = (value) => {
-    let userId;
-    if(!id){
-      userId = currentUserId
-    }else{
-      userId = id
-    }
     setActiveTab(value)
     const getUserReplyAsync = async () => {
       try{
-        const data = await getUserReplies(userId)
-        setTweetData([...data])
+        const data = await getUserReplies(userData.id)
+        setReplyList(data)
       }catch(error){
         console.error(error)
       }      
@@ -40,18 +33,13 @@ const UserMainPage = () => {
     getUserReplyAsync()
   }
 
+  //取得使用者喜愛貼文
   const handleGetUserLike = (value) => {
-    let userId;
-    if(!id){
-      userId = currentUserId
-    }else{
-      userId = id
-    }
     setActiveTab(value)
     const getUserLikeAsync = async () => {
       try{
-        const data = await getUserLike(userId)
-        setTweetData([...data])
+        const data = await getUserLike(userData.id)
+        updateTweetData(data)
       }catch(error){
         console.error(error)
       }     
@@ -59,18 +47,13 @@ const UserMainPage = () => {
     getUserLikeAsync()
   }
 
-    const handleGetUserTweets = (value) => {
-    let userId;
-    if(!id){
-      userId = currentUserId
-    }else{
-      userId = id
-    }
+  //取得使用者的推文
+  const handleGetUserTweets = (value) => {
     setActiveTab(value)
     const getUserTweetsAsync = async () => {
       try{
-        const data = await getUserTweets(userId)
-        setTweetData([...data])
+        const data = await getUserTweets(userData.id)
+        updateTweetData(data)
       }catch(error){
         console.error(error)
       }     
@@ -95,11 +78,11 @@ const UserMainPage = () => {
       setData(data)
     }
     const setData = (data) => {
-      const currentUsers = {
+      const updateUserData = {
         ...userData,
         isfollow: data.isfollow
       }
-      setUserData(currentUsers)
+      setUserData(updateUserData);
     }
     if(!isFollow){
       followShipAsync()
@@ -108,57 +91,59 @@ const UserMainPage = () => {
     }
   }
 
+  //先取得使用者推文資料
+  //取得個人資料
   useEffect(() => {
-    const getTweetsAsync = async () => {
+    const getUserDataAsync = async () => {
+      console.log(id);
+      if (!id) {
+        setUserData(currentUser);
+        const tweetData = await getUserTweets(currentUser.id);
+        updateTweetData(tweetData);
+        return;
+      }
       try {
-        handleGetUserTweets('tweetList')
+        const data = await getUserInfo(id);
+        setUserData({ ...data });
+        const tweetData = await getUserTweets(data.id);
+        updateTweetData(tweetData);
       } catch (error) {
         console.error(error);
       }
     };
-    getTweetsAsync();
-  }, []);
-
-  useEffect(() => {
-    const getUserDataAsync = async () => {
-      let userId;
-      if(!id){
-        userId = currentUserId
-      }else{
-        userId = id
-      }
-      try{
-        const data = await getUserInfo(userId)
-        setUserData({...data})
-      }catch(error){
-        console.error(error)
-      }
-    }
-    getUserDataAsync()
-  }, [currentUserId, id])
-  
+    getUserDataAsync();
+  }, [id]);
   return (
-    <section>
-      <div 
-      className={style.header}
-      onClick={()=> {navigate(-1)}}
-      >
-        <img className={style.arrow} src={arrow} alt="" />
-        <div className={style.self}>
-          <h5 className={style.userName}>Joho Doe</h5>
-          <p className={style.tweetCount}>25 推文</p>
-        </div>        
-      </div>
-    <UserInfo userData={userData} onFollow={handleClick}/>
-    <UserTab 
-    replyAction={handleGetUserReply}
-    likeAction={handleGetUserLike}
-    tweetAction={handleGetUserTweets} 
-    tabName={activeTab}/>
-    { !(activeTab === 'replyList') && <TweetList tweetData={tweetData} setTweetData={setTweetData}/> }
-    {activeTab === 'replyList' && <ReplyList replyData={tweetData}/>}
-    </section>
-  )
+    <div className={style.container}>
+      <NavBar isAdmin={false} className={style.sideBar} />
+      <section className={style.mainSection}>
+        <div
+          className={style.header}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <img className={style.arrow} src={arrow} alt="" />
+          <div className={style.self}>
+            <h5 className={style.userName}>{currentUser.name}</h5>
+            <p className={style.tweetCount}>{tweetData.length} 推文</p>
+          </div>
+        </div>
+        <UserInfo userData={userData} onFollow={handleClick} />
+        <UserTab
+          replyAction={handleGetUserReply}
+          likeAction={handleGetUserLike}
+          tweetAction={handleGetUserTweets}
+          tabName={activeTab}
+        />
+        {!(activeTab === 'replyList') && (
+          <TweetList tweetData={tweetData} setTweetData={updateTweetData} />
+        )}
+        {activeTab === 'replyList' && <ReplyList replyData={replyList} />}
+      </section>
+      <PopularUserList className={style.rightContent} />
+    </div>
+  );
 }
 
 export default UserMainPage;

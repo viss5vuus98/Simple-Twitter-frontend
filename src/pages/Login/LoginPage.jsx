@@ -1,4 +1,4 @@
-import style from './LoginPage.module.css';
+import style from './loginPage.module.scss';
 import logo from '../../assets/images/ACLogoIcon.svg';
 import AuthInput from '../../components/Common_/AuthInput';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,13 +11,27 @@ const LoginPage = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { onLogin, changePop } = useModal();
+  const { onLogin } = useModal();
 
   const handleClick = async () => {
     if (account.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入帳號',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return;
     }
     if (password.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入密碼',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
       return;
     }
     try {
@@ -25,28 +39,22 @@ const LoginPage = () => {
         account,
         password,
       });
-      const authToken = data.data.token;
-      if (data.success) {
-        localStorage.setItem('authToken', authToken);
-        // 登入成功訊息
-        Swal.fire({
-          position: 'top',
-          title: '登入成功！',
-          timer: 1000,
-          icon: 'success',
-          showConfirmButton: false,
-        });
-        navigate('/main');
-        //TODO:這邊加一個判斷是Admin或User
-        localStorage.setItem('userId', data.data.user.id);
-        changePop(true);
-        onLogin();
-        return;
-      }
+      localStorage.setItem('authToken', data.data.token);
+      localStorage.setItem('userId', data.data.user.id);
+      // 登入成功訊息
+      Swal.fire({
+        position: 'top',
+        title: '登入成功！',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      navigate('/main');
+      onLogin(data.data.user.id);
     } catch (error) {
       Swal.fire({
         position: 'top',
-        title: '登入失敗！',
+        title: '登入失敗！帳號或密碼錯誤',
         timer: 1000,
         icon: 'error',
         showConfirmButton: false,
@@ -59,7 +67,7 @@ const LoginPage = () => {
       <div>
         <img src={logo} alt="title" className={style.logo} />
       </div>
-      <h3>登入 Alphitter</h3>
+      <h3 className={style.loginTitle}>登入 Alphitter</h3>
 
       <div className={style.inputContent}>
         <AuthInput

@@ -1,23 +1,27 @@
-import style from './settingPage.module.scss'
-import { useModal } from 'contexts/userContext'
-import { useState } from 'react'
-import { EditUserAccount } from '../../api/usersApi'
+import { NavBar } from 'components';
+import style from './settingPage.module.scss';
+import { useModal } from 'contexts/userContext';
+import { useState } from 'react';
+import { EditUserAccount } from '../../api/usersApi';
 import Swal from 'sweetalert2';
+//Route
+import { useNavigate } from 'react-router-dom';
 
 const SettingPage = () => {
-  const { userData } = useModal()
-  const [ editAccount, setEditAccount ] = useState('')
-  const [ editName, setEditName] = useState('')
-  const [ editEmail, setEditEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ checkPassword, setCheckPassword ] = useState('')
+  const { currentUser, updateCurrentUser } = useModal();
+  const [editAccount, setEditAccount] = useState('');
+  const [editName, setEditName] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const upLoadUserSet = async () => {
-      const account = editAccount || userData.account
-      const name = editName || userData.name
-      const email = editEmail || userData.email
-      if(password !== checkPassword){
+    const sendAccount = editAccount || currentUser.account;
+    const sendName = editName || currentUser.name;
+    const sendEmail = editEmail || currentUser.email;
+      if (password !== checkPassword) {
         Swal.fire({
           toast: true,
           position: 'top-end',
@@ -26,22 +30,36 @@ const SettingPage = () => {
           icon: 'error',
           showConfirmButton: false,
         });
-        return 
+        return;
       }
-      if(password.trim().length < 8){
+      if (password.trim().length < 8) {
         Swal.fire({
           toast: true,
           position: 'top-end',
-          title: '密碼與確認密碼不相同',
+          title: '密碼字數不足8碼',
           timer: 1000,
           icon: 'error',
           showConfirmButton: false,
         });
-        return
+        return;
       }
-      try{
-        await EditUserAccount(userData.id, account, name, email, password, checkPassword);
-          Swal.fire({
+      try {
+          const { account, name, email } = await EditUserAccount(
+              currentUser.id,
+              sendAccount,
+              sendName,
+              sendEmail,
+              password,
+              checkPassword,
+          );
+        const updateUserData = {
+          ...currentUser,
+          account,
+          name,
+          email
+        };
+        updateCurrentUser(updateUserData);
+        Swal.fire({
           toast: true,
           position: 'top-end',
           title: '修改成功！',
@@ -49,9 +67,10 @@ const SettingPage = () => {
           icon: 'success',
           showConfirmButton: false,
         });
-      }catch(error){
-        console.error(error)
-          Swal.fire({
+        navigate('/main')
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
           toast: true,
           position: 'top-end',
           title: `修改失敗 原因:${error}`,
@@ -60,71 +79,79 @@ const SettingPage = () => {
           showConfirmButton: false,
         });
       }
-    }
-    upLoadUserSet()
-  }
+    };
+    upLoadUserSet();
+  };
   return (
-    <section>
-      <div className={style.header}>
-        <h4 className={style.title}>帳戶設定</h4>
-      </div>
-      <form className={style.form} action="">
-        <div className={style.formControl}>
+    <div className={style.container}>
+      <NavBar isAdmin={false} className={style.sideBar} />
+      <section className={style.mainSection}>
+        <div className={style.header}>
+          <h4 className={style.title}>帳戶設定</h4>
+        </div>
+        <form className={style.form} action="">
+          <div className={style.formControl}>
             <div className={style.text_container}>
               <div className={style.label}>帳號</div>
-                <input
-                  className={style.input}
-                  type='text'
-                  defaultValue={editAccount || userData.account}
-                  onChange={(e)=>setEditAccount(e.target.value)}
-                />
+              <input
+                className={style.input}
+                type="text"
+                defaultValue={editAccount || currentUser.account}
+                onChange={(e) => setEditAccount(e.target.value)}
+              />
             </div>
             <div className={style.text_container}>
               <div className={style.label}>名稱</div>
-                <input
-                  className={style.input}
-                  type='text'
-                  defaultValue={editName || userData.name}
-                  onChange={(e)=>setEditName(e.target.value)}
-                />
+              <input
+                className={style.input}
+                type="text"
+                defaultValue={editName || currentUser.name}
+                onChange={(e) => setEditName(e.target.value)}
+              />
             </div>
             <div className={style.text_container}>
               <div className={style.label}>Email</div>
-                <input
-                  className={style.input}
-                  type='text'
-                  defaultValue={editEmail || userData.email}
-                  onChange={(e)=>setEditEmail(e.target.value)}
-                />
+              <input
+                className={style.input}
+                type="text"
+                defaultValue={editEmail || currentUser.email}
+                onChange={(e) => setEditEmail(e.target.value)}
+              />
             </div>
             <div className={style.text_container}>
               <div className={style.label}>密碼</div>
-                <input
-                  className={style.input}
-                  type='password'
-                  value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
-                />
+              <input
+                className={style.input}
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className={style.text_container}>
               <div className={style.label}>確認密碼</div>
-                <input
-                  className={style.input}
-                  type='password'
-                  value={checkPassword}
-                  onChange={(e)=>setCheckPassword(e.target.value)}
-                />
+              <input
+                className={style.input}
+                type="password"
+                value={checkPassword}
+                onChange={(e) => setCheckPassword(e.target.value)}
+              />
             </div>
             <div className={style.formControl}>
-              <button 
-              className={style.submitBtn}
-              onClick={(e) => {e.preventDefault(); handleSubmit()}}
-              >儲存</button>
+              <button
+                className={style.submitBtn}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
+                儲存
+              </button>
             </div>
-        </div>
-      </form>
-    </section>
-  )
-}
+          </div>
+        </form>
+      </section>
+    </div>
+  );
+};
 
-export default SettingPage
+export default SettingPage;
