@@ -1,94 +1,108 @@
-import { UserInfo, UserTab, TweetList, ReplyList,  NavBar, PopularUserList } from "components";
-import style from './midContent.module.scss'
+import {
+  UserInfo,
+  UserTab,
+  TweetList,
+  ReplyList,
+  NavBar,
+  PopularUserList,
+} from 'components';
+import style from './midContent.module.scss';
 import { useState, useEffect } from 'react';
 //API
-import { getUserReplies, getUserLike, getUserTweets, getUserInfo, followShip, unFollowShip } from '../../api/usersApi'
+import {
+  getUserReplies,
+  getUserLike,
+  getUserTweets,
+  getUserInfo,
+  followShip,
+  unFollowShip,
+} from '../../api/usersApi';
 //icon
 import { arrow } from '../../assets/images/index';
 //Route
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 //Context
-import { useModal } from "contexts/userContext";
+import { useModal } from 'contexts/userContext';
 
 const UserMainPage = () => {
-  const [ activeTab, setActiveTab ] = useState('tweetList')
-  const [ userData, setUserData ] = useState({})
-  const [ replyList, setReplyList ] = useState([])
+  const [activeTab, setActiveTab] = useState('tweetList');
+  const [userData, setUserData] = useState({});
+  const [replyList, setReplyList] = useState([]);
   const { currentUser, updateTweetData, tweetData } = useModal();
   let navigate = useNavigate();
-    //取得動態參數
+  //取得動態參數
   let { id } = useParams();
 
   const handleGetUserReply = (value) => {
-    setActiveTab(value)
+    setActiveTab(value);
     const getUserReplyAsync = async () => {
-      try{
-        const data = await getUserReplies(userData.id)
-        setReplyList(data)
-      }catch(error){
-        console.error(error)
-      }      
-    }
-    getUserReplyAsync()
-  }
+      try {
+        const data = await getUserReplies(userData.id);
+        setReplyList(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserReplyAsync();
+  };
 
   //取得使用者喜愛貼文
   const handleGetUserLike = (value) => {
-    setActiveTab(value)
+    setActiveTab(value);
     const getUserLikeAsync = async () => {
-      try{
-        const data = await getUserLike(userData.id)
-        updateTweetData(data)
-      }catch(error){
-        console.error(error)
-      }     
-    }
-    getUserLikeAsync()
-  }
+      try {
+        const data = await getUserLike(userData.id);
+        updateTweetData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserLikeAsync();
+  };
 
   //取得使用者的推文
   const handleGetUserTweets = (value) => {
-    setActiveTab(value)
+    setActiveTab(value);
     const getUserTweetsAsync = async () => {
-      try{
-        const data = await getUserTweets(userData.id)
-        updateTweetData(data)
-      }catch(error){
-        console.error(error)
-      }     
-    }
-    getUserTweetsAsync()
-  }
+      try {
+        const data = await getUserTweets(userData.id);
+        updateTweetData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserTweetsAsync();
+  };
 
   //追蹤按鈕事件處理
   const handleClick = (userId, isFollow) => {
     const followShipAsync = async () => {
-        const data = await followShip(userId)
-        if(!data){
-        return
-        }
-        setData(data)
+      const data = await followShip(userId);
+      if (!data) {
+        return;
       }
+      setData(data);
+    };
     const unFollowShipAsync = async () => {
-      const data = await unFollowShip(userId)
-      if(!data){
-        return
+      const data = await unFollowShip(userId);
+      if (!data) {
+        return;
       }
-      setData(data)
-    }
+      setData(data);
+    };
     const setData = (data) => {
       const updateUserData = {
         ...userData,
-        isfollow: data.isfollow
-      }
+        isfollow: data.isfollow,
+      };
       setUserData(updateUserData);
+    };
+    if (!isFollow) {
+      followShipAsync();
+    } else {
+      unFollowShipAsync();
     }
-    if(!isFollow){
-      followShipAsync()
-    }else {
-      unFollowShipAsync()
-    }
-  }
+  };
 
   //先取得使用者推文資料
   //取得個人資料
@@ -142,6 +156,6 @@ const UserMainPage = () => {
       <PopularUserList className={style.rightContent} />
     </div>
   );
-}
+};
 
 export default UserMainPage;

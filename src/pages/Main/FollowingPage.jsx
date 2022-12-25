@@ -1,4 +1,4 @@
-import { FollowingList, FollowingTab } from 'components';
+import { FollowingList, FollowingTab, NavBar, PopularUserList } from 'components';
 //style
 import style from './midContent.module.scss'
 //icon
@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 import { getUsersFollowing } from '../../api/followApi'
 
 const FollowingPage = () => {
-  const [followData, setFollowData ] = useState()
+  const [followData, setFollowData ] = useState([])
   const {  currentUser, tweetData } = useModal()
   //取得動態參數
   let { id } = useParams();
@@ -21,26 +21,30 @@ const FollowingPage = () => {
     const getUserDataAsync = async () => {
       try {
         const data = await getUsersFollowing(id);
-        console.log(data)
+        setFollowData(data);
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
     getUserDataAsync()
   }, [id]);
 
   return (
-    <>
-      <div className={style.header}>
-        <img className={style.arrow} src={arrow} alt="" />
-        <div className={style.self}>
-          <h5 className={style.userName}>Joho Doe</h5>
-          <p className={style.tweetCount}>25 推文</p>
+    <div className={style.container}>
+      <NavBar isAdmin={false} className={style.sideBar} />
+      <section className={style.mainSection}>
+        <div className={style.header}>
+          <img className={style.arrow} src={arrow} alt="" />
+          <div className={style.self}>
+            <h5 className={style.userName}>{currentUser.name}</h5>
+            <p className={style.tweetCount}>{tweetData.length} 推文</p>
+          </div>
         </div>
-      </div>
-      <FollowingTab />
-      <FollowingList />
-    </>
+        <FollowingTab />
+        <FollowingList followData={followData} />
+      </section>
+      <PopularUserList className={style.rightContent} />
+    </div>
   );
 }
 
