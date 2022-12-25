@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 const loginURL = 'https://still-cove-80123.herokuapp.com/api/login';
 const usersURL = 'https://still-cove-80123.herokuapp.com/api/users';
 const AdminLoginURL = 'https://still-cove-80123.herokuapp.com/api/admin/login';
@@ -24,7 +24,14 @@ export const register = async ({ account, name, email, password, checkPassword }
     
 
   } catch (error) {
-    console.error('[Register Failed]: ', error.response.data);
+    debugger
+    Swal.fire({
+      position: 'top',
+      title: `註冊失敗！ ${error.response.data.message}`,
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    });
   }
 };
 

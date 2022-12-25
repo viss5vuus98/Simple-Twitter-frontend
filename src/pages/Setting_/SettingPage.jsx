@@ -18,9 +18,9 @@ const SettingPage = () => {
 
   const handleSubmit = () => {
     const upLoadUserSet = async () => {
-    const sendAccount = editAccount || currentUser.account;
-    const sendName = editName || currentUser.name;
-    const sendEmail = editEmail || currentUser.email;
+      const sendAccount = editAccount || currentUser.account;
+      const sendName = editName || currentUser.name;
+      const sendEmail = editEmail || currentUser.email;
       if (password !== checkPassword) {
         Swal.fire({
           toast: true,
@@ -32,11 +32,11 @@ const SettingPage = () => {
         });
         return;
       }
-      if (password.trim().length < 8) {
+      if (password.trim().length <= 8) {
         Swal.fire({
           toast: true,
           position: 'top-end',
-          title: '密碼字數不足8碼',
+          title: '密碼字數須大於8碼',
           timer: 1000,
           icon: 'error',
           showConfirmButton: false,
@@ -44,19 +44,19 @@ const SettingPage = () => {
         return;
       }
       try {
-          const { account, name, email } = await EditUserAccount(
-              currentUser.id,
-              sendAccount,
-              sendName,
-              sendEmail,
-              password,
-              checkPassword,
-          );
+        const { account, name, email } = await EditUserAccount(
+          currentUser.id,
+          sendAccount,
+          sendName,
+          sendEmail,
+          password,
+          checkPassword,
+        );
         const updateUserData = {
           ...currentUser,
           account,
           name,
-          email
+          email,
         };
         updateCurrentUser(updateUserData);
         Swal.fire({
@@ -67,7 +67,7 @@ const SettingPage = () => {
           icon: 'success',
           showConfirmButton: false,
         });
-        navigate('/main')
+        navigate('/main');
       } catch (error) {
         console.error(error);
         Swal.fire({

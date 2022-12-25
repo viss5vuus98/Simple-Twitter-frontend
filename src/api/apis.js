@@ -7,7 +7,7 @@ const baseUrl = 'https://still-cove-80123.herokuapp.com/api';
 export const getTweets = async () => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
-    const response = await axios.get(`${baseUrl}/tweets/following`, {
+    const response = await axios.get(`${baseUrl}/tweets`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -21,14 +21,18 @@ export const getTweets = async () => {
 //POST Like / unLike
 export const changeLike = async (tweetId, isLike) => {
   const authToken = localStorage.getItem('authToken') || '';
-  const action = isLike ? 'like' : 'unlike'
+  const action = isLike ? 'like' : 'unlike';
   try {
-      const res = await axios.post(`${baseUrl}/tweets/${tweetId}/${action}`, {}, {
+    const res = await axios.post(
+      `${baseUrl}/tweets/${tweetId}/${action}`,
+      {},
+      {
         headers: {
-          Authorization: `Bearer ${authToken}`
+          Authorization: `Bearer ${authToken}`,
         },
-      });
-      return res.data
+      },
+    );
+    return res.data;
   } catch (error) {
     console.error('[failed]: ', error);
   }
@@ -50,7 +54,7 @@ export const checkApiState = (stateCode) => {
 };
 
 //使用者發Tweet
-//POST api/tweets 
+//POST api/tweets
 export const postTweet = async (value) => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
@@ -65,22 +69,22 @@ export const postTweet = async (value) => {
         },
       },
     );
-    return response.data
-  }catch(error){
-    console.error('[failed]: ', error)
+    return response.data;
+  } catch (error) {
+    console.error('[failed]: ', error);
   }
-}
+};
 
 //取得一筆推文詳細
-export const getTweetDetail = async (tweetId) => { 
+export const getTweetDetail = async (tweetId) => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
     const response = await axios.get(`${baseUrl}/tweets/${tweetId}`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
-    return response.data
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data;
     // const response = await axios({
     //   method: 'GET',
     //   url: `${baseUrl}/tweets/${tweetId}`,
@@ -103,9 +107,9 @@ export const getReplys = async (tweetId) => {
   try {
     const response = await axios.get(`${baseUrl}/tweets/${tweetId}/replies`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
     // const response = axios({
     //   method: 'GET',
     //   url: `${baseUrl}/tweets/${tweetId}/replies`,
@@ -114,32 +118,35 @@ export const getReplys = async (tweetId) => {
     //     Authorization: `Bearer ${authToken}`,
     //   }
     // });
-    const { data } = response
+    const { data } = response;
     return data;
   } catch (error) {
     console.error('Get Data Failed :', error);
   }
 };
 
-
 //回覆一則推文
-//16.POST api/tweets/:tweet_Id/replies 
+//16.POST api/tweets/:tweet_Id/replies
 //comment:string
 //tewwtId: int
 export const postReply = async (comment, tweetId) => {
   const authToken = localStorage.getItem('authToken') || '';
-  try{
-     await axios.post(`${baseUrl}/tweets/${tweetId}/replies`,{
-      comment
-    },{
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    })
-  }catch(error){
+  try {
+    await axios.post(
+      `${baseUrl}/tweets/${tweetId}/replies`,
+      {
+        comment,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+  } catch (error) {
     console.error('Post Data Failed :', error);
   }
-}
+};
 
 //get adminUser
 export const getAdminUser = async () => {

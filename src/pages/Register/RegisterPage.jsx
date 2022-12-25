@@ -7,45 +7,45 @@ import { register } from '../../api/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
-   const [account, setAccount] = useState('');
-   const [name, setName] = useState('');
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [checkPassword, setCheckPassword] = useState('');
-   const navigate = useNavigate();
+  const [account, setAccount] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
+  const navigate = useNavigate();
 
-   const handleClick = async () => {
-     if (account.length === 0) {
-        Swal.fire({
-          position: 'top',
-          title: '請輸入帳號',
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-       return;
-     }
-     if (name.length === 0) {
-        Swal.fire({
-          position: 'top',
-          title: '請輸入姓名',
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-       return;
-     }
-     if (email.length === 0) {
-        Swal.fire({
-          position: 'top',
-          title: '請輸入email',
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-       return;
-     }
-     if (password.length === 0) {
+  const handleClick = async () => {
+    if (account.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入帳號',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (name.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入姓名',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (email.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入email',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (password.length === 0) {
       Swal.fire({
         position: 'top',
         title: '請輸入密碼',
@@ -54,18 +54,18 @@ const RegisterPage = () => {
         showConfirmButton: false,
       });
       return;
-     }
-     if (checkPassword.length === 0) {
-        Swal.fire({
-          position: 'top',
-          title: '請輸入確認密碼',
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-       return;
-     }
-     if (checkPassword !== password) {
+    }
+    if (checkPassword.length === 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入確認密碼',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (checkPassword !== password) {
       Swal.fire({
         position: 'top',
         title: '密碼與確認密碼不相同',
@@ -73,47 +73,40 @@ const RegisterPage = () => {
         icon: 'error',
         showConfirmButton: false,
       });
-      return
-     }
-     if (password < 8 ) {
-        Swal.fire({
-          position: 'top',
-          title: '密碼不可超過8碼',
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-        return;
-      }
-     try{
-       const { success, authToken } = await register({
-         account,
-         name,
-         email,
-         password,
-         checkPassword,
-       });
-  
-         localStorage.setItem('authToken', authToken);
-         Swal.fire({
-           position: 'top',
-           title: '註冊成功！',
-           timer: 1000,
-           icon: 'success',
-           showConfirmButton: false,
-         });
-         navigate('/login');
-     }catch(error){
-        Swal.fire({
-          position: 'top',
-          title: `註冊失敗！ ${error}`,
-          timer: 1000,
-          icon: 'error',
-          showConfirmButton: false,
-        });
-      }
-    };
+      return;
+    }
+    if (password <= 8) {
+      Swal.fire({
+        position: 'top',
+        title: '密碼不可小於8碼',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    try {
+      const { success, authToken } = await register({
+        account,
+        name,
+        email,
+        password,
+        checkPassword,
+      });
 
+      localStorage.setItem('authToken', authToken);
+      Swal.fire({
+        position: 'top',
+        title: '註冊成功！',
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      navigate('/login');
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   return (
     <div className={style.register_container}>
