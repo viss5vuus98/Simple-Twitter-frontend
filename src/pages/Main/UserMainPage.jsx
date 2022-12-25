@@ -15,7 +15,6 @@ const UserMainPage = () => {
   const [ userData, setUserData ] = useState({})
   const [ replyList, setReplyList ] = useState([])
   const { currentUser, updateTweetData, tweetData } = useModal();
-  //TODO:抽共用元件
   let navigate = useNavigate();
     //取得動態參數
   let { id } = useParams();
@@ -95,7 +94,6 @@ const UserMainPage = () => {
   //取得個人資料
   useEffect(() => {
     const getUserDataAsync = async () => {
-      console.log(id);
       if (!id) {
         setUserData(currentUser);
         const tweetData = await getUserTweets(currentUser.id);

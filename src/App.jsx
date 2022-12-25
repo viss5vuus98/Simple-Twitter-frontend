@@ -16,7 +16,7 @@ function App() {
             <Route path="main" element={<MainPage />} />
             <Route path="reply/:id" element={<ReplyPage />} />
             <Route path="register" element={<RegisterPage />} />
-            <Route path="following" element={<FollowingPage />} />
+            <Route path="follow/:id" element={<FollowingPage />} />
             <Route path="user" element={<UserMainPage />} />
             <Route path="user/:id" element={<UserMainPage />} />
             <Route path="setting" element={<SettingPage />} />

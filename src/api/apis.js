@@ -173,7 +173,6 @@ export const getAdminTweet = async () => {
 };
 
 //del adminTweet
-
 export const delAdminTweet = async (id) => {
   const authToken = localStorage.getItem('authToken') || '';
   try {
@@ -187,3 +186,4 @@ export const delAdminTweet = async (id) => {
     console.error('[Delete Admin one Tweet failed]: ', error);
   }
 };
+
