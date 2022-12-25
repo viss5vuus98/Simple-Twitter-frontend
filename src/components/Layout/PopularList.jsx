@@ -47,11 +47,12 @@ function PopularUserList() {
 
   //render將Data寫入
   useEffect(() => {
-      const getRecommendUsersAsync = async () => {
-        const data = await getRecommendUsers();
-        setUserList(data);
-      };
-      getRecommendUsersAsync();
+    const getRecommendUsersAsync = async () => {
+      const data = await getRecommendUsers();
+      const useData = data.filter((_user) => _user.role !== 'admin');
+      setUserList(useData);
+    };
+    getRecommendUsersAsync();
   }, []);
 
   //Cards

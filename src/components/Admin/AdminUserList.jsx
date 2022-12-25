@@ -61,8 +61,8 @@ function AdminUserPage() {
     const getAllUsersAsync = async () => {
       try {
         const data = await getAdminUser();
-        setUserList(data);
-        console.log(data);
+        const useData = data.filter((_user) => _user.role !== 'admin');
+        setUserList(useData);
       } catch (error) {
         console.log(error);
       }
