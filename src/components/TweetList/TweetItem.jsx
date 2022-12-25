@@ -1,5 +1,3 @@
-//api
-import moment from 'moment';
 //style
 import style from './TweetItem.module.scss';
 //asset
@@ -10,19 +8,28 @@ const TweetItem = ({ tweetData, onChangeLike}) => {
   return (
     <div className={style.tweetItem}>
       <div className={style.avatar}>
-        <img src={tweetData.User.avatar} alt="" />
+        <Link
+          className={style.vectorSection}
+          to={`${tweetData.User.route || ''}`}
+        >
+          <img src={tweetData.User.avatar} alt="" />
+        </Link>
       </div>
       <div className={style.tweetBody}>
         <div className={style.tweetTitle}>
-          <Link className={style.link} to={`${tweetData.User.route || ''}`} ><p>{tweetData.User.name}</p></Link>
+          <Link className={style.link} to={`${tweetData.User.route || ''}`}>
+            <p>{tweetData.User.name}</p>
+          </Link>
           <span>
-            @{tweetData.User.userAccount} {' '}
-            {moment(tweetData.createdAt).startOf('day').fromNow()}
+            @{tweetData.User.account}{' '}
+            。{tweetData.createdAt}
           </span>
         </div>
-        <p className={style.tweetText}>{tweetData.description}</p>
+        <Link className={style.description} to={`/reply/${tweetData.id}`}>
+          <p className={style.tweetText}>{tweetData.description}</p>
+        </Link>
         <div className={style.tweetControl}>
-          <Link className={style.vectorSection} to={`reply/${tweetData.id}`}>
+          <Link className={style.vectorSection} to={`/reply/${tweetData.id}`}>
             <img src={vector} alt="" className={style.vector} />
             <p>{tweetData.replyAmount}</p>
           </Link>

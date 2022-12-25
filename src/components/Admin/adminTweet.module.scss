@@ -26,9 +26,14 @@
   .tweetTitle {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
     p {
       font-weight: 700;
       margin-right: 0.5rem;
+    }
+    .account {
+      font-size: 14px;
+      color: $secondary;
     }
     span {
       color: $secondary;

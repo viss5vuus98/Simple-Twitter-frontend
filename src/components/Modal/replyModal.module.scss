@@ -3,10 +3,12 @@
 .modal {
   @extend %container-border; 
   width: 634px;
-  height: 500px;
+
   border-radius: 14px;
   position: absolute;
   top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 99;
   background-color: #fff;
   display: flex;
@@ -56,6 +58,7 @@
     @extend %main-button;
     background-color: $body-color;
     color: #fff;
+    width: 64px;
   }
 }
 
@@ -110,10 +113,10 @@
 }
 .connectLine {
   width: 2px;
-  height: 80px;
+  height: 40%;
   background-color: #b5b5be;
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 45px;
 }
 

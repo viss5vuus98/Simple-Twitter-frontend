@@ -20,12 +20,17 @@
 }
 
 .body {
+  flex: 1;
   margin-right: 13px;
   text-align: start;
   line-height: 26px;
+  max-width: 83px;
   .name {
     font-weight: 700;
     color: $text-color;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .account {
     font-size: 14px;
@@ -35,7 +40,7 @@
 }
 
 .followControl {
-  flex: 1;
+  flex: 0 0 96px;
   .followBtn {
     @extend %main-button;
     width: 100%;

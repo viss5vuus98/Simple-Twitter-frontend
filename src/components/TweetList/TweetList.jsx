@@ -1,31 +1,33 @@
 //components
 import TweetItem from './TweetItem';
 //web api
-import { chengeLike } from '../../api/apis';
+import { changeLike } from '../../api/apis';
 import { useModal } from 'contexts/userContext';
+import moment from 'moment/moment';
 
-
-const TweetList = ({tweetData, setTweetData}) => {
-  const { userData } = useModal()
+const TweetList = ({tweetData}) => {
+    const { currentUser, updateTweetData } = useModal();
 
   const handleChangeLike = (tweetId, isLike) => {
     const postLikeAsync = async () => {
       try {
-        const res = await chengeLike(tweetId,  !isLike);
+        const res = await changeLike(tweetId,  !isLike);
         if(res)
-        setTweetData(
+        updateTweetData(
           tweetData.map((tweet) => {
             if (tweet.id === res.id) {
               return {
                 ...tweet,
                 User: {
-                  ...tweet.User,                  
+                  ...tweet.User,
                 },
                 isLike: res.islike, //換成response的資料like
-                likedAmount: (!isLike ? tweet.likedAmount + 1 : tweet.likedAmount -1),
+                likedAmount: !isLike
+                  ? tweet.likedAmount + 1
+                  : tweet.likedAmount - 1,
               };
             }
-            return {...tweet, User: {...tweet.User}};
+            return { ...tweet, User: { ...tweet.User } };
           }),
         );
       } catch (error) {
@@ -34,9 +36,21 @@ const TweetList = ({tweetData, setTweetData}) => {
     };
     postLikeAsync();
   };
-  let Tweets = tweetData.map((item) => {
+  let Tweets = tweetData?.map((item) => {
+    const route = item.User.id === currentUser.id ? '/user' : `/user/${item.User.id}`;
     return (
-      <TweetItem key={item.id} tweetData={{...item, User: {...item.User}}} onChangeLike={handleChangeLike} />
+      <TweetItem
+        key={item.id}
+        tweetData={{
+          ...item,
+          User: {
+            ...item.User,
+            route,
+          },
+          createdAt: moment(item.createdAt).startOf('hour').fromNow(),
+        }}
+        onChangeLike={handleChangeLike}
+      />
     );
   });
 

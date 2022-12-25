@@ -3,9 +3,6 @@
 .sidebar {
   width: 178px;
   height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 20%;
   display: flex;
   flex-direction: column;
   padding: 13px;
@@ -60,4 +57,8 @@ nav {
     width: 18px;
     height: 18px;
   }
+}
+
+.link {
+  color: $text-color;
 }

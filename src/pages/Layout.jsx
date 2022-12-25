@@ -1,11 +1,9 @@
-import { AdminNavBar, PopularUserList, TweetModal, ReplyModal, EditModal } from "components";
+import { TweetModal, ReplyModal, EditModal } from "components";
 //hook
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ModalContextProvider } from '../contexts/userContext'
 //asset
 import { home, user, set} from '../assets/images/index'
-//scss
-import style from './layout.module.scss'
 //API
 import { tokenAuthenticate } from '../api/auth'
 import { getUserInfo, EditUserInfo } from '../api/usersApi'
@@ -50,28 +48,55 @@ const adminFunction = [
 
 
 const Layout = ({children}) => {
-  const [ currentLayout, setCurrentLayout ] = useState(userFunction)
   //modal彈出狀態 true出現／false關
   const [ modalState, setModalState ] = useState('none')
   //當前推文ID
   const [ currentTweetId, setCurrentTweetId ] = useState(0)
-  //登入狀態
-  const [ authorize, setAuthorized ] = useState(false)
   //當前UserId
   const [ currentUserId, setCurrentUserId ] = useState(0)
-  //UserInfo
-  const [ userInfo, setUserInfo ] = useState({})
-  const [ popState, setPopState ] = useState(false)
+  //當前使用者所有資料
+  const [ currentUser, setCurrentUser] = useState({})
+  //所有Tweet資料
+  const [ tweetData, setTweetData ] = useState()
   const navigate = useNavigate();
 
-  //處理Layout更換邏輯
-  const handleChangeLayout = (layoutName) => {
-      setCurrentLayout([...userFunction])
+  //登入處理
+  const handleCurrentUserData = (userId) => {
+    const getUserInfoAsync = async () => {
+      try{
+        const data = await getUserInfo(userId);
+        setCurrentUser({...data})
+      }catch(error){
+        Swal.fire({
+          position: 'top',
+          title: '登入失敗，請重新登入',
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
+        navigate('/login');
+        return
+      }
+    }
+    getUserInfoAsync()
   }
 
-  const handleAdminLayout = () => {
-    setCurrentLayout([...adminFunction]);
+  
+
+  //更新全域推特資料
+  const handleGetTweets = (tweetData) => {
+    setTweetData(tweetData.map(tweet => {
+      return {
+        ...tweet,
+        User: {
+          ...tweet.User
+        }
+      };
+    }));
   }
+
   const handleModalState = (value) => {
     let currentModal = ''
     switch (value) {
@@ -90,16 +115,10 @@ const Layout = ({children}) => {
     }
     setModalState(currentModal)
   }
-  const handlePopPage = (value) =>{
-    setPopState(value)
-  }
+
   const handleLogout = async () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId')
-    const { status } = await tokenAuthenticate()
-    setAuthorized((status ==='authorized'))
-    setCurrentLayout(userFunction.filter(i=>1===1));
-    handlePopPage(false)
 
     navigate('/login');
   };
@@ -107,24 +126,14 @@ const Layout = ({children}) => {
   const handleGetCurrentTweetId = (tweetId) => {
     setCurrentTweetId(tweetId)
   }
-
-  const checkoutTokenAsync = async () => {
-    const { status } = await tokenAuthenticate()
-    console.log(status)
-    setAuthorized((status ==='authorized'))
-    const currentUser = localStorage.getItem('userId') || ''
-    setCurrentUserId(currentUser)
-  }
-  
+  //修改個人資料
   const handleSubmitEditUser = (editName, avatar, banner, editInfo) => {
     const editInfoAsync = async () => {
       try{
         const data = await EditUserInfo(currentUserId, editName, avatar, banner, editInfo)
-        const updateData = {
-          ...userInfo,
-          ...data
-        }
-        setUserInfo(updateData)
+        console.log(data)
+        debugger
+        setCurrentUser({ ...data });
         handleModalState('none')
           Swal.fire({
           toast: true,
@@ -140,43 +149,20 @@ const Layout = ({children}) => {
     }
     editInfoAsync()
   }
-
-  useEffect(() => {
-    const getUser = async () => {
-      if(currentUserId <= 0){
-        return
-      }
-      const data = await getUserInfo(currentUserId)
-      setUserInfo({
-        ...data
-      })
-    }
-    getUser()
-  }, [currentUserId])
-
-  checkoutTokenAsync()
   return (
     <>
       <ModalContextProvider
         handleModalState={handleModalState}
         currentTweetId={currentTweetId}
         getTweetId={handleGetCurrentTweetId}
-        onLogin={handleChangeLayout}
-        userData={userInfo}
-        adminLayout={handleAdminLayout}
-        changePop={handlePopPage}
+        onLogin={handleCurrentUserData}
+        currentUser={currentUser}
+        updateTweetData={handleGetTweets}
+        tweetData={tweetData}
+        onLogout={handleLogout}
+        updateCurrentUser={setCurrentUser}
       >
-        {authorize && (
-          <AdminNavBar
-            className={style.navbar}
-            funItems={currentLayout}
-            isAdmin={Object.is(adminFunction, currentLayout)}
-            onClickModal={handleModalState}
-            onLogout={handleLogout}
-          />
-        )}
-        <section className={style.main}>{children}</section>
-        {popState && <PopularUserList className={style.popBox} />}
+        {children}
         <EditModal
           isHidden={modalState === 'editModal'}
           onCloseModal={handleModalState}
@@ -196,6 +182,3 @@ const Layout = ({children}) => {
 };
 
 export default Layout;
-
-//使用者驗證相關 authControl
-//Modal

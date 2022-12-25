@@ -1,9 +1,7 @@
 import style from './userInfo.module.scss'
-import { useState } from 'react'
 
 
 const UserTab = ({replyAction, likeAction, tweetAction, tabName}) => {
-
 
   return (
     <section className={style.tabContainer}>

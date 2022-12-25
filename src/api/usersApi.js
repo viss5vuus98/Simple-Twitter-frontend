@@ -184,7 +184,7 @@ export const getUserTweets = async (userId) => {
 export const EditUserAccount = async (userId, account, name, email, password, checkPassword) => {
   const authToken = localStorage.getItem('authToken') || '';
   try{
-    await axios.put(`${baseUrl}/users/${userId}/setting`,
+      const response = await axios.put(`${baseUrl}/users/${userId}/setting`,
       {
         name,
         account,
@@ -196,6 +196,7 @@ export const EditUserAccount = async (userId, account, name, email, password, ch
           Authorization: `Bearer ${authToken}`
         }
       })
+      return response.data
   }catch(error){
     console.error('Put Data Failed :', error);
   }
