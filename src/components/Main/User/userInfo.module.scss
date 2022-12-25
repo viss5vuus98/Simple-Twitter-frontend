@@ -1,6 +1,6 @@
 @import 'basicStyle';
 
-// UserInfo 
+// UserInfo
 .container {
   @extend %container-border;
   background-color: #fff;
@@ -20,7 +20,7 @@
   height: 140px;
   border: 0px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 16px;
   transform: translateY(-50%);
   img {
@@ -47,7 +47,7 @@
     }
     .isFollowing {
       background-color: $body-color;
-      color: #fff
+      color: #fff;
     }
   }
   .name {

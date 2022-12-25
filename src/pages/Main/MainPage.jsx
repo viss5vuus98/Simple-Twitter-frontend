@@ -67,9 +67,11 @@ const MainPage = () => {
       updatedAt,
       UserId,
       User: {
-        userId: UserId,
-        userName: currentUser.name,
-        userAccount: currentUser.account,
+        id: UserId,
+        name: currentUser.name,
+        account: currentUser.account,
+        avatar: currentUser.avatar,
+        route: '/user'
       },
       replyAmount: 0,
       likedAmount: 0,

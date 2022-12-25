@@ -124,7 +124,7 @@ const UserMainPage = () => {
       }
     };
     getUserDataAsync();
-  }, [id]);
+  }, [id, currentUser]);
   return (
     <div className={style.container}>
       <NavBar isAdmin={false} className={style.sideBar} />

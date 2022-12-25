@@ -1,58 +1,89 @@
-import style from './edit.module.scss'
+import style from './edit.module.scss';
 import { uploadIcon, closeWhite } from '../../assets/images/index';
-import close from '../../assets/images/close.svg'
+import close from '../../assets/images/close.svg';
 //Hook
 import { useState, useRef } from 'react';
 //Context
 import { useModal } from 'contexts/userContext';
 //API
-import { EditUserInfo } from '../../api/usersApi'
+import { EditUserInfo } from '../../api/usersApi';
 import Swal from 'sweetalert2';
 
 const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
-  const { currentUser, updateCurrentUser } = useModal()
-  const [ editName, setEditName ] = useState('')
-  const [ editInfo, setEditInfo ] = useState('')
-  const [ editAvatar, setEditAvatar ] = useState()
-  const [ editBanner, setEditBanner ] = useState()
-  const inputRef = useRef(null)
-  const bannerRef = useRef(null)
-  const  handleEdit = () => {
-    inputRef.current.click()
-  } 
+  const { currentUser, updateCurrentUser } = useModal();
+  const [editName, setEditName] = useState('');
+  const [editInfo, setEditInfo] = useState('');
+  const [editAvatar, setEditAvatar] = useState();
+  const [editBanner, setEditBanner] = useState();
+  const inputRef = useRef(null);
+  const bannerRef = useRef(null);
+  const handleEdit = () => {
+    inputRef.current.click();
+  };
   const handleEditBanner = () => {
-    bannerRef.current.click()
-  }
+    bannerRef.current.click();
+  };
 
   const handleChangeAvatar = (e) => {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.addEventListener("load", function () {
-      setEditAvatar(reader.result)
-    }, false);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      function () {
+        setEditAvatar(reader.result);
+      },
+      false,
+    );
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
+  };
 
-    const handleChangeBanner = (e) => {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.addEventListener("load", function () {
-      setEditBanner(reader.result)
-    }, false);
+  const handleChangeBanner = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      function () {
+        setEditBanner(reader.result);
+      },
+      false,
+    );
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
+  };
 
   const handleSubmit = () => {
-    const uploadAvatar = inputRef.current.files[0]
-    const uploadBanner = bannerRef.current.files[0]
+    if (editName.length > 50) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        title: '超過姓名字數上限',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (editInfo.length > 160) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        title: '超過自我介紹字數上限',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    const sendName = editName.length > 0 ? editName : currentUser.name;
+    const uploadAvatar = inputRef.current.files[0];
+    const uploadBanner = bannerRef.current.files[0];
     const editUserAsync = async () => {
       const { name, introduction, avatar, background } = await EditUserInfo(
         currentUser.id,
-        editName,
+        sendName,
         uploadAvatar,
         uploadBanner,
         editInfo,
@@ -65,18 +96,18 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
         background,
       };
       updateCurrentUser(update);
-    }
+    };
     editUserAsync();
     onCloseModal?.('none');
     Swal.fire({
       toast: true,
       position: 'top-end',
-      title: '發推特成功！',
+      title: '修改成功！',
       timer: 1000,
       icon: 'success',
       showConfirmButton: false,
     });
-  }
+  };
 
   return (
     <>
@@ -172,6 +203,6 @@ const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
       <div className={`${!isHidden && style.hidden} ${style.overlay}`}></div>
     </>
   );
-}
+};
 
-export default EditModal 
+export default EditModal;

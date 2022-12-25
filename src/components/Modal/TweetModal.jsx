@@ -1,20 +1,22 @@
-import style from './tweetModal.module.scss'
-import close from '../../assets/images/close.svg'
+import style from './tweetModal.module.scss';
+import close from '../../assets/images/close.svg';
 import { useState } from 'react';
-import { postTweet } from '../../api/apis'
+import { postTweet } from '../../api/apis';
 import { useModal } from 'contexts/userContext';
 import Swal from 'sweetalert2';
-const TweetModal = ({isHidden, onCloseModal}) => {
-  const [ input, setInput ] = useState('')
+const TweetModal = ({ isHidden, onCloseModal }) => {
+  const [input, setInput] = useState('');
   const { handleModalState, currentUser, updateTweetData, tweetData } =
     useModal();
 
-  const handleSubmit =  (value) => {
-    if(value.trim().length <= 0 ){
+  const handleSubmit = (value) => {
+    if (value.trim().length <= 0) {
       return;
     }
     const postTweetAsync = async () => {
-      const { id, description, createdAt, updatedAt, UserId } = await postTweet(value)
+      const { id, description, createdAt, updatedAt, UserId } = await postTweet(
+        value,
+      );
       const updateData = {
         id,
         description,
@@ -22,18 +24,21 @@ const TweetModal = ({isHidden, onCloseModal}) => {
         updatedAt,
         UserId,
         User: {
-          userId: UserId,
-          userName: currentUser.name,
-          userAccount: currentUser.account,
+          user: UserId,
+          name: currentUser.name,
+          account: currentUser.account,
+          id: currentUser.id,
+          route: '/user',
+          avatar: currentUser.avatar,
         },
         replyAmount: 0,
         likedAmount: 0,
         isLike: false,
       };
       updateTweetData([updateData, ...tweetData]);
-    }
-    postTweetAsync()
-  }
+    };
+    postTweetAsync();
+  };
 
   return (
     <>
@@ -66,6 +71,16 @@ const TweetModal = ({isHidden, onCloseModal}) => {
               className={style.submitBtn}
               onClick={async (e) => {
                 e.preventDefault();
+                if (input.length <= 0) {
+                  Swal.fire({
+                    position: 'top-end',
+                    title: '請輸入內容！',
+                    timer: 1000,
+                    icon: 'error',
+                    showConfirmButton: false,
+                  });
+                  return;
+                }
                 await handleSubmit(input);
                 setInput('');
                 handleModalState('none');
@@ -87,6 +102,6 @@ const TweetModal = ({isHidden, onCloseModal}) => {
       <div className={`${!isHidden && style.hidden} ${style.overlay}`}></div>
     </>
   );
-}
+};
 
-export default TweetModal
+export default TweetModal;
