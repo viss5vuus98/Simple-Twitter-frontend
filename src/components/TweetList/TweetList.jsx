@@ -47,7 +47,7 @@ const TweetList = ({tweetData}) => {
             ...item.User,
             route,
           },
-          createdAt: moment(item.createdAt).startOf('hour').fromNow(),
+          createdAt: moment(item.createdAt).fromNow(),
         }}
         onChangeLike={handleChangeLike}
       />

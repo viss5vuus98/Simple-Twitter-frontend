@@ -31,10 +31,17 @@ nav {
   display: flex;
   align-items: center;
   margin-bottom: 40px;
-  .icon{
+  .icon {
     width: 16px;
     height: 20px;
     margin-right: 20px;
+  }
+  &:hover svg {
+    fill: $body-color;
+    color: $body-color;
+  }
+  &:hover .link {
+    color: $body-color;
   }
 }
 .control {

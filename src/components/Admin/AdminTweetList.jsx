@@ -19,7 +19,6 @@ function AdminTweetList(props) {
           <span>{createdAt}</span>
         </div>
         <p className={style.tweetText}>
-          {description}
           {description.length > 50
             ? description.slice(0, 50) + '...'
             : description}

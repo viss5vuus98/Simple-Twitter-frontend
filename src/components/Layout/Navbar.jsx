@@ -43,7 +43,7 @@ const adminFunction = [
   },
 ];
 
-const NavBar = ({isAdmin, onClickModal}) => {
+const NavBar = ({isAdmin}) => {
   const [funList, setFunList] = useState(userFunction);
   const { handleModalState, onLogout } = useModal();
   useEffect(() => {
