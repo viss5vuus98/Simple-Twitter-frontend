@@ -4,37 +4,41 @@ import { TweetList, UserPost, NavBar, PopularUserList } from 'components';
 import style from './midContent.module.scss';
 //hook
 import { useState, useEffect } from 'react';
-import { postTweet, getTweets } from '../../api/apis'
+import { postTweet, getTweets } from '../../api/apis';
 //useContext
 import { useModal } from 'contexts/userContext';
 //
 import Swal from 'sweetalert2';
+//Route
+import { useNavigate } from 'react-router-dom';
 const MainPage = () => {
-  const [ userInput, setUserInput ] = useState('')
+  const [userInput, setUserInput] = useState('');
   const { currentUser, updateTweetData, tweetData } = useModal();
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getTweetsAsync = async () => {
       try {
         const tweets = await getTweets();
-        setUserInput('')
+        setUserInput('');
         updateTweetData(tweets);
       } catch (error) {
         console.error(error);
         Swal.fire({
           position: 'top',
-          title: '更新推特資料失敗',
+          title: '無使用者資料，請重新登入',
           timer: 1000,
           icon: 'error',
           showConfirmButton: false,
         });
+        navigate('login');
       }
     };
     getTweetsAsync();
   }, []);
 
   const handleChange = (value) => {
-    if(value.length >= 120 ){
+    if (value.length >= 120) {
       Swal.fire({
         position: 'top',
         title: '超過推文字數限制',
@@ -42,12 +46,12 @@ const MainPage = () => {
         icon: 'error',
         showConfirmButton: false,
       });
-      return
+      return;
     }
-    setUserInput(value)
-  }
+    setUserInput(value);
+  };
   const handleSubmit = async (value) => {
-    if(value.trim().length <= 0 ){
+    if (value.trim().length <= 0) {
       Swal.fire({
         position: 'top',
         title: '請輸入推文內容',
@@ -58,7 +62,9 @@ const MainPage = () => {
       return;
     }
     setUserInput('');
-    const { id, description, createdAt, updatedAt, UserId } = await postTweet(value);
+    const { id, description, createdAt, updatedAt, UserId } = await postTweet(
+      value,
+    );
     //用回傳的資料更新TweetData
     const updateData = {
       id,
@@ -71,15 +77,14 @@ const MainPage = () => {
         name: currentUser.name,
         account: currentUser.account,
         avatar: currentUser.avatar,
-        route: '/user'
+        route: '/user',
       },
       replyAmount: 0,
       likedAmount: 0,
       isLike: false,
     };
     updateTweetData([updateData, ...tweetData]);
-  }
-
+  };
 
   return (
     <div className={style.container}>

@@ -23,6 +23,7 @@ import { arrow } from '../../assets/images/index';
 import { useNavigate, useParams } from 'react-router-dom';
 //Context
 import { useModal } from 'contexts/userContext';
+import Swal from 'sweetalert2';
 
 const UserMainPage = () => {
   const [activeTab, setActiveTab] = useState('tweetList');
@@ -93,7 +94,7 @@ const UserMainPage = () => {
     const setData = (data) => {
       const updateUserData = {
         ...userData,
-        isfollow: data.isfollow,
+        isFollow: data.isFollow,
       };
       setUserData(updateUserData);
     };
@@ -110,6 +111,17 @@ const UserMainPage = () => {
     const getUserDataAsync = async () => {
       if (!id) {
         setUserData(currentUser);
+        if (!currentUser.id) {
+          Swal.fire({
+            position: 'top',
+            title: '無使用者資料，請重新登入',
+            timer: 1000,
+            icon: 'error',
+            showConfirmButton: false,
+          });
+          navigate('/login');
+          return;
+        }
         const tweetData = await getUserTweets(currentUser.id);
         updateTweetData(tweetData);
         return;

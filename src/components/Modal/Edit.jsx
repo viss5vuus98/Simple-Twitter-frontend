@@ -9,7 +9,7 @@ import { useModal } from 'contexts/userContext';
 import { EditUserInfo } from '../../api/usersApi';
 import Swal from 'sweetalert2';
 
-const EditModal = ({ isHidden, onCloseModal, onUpload }) => {
+const EditModal = ({ isHidden, onCloseModal }) => {
   const { currentUser, updateCurrentUser } = useModal();
   const [editName, setEditName] = useState('');
   const [editInfo, setEditInfo] = useState('');
