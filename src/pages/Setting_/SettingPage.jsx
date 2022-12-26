@@ -32,11 +32,11 @@ const SettingPage = () => {
         });
         return;
       }
-      if (password.trim().length <= 8) {
+      if (password.trim().length < 8) {
         Swal.fire({
           toast: true,
           position: 'top-end',
-          title: '密碼字數須大於8碼',
+          title: `目前輸入${password.trim().length}碼,密碼字數須最少8碼`,
           timer: 1000,
           icon: 'error',
           showConfirmButton: false,

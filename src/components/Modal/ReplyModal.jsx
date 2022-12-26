@@ -1,12 +1,12 @@
-import style from './replyModal.module.scss'
-import close from '../../assets/images/close.svg'
+import style from './replyModal.module.scss';
+import close from '../../assets/images/close.svg';
 import { useEffect, useState } from 'react';
 import { useModal } from 'contexts/userContext';
-import { postReply, getTweetDetail } from '../../api/apis'
-
-const ReplyModal = ({isHidden, onCloseModal}) => {
-  const [ input, setInput ] = useState()
-  const [ userData, setUserData ] = useState('')
+import { postReply, getTweetDetail } from '../../api/apis';
+import Swal from 'sweetalert2';
+const ReplyModal = ({ isHidden, onCloseModal }) => {
+  const [input, setInput] = useState();
+  const [userData, setUserData] = useState('');
   const [tweetData, setTweetData] = useState({
     id: 1,
     description:
@@ -25,35 +25,56 @@ const ReplyModal = ({isHidden, onCloseModal}) => {
   });
   //取得動態參數
   const { currentTweetId, currentUser } = useModal();
+
   const handleSubmit = async (value) => {
-    try{
-      await postReply(value, currentTweetId)
-      setInput('')
-      onCloseModal?.('none')
-    }catch(error){
-      console.error(error)
+    if (value.trim().length <= 0) {
+      Swal.fire({
+        position: 'top',
+        title: '請輸入回文內容',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
     }
-  }
+    if (value.length > 100) {
+      Swal.fire({
+        position: 'top',
+        title: '回文內容不可超過一百個字',
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      });
+      return;
+    }
+    try {
+      await postReply(value, currentTweetId);
+      setInput('');
+      onCloseModal?.('none');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     const getTweetDetailAsync = async () => {
-      if (currentTweetId===0){
-        return
+      if (currentTweetId === 0) {
+        return;
       }
-        try {
-          const data = await getTweetDetail(currentTweetId);
-          setTweetData(data);
-        } catch (error) {
-          console.error(error);
-        }
+      try {
+        const data = await getTweetDetail(currentTweetId);
+        setTweetData(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     getTweetDetailAsync();
   }, [currentTweetId]);
 
   useEffect(() => {
-    if(!currentUser){
-      return
+    if (!currentUser) {
+      return;
     }
-    const avatar = currentUser.avatar || ''
+    const avatar = currentUser.avatar || '';
     setUserData(avatar);
   }, [currentUser]);
 
@@ -120,6 +141,6 @@ const ReplyModal = ({isHidden, onCloseModal}) => {
       <div className={`${!isHidden && style.hidden} ${style.overlay}`}></div>
     </>
   );
-}
+};
 
 export default ReplyModal;

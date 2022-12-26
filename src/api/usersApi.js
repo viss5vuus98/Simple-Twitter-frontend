@@ -103,26 +103,6 @@ export const EditUserInfo = async (userId, name, avatar, background, introductio
     console.error('Put Data Failed :', error);
   }
 }
-// export const EditUserInfo = async (userId, name, avatar, background, introduction) => {
-//   const authToken = localStorage.getItem('authToken') || '';
-//   debugger
-//   const formData = new FormData()
-//   formData.append('files',avatar)
-//   formData.append('files', background)
-//   try{
-//     const res = await axios.put(`${baseUrl}/users/${userId}`,
-//       formData,{
-//           headers: {
-//           Authorization: `Bearer ${authToken}`,
-//           'Content-Type': 'multipart/form-data'
-//         }
-//       })
-//       return res.data
-//   }catch(error){
-//     console.error('Put Data Failed :', error);
-//   }
-// }
-
 
 //取得特定使用者全部的留言
 // GET api/v1/users/1/replies
@@ -144,7 +124,7 @@ export const getUserReplies = async (userId) => {
 }
 
 //取得特定使用者喜歡的全部內容 
-//api/users/:id/likes TODO: 
+//api/users/:id/likes
 export const getUserLike = async (userId) => {
   const authToken = localStorage.getItem('authToken') || '';
   try{
