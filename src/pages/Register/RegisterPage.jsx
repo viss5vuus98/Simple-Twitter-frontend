@@ -75,10 +75,10 @@ const RegisterPage = () => {
       });
       return;
     }
-    if (password <= 8) {
+    if (password.length > 8) {
       Swal.fire({
         position: 'top',
-        title: '密碼不可小於8碼',
+        title: '密碼不可超過8碼',
         timer: 1000,
         icon: 'error',
         showConfirmButton: false,
@@ -104,7 +104,7 @@ const RegisterPage = () => {
       });
       navigate('/login');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 

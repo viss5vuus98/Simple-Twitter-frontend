@@ -21,6 +21,17 @@ const SettingPage = () => {
       const sendAccount = editAccount || currentUser.account;
       const sendName = editName || currentUser.name;
       const sendEmail = editEmail || currentUser.email;
+      if (password.trim().length <= 0) {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          title: `必須輸入密碼`,
+          timer: 1000,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+        return;
+      }
       if (password !== checkPassword) {
         Swal.fire({
           toast: true,
@@ -32,11 +43,11 @@ const SettingPage = () => {
         });
         return;
       }
-      if (password.trim().length < 8) {
+      if (password.length > 8) {
         Swal.fire({
           toast: true,
           position: 'top-end',
-          title: `目前輸入${password.trim().length}碼,密碼字數須最少8碼`,
+          title: `目前輸入${password.trim().length}碼,密碼字數不可超過8碼`,
           timer: 1000,
           icon: 'error',
           showConfirmButton: false,
