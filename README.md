@@ -12,7 +12,7 @@
 
 ---
 
-1. Clone 此專案 `git clone https://github.com/viss5vuus98/Simple-Twitter-frontendt`
+1. Clone 此專案 `git clone https://github.com/viss5vuus98/Simple-Twitter-frontend`
 
 ---
 
