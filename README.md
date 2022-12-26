@@ -12,13 +12,13 @@
 
 ---
 
-1. Clone 此專案 `git clone https://github.com/viss5vuus98/todolist-react.git`
+1. Clone 此專案 `git clone https://github.com/viss5vuus98/Simple-Twitter-frontendt`
 
 ---
 
 ### 專案環境建置
 
-2. 使用終端機進入專案資料夾**_todolist-react-demo_**下輸入 `npm i` 引入相依套件
+2. 使用終端機進入專案資料夾**Simple-Twitter-frontend**下輸入 `npm i` 引入相依套件
 
 ### 開啟專案
 
