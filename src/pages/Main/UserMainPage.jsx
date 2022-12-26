@@ -98,11 +98,23 @@ const UserMainPage = () => {
       setData(data);
     };
     const setData = (data) => {
+      const value = data.isFollow ? 1 : -1;
       const updateUserData = {
         ...userData,
         isFollow: data.isFollow,
+        followerAmount: userData.followerAmount + value,
       };
       setUserData(updateUserData);
+      const recommendData = recommendUsers.map((user) => {
+        if (user.id === data.id) {
+          return {
+            ...user,
+            isFollow: data.isFollow,
+          };
+        }
+        return user;
+      });
+      setRecommendUsers(recommendData);
     };
     if (!isFollow) {
       followShipAsync();
