@@ -16,6 +16,8 @@ export const ModalContextProvider = ({
   tweetData,
   onLogout,
   updateCurrentUser,
+  recommendUsers,
+  setRecommendUsers,
 }) => {
   return (
     <ModalContext.Provider
@@ -32,6 +34,8 @@ export const ModalContextProvider = ({
         tweetData,
         onLogout,
         updateCurrentUser,
+        recommendUsers,
+        setRecommendUsers,
       }}
     >
       {children}

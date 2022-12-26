@@ -21,11 +21,12 @@ import Swal from 'sweetalert2';
 const FollowingPage = () => {
   const [followData, setFollowData] = useState([]);
   const [tabState, setTabState] = useState('Followers');
-  const { currentUser, tweetData } = useModal();
+  const { currentUser, tweetData, recommendUsers, setRecommendUsers } =
+    useModal();
   const navigate = useNavigate();
   //取得動態參數
   let { id } = useParams();
-  //取得個人ID
+  //取得追隨者
   useEffect(() => {
     const getDataAsync = async () => {
       try {
@@ -64,7 +65,7 @@ const FollowingPage = () => {
       setData(data);
     };
     const setData = (data) => {
-      const currentUsers = followData.map((item) => {
+      const currentUsers = recommendUsers.map((item) => {
         if (item.id === data.id) {
           return {
             ...item,
@@ -73,7 +74,8 @@ const FollowingPage = () => {
         }
         return item;
       });
-      setFollowData(currentUsers);
+      setRecommendUsers(currentUsers);
+      handleGetFollowers();
     };
     if (!isFollow) {
       followShipAsync();

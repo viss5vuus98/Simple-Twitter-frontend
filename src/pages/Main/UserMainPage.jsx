@@ -29,7 +29,13 @@ const UserMainPage = () => {
   const [activeTab, setActiveTab] = useState('tweetList');
   const [userData, setUserData] = useState({});
   const [replyList, setReplyList] = useState([]);
-  const { currentUser, updateTweetData, tweetData } = useModal();
+  const {
+    currentUser,
+    updateTweetData,
+    tweetData,
+    recommendUsers,
+    setRecommendUsers,
+  } = useModal();
   let navigate = useNavigate();
   //取得動態參數
   let { id } = useParams();

@@ -16,6 +16,8 @@ const Layout = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   //所有Tweet資料
   const [tweetData, setTweetData] = useState([]);
+  //追蹤者資料
+  const [ recommendUsers, setRecommendUsers ] = useState([])
   const navigate = useNavigate();
 
   //登入處理
@@ -96,6 +98,8 @@ const Layout = ({ children }) => {
         tweetData={tweetData}
         onLogout={handleLogout}
         updateCurrentUser={setCurrentUser}
+        recommendUsers={recommendUsers}
+        setRecommendUsers={setRecommendUsers}
       >
         {children}
         <EditModal

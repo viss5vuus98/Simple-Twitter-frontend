@@ -6,10 +6,11 @@ import {
   followShip,
   unFollowShip,
 } from '../../api/usersApi';
+import { useModal } from 'contexts/userContext';
 
 function PopularUserList() {
   const [userList, setUserList] = useState([]);
-
+  const { recommendUsers, setRecommendUsers } = useModal()
   //追蹤按鈕事件處理
   const handleClick = (userId, isFollow) => {
     const followShipAsync = async () => {
@@ -27,7 +28,7 @@ function PopularUserList() {
       setData(data);
     };
     const setData = (data) => {
-      const currentUsers = userList.map((user) => {
+      const currentUsers = recommendUsers.map((user) => {
         if (user.id === data.id) {
           return {
             ...user,
@@ -36,7 +37,7 @@ function PopularUserList() {
         }
         return { ...user };
       });
-      setUserList(currentUsers);
+      setRecommendUsers(currentUsers);
     };
     if (!isFollow) {
       followShipAsync();
@@ -50,13 +51,13 @@ function PopularUserList() {
     const getRecommendUsersAsync = async () => {
       const data = await getRecommendUsers();
       const useData = data.filter((_user) => _user.role !== 'admin');
-      setUserList(useData);
+      setRecommendUsers(useData);
     };
     getRecommendUsersAsync();
   }, []);
 
   //Cards
-  const users = userList.map((user) => {
+  const users = recommendUsers.map((user) => {
     return (
       <PopularCard
         key={user.id}
