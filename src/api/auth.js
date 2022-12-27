@@ -5,7 +5,13 @@ const usersURL = 'https://still-cove-80123.herokuapp.com/api/users';
 const AdminLoginURL = 'https://still-cove-80123.herokuapp.com/api/admin/login';
 
 //註冊
-export const register = async ({ account, name, email, password, checkPassword }) => {
+export const register = async ({
+  account,
+  name,
+  email,
+  password,
+  checkPassword,
+}) => {
   try {
     const { data } = await axios.post(`${usersURL}`, {
       account,
@@ -14,17 +20,13 @@ export const register = async ({ account, name, email, password, checkPassword }
       password,
       checkPassword,
     });
-   
 
-  if (data.status) {
-    return { success: true };
-  }
- 
-  return data;
-    
+    if (data.status) {
+      return { success: true };
+    }
 
+    return data;
   } catch (error) {
-    debugger
     Swal.fire({
       position: 'top',
       title: `註冊失敗！ ${error.response.data.message}`,
@@ -34,8 +36,6 @@ export const register = async ({ account, name, email, password, checkPassword }
     });
   }
 };
-
-
 
 //前台登入
 export const login = async ({ account, password }) => {
@@ -49,7 +49,6 @@ export const login = async ({ account, password }) => {
       return { success: true, data: data.data };
     }
     return data;
-    
   } catch (error) {
     Swal.fire({
       position: 'top',
@@ -64,20 +63,20 @@ export const login = async ({ account, password }) => {
 //api/TokenAuthenticate
 export const tokenAuthenticate = async () => {
   const authToken = localStorage.getItem('authToken') || '';
-  try{
-     const res = await axios.get(`https://still-cove-80123.herokuapp.com/api/TokenAuthenticate`,
+  try {
+    const res = await axios.get(
+      `https://still-cove-80123.herokuapp.com/api/TokenAuthenticate`,
       {
         headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-    )
-    return res.data
-  }catch(error){
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+    return res.data;
+  } catch (error) {
     console.error('[GET Failed]:', error.response.data);
   }
-}
-
+};
 
 //後台登入
 export const adminLogin = async ({ account, password }) => {
@@ -102,17 +101,20 @@ export const adminLogin = async ({ account, password }) => {
   }
 };
 
-
-//串接 test-token
-//export const checkPermission = async (authToken) => {
-  //try {
-   // const response = await axios.get(`${loginURL}`, {
-      //headers: {
-        //Authorization: 'Bearer ' + authToken,
-     // },
-   // });
-   // return response.data.success;
-// } catch (error) {
-//    console.error('[Check Permission Failed]:', error);
-//  }
-//};
+//GET  /api/users/self
+export const getUserSelf = async () => {
+  const authToken = localStorage.getItem('authToken') || '';
+  try {
+    const res = await axios.get(
+      `https://still-cove-80123.herokuapp.com/api/users/self`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+    return res.data;
+  } catch (error) {
+    console.error('[GET Failed]:', error.response.data);
+  }
+};

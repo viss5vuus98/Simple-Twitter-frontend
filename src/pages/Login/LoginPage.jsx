@@ -41,6 +41,7 @@ const LoginPage = () => {
       });
       localStorage.setItem('authToken', data.data.token);
       localStorage.setItem('userId', data.data.user.id);
+       onLogin(data.data.user.id);
       // 登入成功訊息
       Swal.fire({
         position: 'top',
@@ -50,7 +51,6 @@ const LoginPage = () => {
         showConfirmButton: false,
       });
       navigate('/main');
-      onLogin(data.data.user.id);
     } catch (error) {
       console.error(error);
     }
