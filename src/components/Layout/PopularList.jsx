@@ -50,8 +50,10 @@ function PopularUserList() {
   useEffect(() => {
     const getRecommendUsersAsync = async () => {
       const data = await getRecommendUsers();
-      const useData = data.filter((_user) => _user.role !== 'admin');
-      setRecommendUsers(useData);
+      if(typeof(data) !== 'undefined'){
+        const useData = data.filter((_user) => _user.role !== 'admin');
+        setRecommendUsers(useData);
+      }
     };
     getRecommendUsersAsync();
   }, []);

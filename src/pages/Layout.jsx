@@ -1,11 +1,12 @@
 import { TweetModal, ReplyModal, EditModal } from 'components';
 //hook
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ModalContextProvider } from '../contexts/userContext';
 import { getUserInfo } from '../api/usersApi';
 //Route
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { tokenAuthenticate, getUserSelf } from '../api/auth';
 
 const Layout = ({ children }) => {
   //modal彈出狀態 true出現／false關
@@ -17,7 +18,8 @@ const Layout = ({ children }) => {
   //所有Tweet資料
   const [tweetData, setTweetData] = useState([]);
   //追蹤者資料
-  const [ recommendUsers, setRecommendUsers ] = useState([])
+  const [recommendUsers, setRecommendUsers] = useState([]);
+  const currentUserRef = useRef(0);
   const navigate = useNavigate();
 
   //登入處理
@@ -45,6 +47,9 @@ const Layout = ({ children }) => {
 
   //更新全域推特資料
   const handleGetTweets = (tweetData) => {
+    if (typeof tweetData === 'undefined') {
+      return;
+    }
     setTweetData(
       tweetData.map((tweet) => {
         return {
@@ -79,13 +84,40 @@ const Layout = ({ children }) => {
   const handleLogout = async () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
-
     navigate('/login');
   };
   //取得當前回文ID 回覆推文用
   const handleGetCurrentTweetId = (tweetId) => {
     setCurrentTweetId(tweetId);
   };
+  useEffect(() => {
+    if (
+      currentUser.id !== currentUserRef.current.id ||
+      typeof currentUser.id === 'undefined'
+    ) {
+      const getUserDataAsync = async () => {
+        const { status } = await tokenAuthenticate();
+        console.log(status);
+        if (status === 'unauthorized') {
+          navigate('/login');
+          return;
+        }
+        try {
+          const data = await getUserSelf();
+          if (typeof currentUser.id === 'undefined') {
+            setCurrentUser(data);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getUserDataAsync();
+    }
+  }, [currentUser.id]);
+
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
   return (
     <>
       <ModalContextProvider
