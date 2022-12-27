@@ -97,7 +97,6 @@ const Layout = ({ children }) => {
     ) {
       const getUserDataAsync = async () => {
         const { status } = await tokenAuthenticate();
-        console.log(status);
         if (status === 'unauthorized') {
           navigate('/login');
           return;
