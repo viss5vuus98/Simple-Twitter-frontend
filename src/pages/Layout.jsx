@@ -2,7 +2,6 @@ import { TweetModal, ReplyModal, EditModal } from 'components';
 //hook
 import { useEffect, useState, useRef } from 'react';
 import { ModalContextProvider } from '../contexts/userContext';
-import { getUserInfo } from '../api/usersApi';
 //Route
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';

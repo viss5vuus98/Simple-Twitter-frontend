@@ -1,6 +1,6 @@
 import './App.scss';
 import './basicStyle.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import {
   ReplyPage,
   MainPage,
@@ -20,7 +20,7 @@ import {
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
+      <HashRouter>
         <Layout>
           <Routes>
             <Route path="/" element={<LoginPage />} />
@@ -37,7 +37,7 @@ function App() {
             <Route path="*" element={<LoginPage />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
