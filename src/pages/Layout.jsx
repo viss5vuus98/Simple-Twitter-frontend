@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   const handleCurrentUserData = (userId) => {
     const getUserInfoAsync = async () => {
       try {
-        const data = await getUserInfo(userId);
+        const data = await getUserSelf(userId);
         setCurrentUser({ ...data });
       } catch (error) {
         Swal.fire({
